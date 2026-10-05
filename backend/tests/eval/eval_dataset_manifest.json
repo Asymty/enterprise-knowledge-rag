@@ -1,0 +1,45 @@
+{
+  "version": "v1",
+  "question_count": 50,
+  "difficulty_counts": {
+    "easy": 15,
+    "hard": 15,
+    "medium": 20
+  },
+  "domain_counts": {
+    "engineering": 13,
+    "finance": 12,
+    "hr": 13,
+    "it": 12
+  },
+  "category_counts": {
+    "cross_section": 13,
+    "numeric": 25,
+    "policy_lookup": 8,
+    "terminology": 4
+  },
+  "single_file_questions": 42,
+  "multi_file_questions": 8,
+  "multi_file_question_ids": [
+    "q009",
+    "q012",
+    "q013",
+    "q021",
+    "q031",
+    "q038",
+    "q040",
+    "q050"
+  ],
+  "questions_with_short_chunk_evidence": 0,
+  "questions_with_normal_chunk_evidence": 50,
+  "short_chunk_threshold_chars": 100,
+  "corpus_tree_sha256": "12e9f65afb1753c8b5489c4edfb7462ff51fe2a7ea144a1a835da7c3ac6b4815",
+  "corpus_manifest_sha256": "8f769f4e19da025a05d782f5f56b3586c2549e62fcae6eb381af64c51a235462",
+  "eval_dataset_sha256": "4bb1f59df0d504140ac0d5d55d2b90ab20de92f7a0f8ac430cca4fe512bb0dd9",
+  "chunk_config_at_creation": {
+    "chunk_size": 500,
+    "chunk_overlap": 50,
+    "strategy": "recursive"
+  },
+  "total_chunks_at_creation": 78
+}

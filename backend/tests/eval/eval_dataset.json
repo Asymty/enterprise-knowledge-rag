@@ -1,0 +1,721 @@
+{
+  "meta": {
+    "version": "v1",
+    "created_at": "2026-10-04",
+    "corpus_snapshot": {
+      "corpus_root": "backend/tests/eval/corpus",
+      "collection": "enterprise_rag",
+      "embedding_model": "all-MiniLM-L6-v2",
+      "embedding_dimension": 384,
+      "chunk_size": 500,
+      "chunk_overlap": 50,
+      "total_chunks_at_creation": 78
+    },
+    "schema_note": "domain (hr|finance|it|engineering) and category (question type) are separate axes. domain was added by explicit M3 authorisation; category keeps the meaning frozen in PHASE3-RETRIEVAL-EVALUATION-DESIGN.md section 3.5.",
+    "notes": "Retrieval-only evaluation set over the frozen synthetic corpus (Corpus V1). Ground truth is file-level (relevant_files); relevant_anchors add paragraph-level evidence and every one is verified to appear in a real chunk of the named file. numeric questions deliberately avoid digits so the figure must be retrieved semantically. difficulty was fixed before any benchmark run and must not be revised."
+  },
+  "questions": [
+    {
+      "id": "q001",
+      "question": "上下班具体是几点到几点？",
+      "relevant_files": [
+        "attendance_policy.md"
+      ],
+      "relevant_anchors": [
+        "上午九时整至下午六时整"
+      ],
+      "domain": "hr",
+      "category": "policy_lookup",
+      "difficulty": "easy"
+    },
+    {
+      "id": "q002",
+      "question": "忘打卡一个月最多能补几次？",
+      "relevant_files": [
+        "attendance_policy.md"
+      ],
+      "relevant_anchors": [
+        "每月补登次数上限为三次"
+      ],
+      "domain": "hr",
+      "category": "numeric",
+      "difficulty": "easy"
+    },
+    {
+      "id": "q003",
+      "question": "考勤记录有异议的话，多久之内可以提出来？",
+      "relevant_files": [
+        "attendance_policy.md"
+      ],
+      "relevant_anchors": [
+        "十个工作日内通过系统提交申诉"
+      ],
+      "domain": "hr",
+      "category": "numeric",
+      "difficulty": "medium"
+    },
+    {
+      "id": "q004",
+      "question": "加班之后给的调休，最晚什么时候得用完？",
+      "relevant_files": [
+        "attendance_policy.md"
+      ],
+      "relevant_anchors": [
+        "六个月内使用完毕"
+      ],
+      "domain": "hr",
+      "category": "numeric",
+      "difficulty": "medium"
+    },
+    {
+      "id": "q005",
+      "question": "请病假需要交什么材料？",
+      "relevant_files": [
+        "leave_policy.md"
+      ],
+      "relevant_anchors": [
+        "二级及以上医疗机构出具的病假证明"
+      ],
+      "domain": "hr",
+      "category": "policy_lookup",
+      "difficulty": "easy"
+    },
+    {
+      "id": "q006",
+      "question": "公司一年评几次职级，一般安排在什么月份？",
+      "relevant_files": [
+        "promotion_policy.md"
+      ],
+      "relevant_anchors": [
+        "每年组织两次晋升评审",
+        "四月与十月"
+      ],
+      "domain": "hr",
+      "category": "numeric",
+      "difficulty": "easy"
+    },
+    {
+      "id": "q007",
+      "question": "带新人的老员工干满多久能有补贴，是多少？",
+      "relevant_files": [
+        "onboarding_guide.md"
+      ],
+      "relevant_anchors": [
+        "一次性带教津贴两千元"
+      ],
+      "domain": "hr",
+      "category": "numeric",
+      "difficulty": "medium"
+    },
+    {
+      "id": "q008",
+      "question": "升职之后工资一般能涨多少？",
+      "relevant_files": [
+        "promotion_policy.md"
+      ],
+      "relevant_anchors": [
+        "百分之十至百分之二十"
+      ],
+      "domain": "hr",
+      "category": "numeric",
+      "difficulty": "medium"
+    },
+    {
+      "id": "q009",
+      "question": "请假和加班都有哪些门槛，什么情况下必须总经理点头？",
+      "relevant_files": [
+        "attendance_policy.md",
+        "leave_policy.md"
+      ],
+      "relevant_anchors": [
+        "超过七日的，须报总经理审批",
+        "均须报总经理审批"
+      ],
+      "domain": "hr",
+      "category": "cross_section",
+      "difficulty": "hard",
+      "notes": "multi-file：考勤制度与休假制度各有一条『须报总经理审批』，两份文档的条款需合并才能覆盖完整答案。"
+    },
+    {
+      "id": "q010",
+      "question": "生小孩能休多久，难产的话呢？",
+      "relevant_files": [
+        "leave_policy.md"
+      ],
+      "relevant_anchors": [
+        "产假一百五十八天",
+        "难产的，增加产假十五天"
+      ],
+      "domain": "hr",
+      "category": "numeric",
+      "difficulty": "hard",
+      "notes": "cross-section：基础产假与难产加假分属同段相邻两句。"
+    },
+    {
+      "id": "q011",
+      "question": "入职体检的钱谁先垫，什么时候能报回来？",
+      "relevant_files": [
+        "onboarding_guide.md"
+      ],
+      "relevant_anchors": [
+        "由候选人先行垫付",
+        "入职满一个月后凭发票报销"
+      ],
+      "domain": "hr",
+      "category": "cross_section",
+      "difficulty": "hard",
+      "notes": "cross-section：垫付与报销时点分属『二、入职前准备』同段两句。"
+    },
+    {
+      "id": "q012",
+      "question": "出差回来贴发票报销，哪些费用不在报销范围内？",
+      "relevant_files": [
+        "travel_policy.md",
+        "reimbursement_policy.md"
+      ],
+      "relevant_anchors": [
+        "住宿费用超出标准的部分，由员工自行承担",
+        "超出审批标准的支出"
+      ],
+      "domain": "hr",
+      "category": "cross_section",
+      "difficulty": "hard",
+      "notes": "multi-file：出差超标自付在 travel_policy，通用不可报销口径在 reimbursement_policy，两份都要命中才能覆盖完整答案。"
+    },
+    {
+      "id": "q013",
+      "question": "走得时候办公设备怎么处理，能不能留着自己用？",
+      "relevant_files": [
+        "onboarding_guide.md",
+        "device_management.md"
+      ],
+      "relevant_anchors": [
+        "员工离职时应当归还全部设备",
+        "员工离职时应当在最后工作日前归还全部设备"
+      ],
+      "domain": "hr",
+      "category": "policy_lookup",
+      "difficulty": "medium",
+      "notes": "multi-file：入职指南给出设备领用与归还原则，设备管理制度给出具体时点与折旧赔偿，两者共同构成答案。"
+    },
+    {
+      "id": "q014",
+      "question": "出差一天的饭钱补贴怎么算？",
+      "relevant_files": [
+        "travel_policy.md"
+      ],
+      "relevant_anchors": [
+        "伙食补贴按出差自然日计算"
+      ],
+      "domain": "finance",
+      "category": "policy_lookup",
+      "difficulty": "easy"
+    },
+    {
+      "id": "q015",
+      "question": "自己开车出差，油钱怎么补？",
+      "relevant_files": [
+        "travel_policy.md"
+      ],
+      "relevant_anchors": [
+        "每公里一元二角"
+      ],
+      "domain": "finance",
+      "category": "numeric",
+      "difficulty": "easy"
+    },
+    {
+      "id": "q016",
+      "question": "专票拿到手以后，最晚多久必须去认证？",
+      "relevant_files": [
+        "invoice_policy.md"
+      ],
+      "relevant_anchors": [
+        "三百六十日内完成认证抵扣"
+      ],
+      "domain": "finance",
+      "category": "numeric",
+      "difficulty": "easy"
+    },
+    {
+      "id": "q017",
+      "question": "多少金额以上必须签正式合同？",
+      "relevant_files": [
+        "procurement_policy.md"
+      ],
+      "relevant_anchors": [
+        "超过一万元的采购应当签订书面合同"
+      ],
+      "domain": "finance",
+      "category": "numeric",
+      "difficulty": "easy"
+    },
+    {
+      "id": "q018",
+      "question": "供应商打分不及格会怎么样？",
+      "relevant_files": [
+        "procurement_policy.md"
+      ],
+      "relevant_anchors": [
+        "列入观察名单"
+      ],
+      "domain": "finance",
+      "category": "policy_lookup",
+      "difficulty": "medium",
+      "notes": "完整规则见同段『连续两年低于七十分』，本条按命中规则本身判定。"
+    },
+    {
+      "id": "q019",
+      "question": "账单超过多少就要开管理层会议讨论？",
+      "relevant_files": [
+        "expense_approval.md"
+      ],
+      "relevant_anchors": [
+        "单笔超过五万元的支出"
+      ],
+      "domain": "finance",
+      "category": "numeric",
+      "difficulty": "medium"
+    },
+    {
+      "id": "q020",
+      "question": "一百块左右的小额费用报销，找谁签字就行？",
+      "relevant_files": [
+        "expense_approval.md"
+      ],
+      "relevant_anchors": [
+        "由直属主管审批"
+      ],
+      "domain": "finance",
+      "category": "numeric",
+      "difficulty": "medium"
+    },
+    {
+      "id": "q021",
+      "question": "发票抬头和开票信息有什么要求？报销和税务两头都得满足什么？",
+      "relevant_files": [
+        "invoice_policy.md",
+        "reimbursement_policy.md"
+      ],
+      "relevant_anchors": [
+        "发票抬头必须为公司全称",
+        "发票抬头为公司全称"
+      ],
+      "domain": "finance",
+      "category": "cross_section",
+      "difficulty": "medium",
+      "notes": "multi-file：发票管理从税务角度要求抬头与纳税人识别号，报销制度从入账角度重申抬头要求，两份文档对同一要素各有约束。"
+    },
+    {
+      "id": "q022",
+      "question": "出差住酒店一晚最多能报多少钱？我想去北京。",
+      "relevant_files": [
+        "travel_policy.md"
+      ],
+      "relevant_anchors": [
+        "北京的住宿标准为每晚不超过五百五十元"
+      ],
+      "domain": "finance",
+      "category": "numeric",
+      "difficulty": "medium",
+      "notes": "sibling-rule discrimination：上海500/北京550/深圳广州500/二线400/其他350 同段并列。"
+    },
+    {
+      "id": "q023",
+      "question": "出差回来以后，报销单最晚多久要交上去？",
+      "relevant_files": [
+        "reimbursement_policy.md"
+      ],
+      "relevant_anchors": [
+        "三十日内提交报销申请",
+        "次年一月十五日前完成报销"
+      ],
+      "domain": "finance",
+      "category": "cross_section",
+      "difficulty": "hard",
+      "notes": "cross-section：日常时限与跨年度时限分属『六、报销时限』相邻两段。"
+    },
+    {
+      "id": "q024",
+      "question": "系统半夜挂了，紧急买东西是不是可以先花再补流程，上限多少？",
+      "relevant_files": [
+        "expense_approval.md"
+      ],
+      "relevant_anchors": [
+        "先执行后补办审批",
+        "单笔上限为两万元"
+      ],
+      "domain": "finance",
+      "category": "cross_section",
+      "difficulty": "hard",
+      "notes": "cross-section：允许先支出的三种情形与两万元上限分属『七、紧急支出』不同段落。"
+    },
+    {
+      "id": "q025",
+      "question": "出差回来报销，上面的领导是谁来批？",
+      "relevant_files": [
+        "reimbursement_policy.md"
+      ],
+      "relevant_anchors": [
+        "由部门负责人审批"
+      ],
+      "domain": "finance",
+      "category": "numeric",
+      "difficulty": "hard",
+      "notes": "numeric distractor：1000/5000/10000 分级同时出现在 expense_approval.md，措辞几乎一致，只能靠『报销』与『费用支出』的标题差异区分。"
+    },
+    {
+      "id": "q026",
+      "question": "多大的事故算一级事件？",
+      "relevant_files": [
+        "incident_response.md"
+      ],
+      "relevant_anchors": [
+        "一级事件（特别重大）"
+      ],
+      "domain": "it",
+      "category": "terminology",
+      "difficulty": "easy"
+    },
+    {
+      "id": "q027",
+      "question": "单次 VPN 会话最长能挂多久？",
+      "relevant_files": [
+        "vpn_policy.md"
+      ],
+      "relevant_anchors": [
+        "最长持续时间为十二小时"
+      ],
+      "domain": "it",
+      "category": "numeric",
+      "difficulty": "easy"
+    },
+    {
+      "id": "q028",
+      "question": "在家连公司内网干活，走什么通道？",
+      "relevant_files": [
+        "vpn_policy.md"
+      ],
+      "relevant_anchors": [
+        "虚拟专用网络（VPN）通道"
+      ],
+      "domain": "it",
+      "category": "terminology",
+      "difficulty": "easy"
+    },
+    {
+      "id": "q029",
+      "question": "VPN 的动态验证码打错太多次会怎样？",
+      "relevant_files": [
+        "vpn_policy.md"
+      ],
+      "relevant_anchors": [
+        "账号将被锁定三十分钟"
+      ],
+      "domain": "it",
+      "category": "numeric",
+      "difficulty": "medium"
+    },
+    {
+      "id": "q030",
+      "question": "数据泄露了要让客户知道吗？",
+      "relevant_files": [
+        "incident_response.md"
+      ],
+      "relevant_anchors": [
+        "七十二小时内通知受影响的客户"
+      ],
+      "domain": "it",
+      "category": "numeric",
+      "difficulty": "medium"
+    },
+    {
+      "id": "q031",
+      "question": "公司发的电脑，领的时候和退的时候各要注意什么？",
+      "relevant_files": [
+        "device_management.md",
+        "onboarding_guide.md"
+      ],
+      "relevant_anchors": [
+        "员工在领用单上签字确认",
+        "设备损坏或遗失的，按折旧价赔偿"
+      ],
+      "domain": "it",
+      "category": "policy_lookup",
+      "difficulty": "medium",
+      "notes": "multi-file：设备管理制度给出领用手续，入职指南给出归还时的赔偿口径，两份共同构成答案。"
+    },
+    {
+      "id": "q032",
+      "question": "收到可疑邮件并且已经点开了，要不要上报？",
+      "relevant_files": [
+        "information_security.md"
+      ],
+      "relevant_anchors": [
+        "收到钓鱼邮件并已点击"
+      ],
+      "domain": "it",
+      "category": "policy_lookup",
+      "difficulty": "medium"
+    },
+    {
+      "id": "q033",
+      "question": "员工转岗之后，原有的系统访问权限多久要调整完？",
+      "relevant_files": [
+        "password_policy.md"
+      ],
+      "relevant_anchors": [
+        "转岗生效后三个工作日内完成权限调整"
+      ],
+      "domain": "it",
+      "category": "numeric",
+      "difficulty": "medium"
+    },
+    {
+      "id": "q034",
+      "question": "管理员账号的密码多久换一次？",
+      "relevant_files": [
+        "password_policy.md"
+      ],
+      "relevant_anchors": [
+        "每三十天更换一次"
+      ],
+      "domain": "it",
+      "category": "numeric",
+      "difficulty": "hard",
+      "notes": "sibling-rule discrimination：普通账号90天与特权账号30天在同一句中；vpn_policy 另有『密码每九十天强制更换一次』构成跨文档干扰。"
+    },
+    {
+      "id": "q035",
+      "question": "拿着内部资料往外面传，不同保密等级要求一样吗？",
+      "relevant_files": [
+        "information_security.md"
+      ],
+      "relevant_anchors": [
+        "必须加密传输",
+        "必须使用公司指定的加密工具"
+      ],
+      "domain": "it",
+      "category": "cross_section",
+      "difficulty": "hard",
+      "notes": "cross-section：数据分级四级定义与传输要求分属『二、数据分级』与『四、数据存储与传输』。"
+    },
+    {
+      "id": "q036",
+      "question": "公司判定什么算弱口令，为什么不能凑合用一个？",
+      "relevant_files": [
+        "password_policy.md"
+      ],
+      "relevant_anchors": [
+        "禁止使用下列弱口令",
+        "不同系统的密码必须不同"
+      ],
+      "domain": "it",
+      "category": "cross_section",
+      "difficulty": "hard",
+      "notes": "cross-section：密码强度四类要求与禁止弱口令分属『二、密码强度要求』相邻段落。"
+    },
+    {
+      "id": "q037",
+      "question": "一级事故多久之内要让你知道，最迟什么时候必须上报到总经理？",
+      "relevant_files": [
+        "incident_response.md"
+      ],
+      "relevant_anchors": [
+        "十五分钟内启动响应",
+        "两小时内上报总经理"
+      ],
+      "domain": "it",
+      "category": "cross_section",
+      "difficulty": "hard",
+      "notes": "cross-section：启动时限与上报时限分属『三、响应时限』同节不同句子。"
+    },
+    {
+      "id": "q038",
+      "question": "提交代码的时候，提交信息的格式和合并请求的写法有什么规矩？",
+      "relevant_files": [
+        "git_workflow.md",
+        "code_review.md"
+      ],
+      "relevant_anchors": [
+        "类型(范围): 简述",
+        "合并请求应当具备清晰的标题与描述"
+      ],
+      "domain": "engineering",
+      "category": "terminology",
+      "difficulty": "easy",
+      "notes": "两处格式要求都能逐字命中，按 easy 计。multi-file：提交信息格式在分支规范，合并请求描述要求在评审规范，两份文档各持一条。"
+    },
+    {
+      "id": "q039",
+      "question": "分支合并进主干用的是哪种合并方式？",
+      "relevant_files": [
+        "git_workflow.md"
+      ],
+      "relevant_anchors": [
+        "压缩合并（squash merge）"
+      ],
+      "domain": "engineering",
+      "category": "terminology",
+      "difficulty": "easy"
+    },
+    {
+      "id": "q040",
+      "question": "要发一个版本之前，准备工作和部署阶段分别要留下什么材料？",
+      "relevant_files": [
+        "release_process.md",
+        "deployment_policy.md"
+      ],
+      "relevant_anchors": [
+        "研发负责人编写上线方案",
+        "部署过程应当记录：部署人、部署时间、版本号、变更单编号、部署结果"
+      ],
+      "domain": "engineering",
+      "category": "cross_section",
+      "difficulty": "easy",
+      "notes": "两处要求都能逐字命中，按 easy 计。multi-file：上线方案的编写责任在发布流程，部署记录的字段要求在部署制度，两份共同构成答案。"
+    },
+    {
+      "id": "q041",
+      "question": "数据库备份保留多久？",
+      "relevant_files": [
+        "deployment_policy.md"
+      ],
+      "relevant_anchors": [
+        "备份文件保留三十天"
+      ],
+      "domain": "engineering",
+      "category": "numeric",
+      "difficulty": "easy"
+    },
+    {
+      "id": "q042",
+      "question": "功能分支一般能开多久？",
+      "relevant_files": [
+        "git_workflow.md"
+      ],
+      "relevant_anchors": [
+        "生命周期原则上不超过十个工作日"
+      ],
+      "domain": "engineering",
+      "category": "numeric",
+      "difficulty": "medium"
+    },
+    {
+      "id": "q043",
+      "question": "上线的代码冻结一般要多久？",
+      "relevant_files": [
+        "release_process.md"
+      ],
+      "relevant_anchors": [
+        "冻结期一般为三个工作日"
+      ],
+      "domain": "engineering",
+      "category": "numeric",
+      "difficulty": "medium"
+    },
+    {
+      "id": "q044",
+      "question": "什么时候能先合并再回来补评审？",
+      "relevant_files": [
+        "code_review.md"
+      ],
+      "relevant_anchors": [
+        "紧急修复可以在评审前合并"
+      ],
+      "domain": "engineering",
+      "category": "policy_lookup",
+      "difficulty": "medium"
+    },
+    {
+      "id": "q045",
+      "question": "致命级别的缺陷，多久要响应、多久必须修完？",
+      "relevant_files": [
+        "testing_guidelines.md"
+      ],
+      "relevant_anchors": [
+        "四小时内响应，二十四小时内修复"
+      ],
+      "domain": "engineering",
+      "category": "numeric",
+      "difficulty": "medium"
+    },
+    {
+      "id": "q046",
+      "question": "一个合并请求最多改多少行比较合适？",
+      "relevant_files": [
+        "code_review.md"
+      ],
+      "relevant_anchors": [
+        "不超过四百行"
+      ],
+      "domain": "engineering",
+      "category": "numeric",
+      "difficulty": "medium"
+    },
+    {
+      "id": "q047",
+      "question": "核心模块的测试覆盖率达到多少才算过关？",
+      "relevant_files": [
+        "testing_guidelines.md"
+      ],
+      "relevant_anchors": [
+        "不低于百分之八十五"
+      ],
+      "domain": "engineering",
+      "category": "numeric",
+      "difficulty": "hard",
+      "notes": "numeric distractor：普通70%与核心85%同段；promotion_policy 有调薪30%、code_review 有『三分之一』。"
+    },
+    {
+      "id": "q048",
+      "question": "灰度要放到全量，中间有哪几个阶段，每段至少要观察多久？",
+      "relevant_files": [
+        "release_process.md"
+      ],
+      "relevant_anchors": [
+        "百分之五开始",
+        "观察期不少于十二小时"
+      ],
+      "domain": "engineering",
+      "category": "cross_section",
+      "difficulty": "hard",
+      "notes": "cross-section：灰度三阶段与各阶段观察期时长分属『六、灰度发布』相邻段落。"
+    },
+    {
+      "id": "q049",
+      "question": "哪些操作属于特权操作，需要几个人在场？",
+      "relevant_files": [
+        "deployment_policy.md"
+      ],
+      "relevant_anchors": [
+        "删除数据、修改配置、重启服务",
+        "必须双人在场或经过事后复核"
+      ],
+      "domain": "engineering",
+      "category": "cross_section",
+      "difficulty": "hard",
+      "notes": "cross-section：三种特权操作与复核要求分属『四、生产环境访问』相邻两句。"
+    },
+    {
+      "id": "q050",
+      "question": "一个改动想进主干，得过哪些关？代码、分支、测试、上线都要满足什么？",
+      "relevant_files": [
+        "git_workflow.md",
+        "code_review.md",
+        "testing_guidelines.md",
+        "release_process.md"
+      ],
+      "relevant_anchors": [
+        "代码评审通过且至少一名评审人同意",
+        "普通变更至少一名",
+        "自动化回归用例的通过率必须达到百分之一百方可进入发布评审",
+        "发布前应当召开发布评审会"
+      ],
+      "domain": "engineering",
+      "category": "cross_section",
+      "difficulty": "hard",
+      "notes": "multi-file：四份文档各持一个必要条件，缺任一都答不全（分支合并要求 / 评审人数量 / 回归通过率 / 发布评审会）。"
+    }
+  ]
+}

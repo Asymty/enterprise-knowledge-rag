@@ -1,0 +1,212 @@
+{
+  "version": "v1",
+  "synthetic": true,
+  "note": "Synthetic enterprise policy corpus for retrieval evaluation. All content is fictional. Contains deliberately confusable sibling clauses (e.g. Shanghai 500 vs Beijing 550 lodging caps; 500 medical-checkup subsidy elsewhere) so that queries cannot be answered by matching a number alone. No evaluation questions or relevant anchors are included in this milestone by design.",
+  "corpus_root": "backend/tests/eval/corpus",
+  "chunk_config_at_creation": {
+    "chunk_size": 500,
+    "chunk_overlap": 50
+  },
+  "documents": [
+    {
+      "file_name": "code_review.md",
+      "rel_path": "corpus/Engineering/code_review.md",
+      "category": "Engineering",
+      "sha256": "444c34cdc70aa8bd94bc90448bb8675d6ca8518c23861fe67a62821b0cbf054f",
+      "char_count": 1459,
+      "byte_count": 4143,
+      "h2_sections": 9
+    },
+    {
+      "file_name": "deployment_policy.md",
+      "rel_path": "corpus/Engineering/deployment_policy.md",
+      "category": "Engineering",
+      "sha256": "70a287ea04e17ad72ed977599a9c477de66d31ba820e0164aecc7a92c4c2e4b9",
+      "char_count": 1475,
+      "byte_count": 4183,
+      "h2_sections": 10
+    },
+    {
+      "file_name": "git_workflow.md",
+      "rel_path": "corpus/Engineering/git_workflow.md",
+      "category": "Engineering",
+      "sha256": "f2bbe89590d2d65d873619803850cd3e3d23a8409dc136e9d27227b204be23ad",
+      "char_count": 1588,
+      "byte_count": 3934,
+      "h2_sections": 9
+    },
+    {
+      "file_name": "release_process.md",
+      "rel_path": "corpus/Engineering/release_process.md",
+      "category": "Engineering",
+      "sha256": "6f53bda8c02d3cd500f94da1874899837aa47057c01138efae2c1ffc07d04d8f",
+      "char_count": 1453,
+      "byte_count": 4131,
+      "h2_sections": 10
+    },
+    {
+      "file_name": "testing_guidelines.md",
+      "rel_path": "corpus/Engineering/testing_guidelines.md",
+      "category": "Engineering",
+      "sha256": "53086ff1d168ce8d932d23052ee67f3b31650f0ca327f8e06906c3be53733b0d",
+      "char_count": 1497,
+      "byte_count": 4253,
+      "h2_sections": 9
+    },
+    {
+      "file_name": "expense_approval.md",
+      "rel_path": "corpus/Finance/expense_approval.md",
+      "category": "Finance",
+      "sha256": "b208dd9061afeb468475f50d637e7fa6df75e902a74eae2b76bd6312e02cdd02",
+      "char_count": 1388,
+      "byte_count": 3966,
+      "h2_sections": 9
+    },
+    {
+      "file_name": "invoice_policy.md",
+      "rel_path": "corpus/Finance/invoice_policy.md",
+      "category": "Finance",
+      "sha256": "6defc66190c15415f36ba3d7aec4c9acafa176d6009c0eaffd494256b9363a74",
+      "char_count": 1386,
+      "byte_count": 3968,
+      "h2_sections": 9
+    },
+    {
+      "file_name": "procurement_policy.md",
+      "rel_path": "corpus/Finance/procurement_policy.md",
+      "category": "Finance",
+      "sha256": "e4f57bbd452d2b93da599dad11af9705137f4c29077052e2653e8debdde98a07",
+      "char_count": 1446,
+      "byte_count": 4144,
+      "h2_sections": 9
+    },
+    {
+      "file_name": "reimbursement_policy.md",
+      "rel_path": "corpus/Finance/reimbursement_policy.md",
+      "category": "Finance",
+      "sha256": "05b1340a22157d33aa75a56df7a9ff463e6646c1a752e12199d61d28d48a683b",
+      "char_count": 1486,
+      "byte_count": 4238,
+      "h2_sections": 10
+    },
+    {
+      "file_name": "travel_policy.md",
+      "rel_path": "corpus/Finance/travel_policy.md",
+      "category": "Finance",
+      "sha256": "3a857663c7a0773e60f8fec7aabfe8f8632284d0e1f54f8aef9e61639cf374ff",
+      "char_count": 1469,
+      "byte_count": 4213,
+      "h2_sections": 9
+    },
+    {
+      "file_name": "attendance_policy.md",
+      "rel_path": "corpus/HR/attendance_policy.md",
+      "category": "HR",
+      "sha256": "015dbc65e5120376972ba1a4f0e0f5295dcf09c24ffd7204c8d7b47be1d7a7ad",
+      "char_count": 1584,
+      "byte_count": 4596,
+      "h2_sections": 8
+    },
+    {
+      "file_name": "employee_benefits.md",
+      "rel_path": "corpus/HR/employee_benefits.md",
+      "category": "HR",
+      "sha256": "d9fecfa1258c5c1b3b58d7cff8c251f2aeb7ee94e2e0052ef5a32d96bd70645e",
+      "char_count": 1386,
+      "byte_count": 3962,
+      "h2_sections": 10
+    },
+    {
+      "file_name": "leave_policy.md",
+      "rel_path": "corpus/HR/leave_policy.md",
+      "category": "HR",
+      "sha256": "0f6b20f8fcfdbbcd9767e2e74fc6e1b41f2de0fa11e93420ed7d652a79166f55",
+      "char_count": 1471,
+      "byte_count": 4231,
+      "h2_sections": 9
+    },
+    {
+      "file_name": "onboarding_guide.md",
+      "rel_path": "corpus/HR/onboarding_guide.md",
+      "category": "HR",
+      "sha256": "12422fa3486101326fad619e471425ca86d939e12c2ed0b73f65a624f170974e",
+      "char_count": 1393,
+      "byte_count": 4005,
+      "h2_sections": 9
+    },
+    {
+      "file_name": "promotion_policy.md",
+      "rel_path": "corpus/HR/promotion_policy.md",
+      "category": "HR",
+      "sha256": "1eb6a997ca6f3616ac613efa42714dea63b1fd33112d071ee92495f8ac2d8c31",
+      "char_count": 1482,
+      "byte_count": 4168,
+      "h2_sections": 9
+    },
+    {
+      "file_name": "device_management.md",
+      "rel_path": "corpus/IT/device_management.md",
+      "category": "IT",
+      "sha256": "4ac65bd59b3bc1e1bb6e3d853dbb7b306a9cc803efcf63766f41ed7689f2152b",
+      "char_count": 1435,
+      "byte_count": 4083,
+      "h2_sections": 9
+    },
+    {
+      "file_name": "incident_response.md",
+      "rel_path": "corpus/IT/incident_response.md",
+      "category": "IT",
+      "sha256": "33dab858292e7c8749dac82712431676eb18238ccaeb0978f96b0e43ba355d3c",
+      "char_count": 1640,
+      "byte_count": 4668,
+      "h2_sections": 10
+    },
+    {
+      "file_name": "information_security.md",
+      "rel_path": "corpus/IT/information_security.md",
+      "category": "IT",
+      "sha256": "9d0936f6db54c3c0b0e694a4f0078c05b03410ad796ee295461bb97d539a32b4",
+      "char_count": 1478,
+      "byte_count": 4206,
+      "h2_sections": 10
+    },
+    {
+      "file_name": "password_policy.md",
+      "rel_path": "corpus/IT/password_policy.md",
+      "category": "IT",
+      "sha256": "8b140ba641910b69aa23c31a512d77509e98c10af3100b00145b12cc02969e0b",
+      "char_count": 1392,
+      "byte_count": 3928,
+      "h2_sections": 9
+    },
+    {
+      "file_name": "vpn_policy.md",
+      "rel_path": "corpus/IT/vpn_policy.md",
+      "category": "IT",
+      "sha256": "c43f4b1cfe40728da2befb6e9bde7fef636dd99954d8fd87d320abc9c4de10a2",
+      "char_count": 1413,
+      "byte_count": 3813,
+      "h2_sections": 9
+    }
+  ],
+  "total_documents": 20,
+  "total_characters": 29321,
+  "by_category": {
+    "Engineering": {
+      "documents": 5,
+      "characters": 7472
+    },
+    "Finance": {
+      "documents": 5,
+      "characters": 7175
+    },
+    "HR": {
+      "documents": 5,
+      "characters": 7316
+    },
+    "IT": {
+      "documents": 5,
+      "characters": 7358
+    }
+  }
+}
