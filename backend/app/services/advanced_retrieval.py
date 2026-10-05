@@ -9,7 +9,9 @@ Implements:
 These techniques improve retrieval accuracy beyond basic similarity search.
 """
 
+import re
 from typing import List, Tuple
+import jieba
 from langchain_core.documents import Document
 from langchain_community.retrievers import BM25Retriever
 from langchain_core.prompts import ChatPromptTemplate
@@ -17,6 +19,22 @@ from langchain_core.output_parsers import StrOutputParser
 from app.services.vector_store import vector_store
 from app.core.config import settings
 import os
+
+
+_TOKEN_CONTENT_RE = re.compile(r"[A-Za-z0-9\u4e00-\u9fff]")
+
+
+def chinese_bm25_tokenizer(text: str) -> List[str]:
+    """Tokenize Chinese/English BM25 text without retaining punctuation-only tokens."""
+    if not text or not text.strip():
+        return []
+
+    tokens: List[str] = []
+    for raw_token in jieba.cut_for_search(text, HMM=True):
+        token = raw_token.strip().lower()
+        if token and _TOKEN_CONTENT_RE.search(token):
+            tokens.append(token)
+    return tokens
 
 # Only import CrossEncoder if not on Render (memory constrained)
 if not os.getenv("RENDER"):
@@ -97,7 +115,10 @@ class AdvancedRetrieval:
             all_docs = self.vector_store.get_all_documents()
 
             # Build BM25 retriever
-            self._bm25_retriever = BM25Retriever.from_documents(all_docs)
+            self._bm25_retriever = BM25Retriever.from_documents(
+                all_docs,
+                preprocess_func=chinese_bm25_tokenizer,
+            )
             self._bm25_doc_count = current_count
 
             print(f"[OK] BM25 index ready with {len(all_docs)} docs (cached for reuse)")
