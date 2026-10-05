@@ -16,6 +16,10 @@ langchain==1.3.12
 langchain-core==1.4.9
 langchain-community==0.4.2
 langchain-groq==1.1.3
+# ModelScope is the PRIMARY provider in production, reached through the OpenAI-compatible
+# client, so this package is load-bearing here rather than optional. Same pin as
+# requirements.txt, and it pulls nothing that conflicts with the CPU-only build above.
+langchain-openai==1.3.5
 langchain-ollama==1.1.0
 langchain-huggingface==1.2.2
 langchain-text-splitters==1.1.2

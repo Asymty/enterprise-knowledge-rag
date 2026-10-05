@@ -383,25 +383,26 @@ async def health_check():
     """
     Check system health.
 
-    Validates:
-    - Ollama connection
+    Checks:
+    - LLM provider availability
     - Vector database connection
     - Database has documents
     """
     try:
-        import os
-
-        # Test LLM (Ollama locally, Groq on Render)
-        llm_ok = True
+        # Probe whichever provider will actually answer, rather than probing Ollama by name.
+        #
+        # This used to construct its own ChatGroq/OllamaLLM, which meant the check had its own
+        # idea of what the primary provider was. It now reuses the client GenerationService
+        # already built, so /health cannot disagree with the service it is reporting on: when
+        # ModelScope is configured it is what gets probed, and an unset MODELScope key falls
+        # through to the older providers without needing a branch here.
+        llm_ok = False
         try:
-            if os.getenv("RENDER"):
-                from langchain_groq import ChatGroq
-                llm = ChatGroq(api_key=settings.groq_api_key, model=settings.groq_model)
-            else:
-                from langchain_ollama import OllamaLLM
-                llm = OllamaLLM(model=settings.ollama_model)
-            llm.invoke("test")
-        except:
+            primary = generation_service.primary_llm
+            if primary is not None:
+                primary.invoke("test")
+                llm_ok = True
+        except Exception:
             llm_ok = False
 
         # Test vector DB
@@ -415,15 +416,14 @@ async def health_check():
 
         # Overall status must describe THIS deployment, not a dev machine.
         #
-        # `llm_ok` here is an OLLAMA check, and Ollama is the local-dev provider that by
-        # design does not exist in production, where generation runs on Groq. So the formula
-        # reported "unhealthy" on a service that was answering queries correctly in about
-        # two seconds, which is a health endpoint that lies in the more dangerous direction:
-        # anyone reading it concludes the deployment is broken and goes looking for a fault
-        # that is not there, or learns to ignore the field.
+        # `llm_ok` is a single-provider probe, and the provider it probes is not necessarily
+        # present in every environment. So the formula reported "unhealthy" on a service that
+        # was answering queries correctly in about two seconds, which is a health endpoint that
+        # lies in the more dangerous direction: anyone reading it concludes the deployment is
+        # broken and goes looking for a fault that is not there, or learns to ignore the field.
         #
         # In production the vector store is the load-bearing dependency, so that is what
-        # decides. Locally, where Ollama is genuinely the primary, keep requiring both.
+        # decides. Locally, where a local provider is genuinely expected, keep requiring both.
         import os as _os
 
         if _os.getenv("RENDER") == "true":

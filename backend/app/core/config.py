@@ -28,6 +28,31 @@ class Settings(BaseSettings):
         description="Ollama model name"
     )
 
+    # ModelScope Configuration
+    #
+    # ModelScope exposes an OpenAI-compatible endpoint, so it is reached through
+    # langchain_openai.ChatOpenAI rather than a ModelScope-specific client. It is the PRIMARY
+    # provider because it works from both local dev and the deployed service, which Ollama
+    # (local only) and Groq (a per-key rate limit that runs out on shared demos) do not.
+    modelscope_api_key: Optional[str] = Field(
+        default=None,
+        description="ModelScope API key. When set, ModelScope becomes the primary LLM provider."
+    )
+    modelscope_base_url: str = Field(
+        default="https://api-inference.modelscope.cn/v1",
+        description="ModelScope OpenAI-compatible base URL"
+    )
+    modelscope_model: str = Field(
+        default="Qwen/Qwen3.8-Flash-Next",
+        description=(
+            "ModelScope chat model id. ModelScope rotates the models it serves, so this is a "
+            "SETTING rather than a literal, for the same reason groq_model is: a retired model "
+            "leaves the client constructing fine and every call failing, which reads as 'all "
+            "providers unavailable' while the service looks healthy. Overridable with "
+            "MODELSCOPE_MODEL so the next rotation is an env change, not a deploy."
+        ),
+    )
+
     # Cloud API Keys
     groq_api_key: Optional[str] = Field(
         default=None,
@@ -145,6 +170,7 @@ def print_config():
     print(f"Chunk Size: {settings.chunk_size} tokens")
     print(f"Chunk Overlap: {settings.chunk_overlap} tokens")
     print(f"Retrieval Top-K: {settings.retrieval_top_k}")
+    print(f"ModelScope: {'Configured' if settings.modelscope_api_key else 'Not set'}")
     print(f"Groq API: {'Configured' if settings.groq_api_key else 'Not set'}")
     print(f"Redis Cache: {'Configured' if settings.redis_url else 'Not set (using in-memory)'}")
     print("=" * 70)

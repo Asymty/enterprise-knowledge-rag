@@ -1,19 +1,25 @@
 """
 Generation Service with LLM Fallback
 
-2-Tier LLM Strategy:
-1. Ollama (local, unlimited) - Primary
-2. Groq (350+ tokens/sec, free tier) - Fallback for speed
+3-Tier LLM Strategy:
+1. ModelScope (cloud, OpenAI-compatible) - Primary
+2. Ollama (local, unlimited)              - Fallback
+3. Groq (350+ tokens/sec, free tier)      - Fallback for speed
 
 Benefits:
-- Speed: Groq is 10-30x faster than local Ollama for demos
-- Reliability: Fallback if Ollama is down
+- Portability: ModelScope works from both local dev and the deployed service, where Ollama
+  does not exist and Groq's free tier rate limit runs out on shared demos
+- Reliability: two fallbacks if the primary is down
 - Production pattern: Multi-provider resilience
 """
 
 from typing import Optional, Iterator, Tuple
 from pydantic import BaseModel, Field
 from langchain_groq import ChatGroq
+
+# langchain_openai is imported where the ModelScope client is constructed, NOT here, for the
+# same reason langchain_ollama is (see the note below): this module is on the import path of
+# every request handler, so an unnecessary top-level import is paid before uvicorn binds a port.
 
 # langchain_ollama is imported where the Ollama client is actually constructed, NOT here.
 #
@@ -39,9 +45,9 @@ class GenerationResponse(BaseModel):
 
 class GenerationService:
     """
-    Generates answers using LLM with 2-tier fallback.
+    Generates answers using LLM with fallback across all configured providers.
 
-    Priority: Ollama (local, unlimited) → Groq (cloud, fast)
+    Priority: ModelScope (cloud) → Ollama (local, unlimited) → Groq (cloud, fast)
     """
 
     def __init__(self):
@@ -51,8 +57,21 @@ class GenerationService:
 
         is_render = os.getenv("RENDER") == "true"
 
+        # ModelScope is constructed OUTSIDE the RENDER branch on purpose: it is a cloud API,
+        # so it is usable from local dev and the deployed service alike, and it is the primary
+        # provider in both. Keeping it inside the branch would make it production-only.
+        self.modelscope = None
+        if settings.modelscope_api_key:
+            from langchain_openai import ChatOpenAI
+            self.modelscope = ChatOpenAI(
+                api_key=settings.modelscope_api_key,
+                base_url=settings.modelscope_base_url,
+                model=settings.modelscope_model,
+                temperature=0.1,
+            )
+
         if is_render:
-            # On Render: Use Groq as primary (no local Ollama)
+            # On Render: no local Ollama, so Groq is the last tier rather than a fallback.
             self.ollama = None
             self.groq = ChatGroq(
                 api_key=settings.groq_api_key,
@@ -78,9 +97,14 @@ class GenerationService:
             ) if settings.groq_api_key else None
 
         print(f"[OK] LLMs ready!")
-        print(f"  - Ollama: {settings.ollama_model} (primary)" if self.ollama else "  - Groq: llama-3.3-70b (primary)")
-        if self.groq and self.ollama:
-            print(f"  - Groq: Configured (fallback)")
+        if self.modelscope:
+            print(f"  - ModelScope: {settings.modelscope_model} (primary)")
+        else:
+            print("  - ModelScope: Not configured")
+        if self.ollama:
+            print(f"  - Ollama: {settings.ollama_model} (fallback)")
+        if self.groq:
+            print(f"  - Groq: {settings.groq_model} (fallback)")
 
         # Define RAG prompt template
         self.prompt_template = ChatPromptTemplate.from_template("""
@@ -108,16 +132,37 @@ Answer:""")
         .ollama directly. On Render .ollama is None, so a hardcoded .ollama reference
         builds a broken chain and fails at invoke time.
         """
-        return self.ollama or self.groq
+        return self.modelscope or self.ollama or self.groq
 
     @property
     def primary_model_name(self) -> str:
         """Label of the provider that answers first, so reporting matches reality."""
+        if self.modelscope:
+            return f"modelscope/{settings.modelscope_model}"
         if self.ollama:
             return f"ollama/{settings.ollama_model}"
         if self.groq:
             return f"groq/{settings.groq_model}"
         return "none"
+
+    @property
+    def _tiers(self):
+        """
+        Providers in the order they will be tried, as (client, label) pairs.
+
+        Both generate() and generate_stream() walk this same list, so the priority order is
+        stated once instead of being re-derived per method and drifting between them. Providers
+        that are not configured are simply absent, which is what makes an unset
+        MODELSCOPE_API_KEY fall through to the older providers.
+        """
+        tiers = []
+        if self.modelscope:
+            tiers.append((self.modelscope, f"modelscope/{settings.modelscope_model}"))
+        if self.ollama:
+            tiers.append((self.ollama, f"ollama/{settings.ollama_model}"))
+        if self.groq:
+            tiers.append((self.groq, f"groq/{settings.groq_model}"))
+        return tiers
 
     def _generate_with_llm(self, llm, llm_name: str, query: str, context: str) -> Optional[GenerationResponse]:
         """
@@ -152,11 +197,22 @@ Answer:""")
         buffer the first chunk before yielding anything: if the provider is going to fail it
         almost always fails on the opening call, and that lets us fall back cleanly instead
         of stranding the client mid-answer with half a response already sent.
+
+        The buffered first chunk is filtered for emptiness like every later one, and this is
+        load-bearing rather than tidy: ModelScope opens a stream with a run of empty content
+        frames before any text arrives (17 chunks for a 16-character answer, only 2 of them
+        non-empty), so an unconditional first yield would push a blank token out of the filter
+        and into the client's first SSE frame.
         """
         chain = self.prompt_template | llm | StrOutputParser()
         stream = chain.stream({"context": context, "question": query})
 
+        # Skip empty leading chunks, but do NOT walk past the end: if the provider produces
+        # nothing at all, `next` must still raise StopIteration so generate_stream() treats it
+        # as an empty answer rather than hanging here.
         first = next(stream)   # may raise, caller handles the fallback
+        while not first:
+            first = next(stream)
         yield first
         for chunk in stream:
             if chunk:
@@ -164,19 +220,13 @@ Answer:""")
 
     def generate_stream(self, query: str, context: str) -> Tuple[str, Iterator[str]]:
         """
-        Stream an answer with the same 2-tier fallback as generate().
+        Stream an answer with the same fallback chain as generate().
 
         Returns (model_used, token_iterator). The provider is resolved eagerly so the caller
         knows which model answered before the first token reaches the client, which matters
         for the OpenAI-compatible payload where `model` sits in the very first SSE frame.
         """
-        tiers = []
-        if self.ollama:
-            tiers.append((self.ollama, f"ollama/{settings.ollama_model}"))
-        if self.groq:
-            tiers.append((self.groq, f"groq/{settings.groq_model}"))
-
-        for llm, llm_name in tiers:
+        for llm, llm_name in self._tiers:
             try:
                 stream = self._stream_with_llm(llm, llm_name, query, context)
                 first = next(stream)  # forces the provider call, so failures surface here
@@ -204,9 +254,9 @@ Answer:""")
         context: str
     ) -> GenerationResponse:
         """
-        Generate answer with 2-tier LLM fallback.
+        Generate answer with fallback across all configured providers.
 
-        Tries: Ollama → Groq (or just Groq on Render)
+        Tries: ModelScope → Ollama → Groq, skipping any provider that is not configured.
 
         Args:
             query: User question
@@ -216,33 +266,13 @@ Answer:""")
             GenerationResponse with answer and metadata
         """
 
-        # TIER 1: Try Ollama (local) or Groq (Render)
-        if self.ollama:
-            # Local development - use Ollama
-            response = self._generate_with_llm(
-                self.ollama,
-                f"ollama/{settings.ollama_model}",
-                query,
-                context
-            )
-            if response:
-                return response
+        tiers = self._tiers
 
-        # TIER 2: Try Groq (fallback for local, primary for Render)
-        if self.groq:
-            if not self.ollama:
-                # Groq is primary on Render
-                pass
-            else:
-                print("[i] Ollama unavailable, trying Groq...")
+        for index, (llm, llm_name) in enumerate(tiers):
+            if index > 0:
+                print(f"[i] {tiers[index - 1][1]} unavailable, trying {llm_name}...")
 
-            response = self._generate_with_llm(
-                self.groq,
-                f"groq/{settings.groq_model}",
-                query,
-                context
-            )
-
+            response = self._generate_with_llm(llm, llm_name, query, context)
             if response:
                 return response
 
@@ -296,5 +326,6 @@ Notable projects include AutoFlow Pro (browser automation with BullMQ and Redis)
     print("[OK] Generation with fallback working!")
     print("=" * 70)
     print("\nFallback Strategy:")
-    print("  1. Ollama (local, unlimited) - Primary")
-    print("  2. Groq (350+ tokens/sec) - Cloud fallback")
+    print("  1. ModelScope (cloud, OpenAI-compatible) - Primary")
+    print("  2. Ollama (local, unlimited) - Fallback")
+    print("  3. Groq (350+ tokens/sec) - Cloud fallback")
