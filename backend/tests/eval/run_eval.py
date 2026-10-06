@@ -22,11 +22,10 @@ if str(BACKEND_DIR) not in sys.path:
 
 from dataset_utils import (
     DATASET_MANIFEST_PATH,
-    EXPECTED_CORPUS_MANIFEST_SHA256,
-    EXPECTED_CORPUS_TREE_SHA256,
-    EXPECTED_EVAL_DATASET_SHA256,
+    evidence_oracle_at_k,
     evidence_recall,
     compact_snippet,
+    file_oracle_at_k,
     load_frozen_dataset,
 )
 from metrics import aggregate_metrics, hit_at_1, recall_at_k, reciprocal_rank
@@ -37,6 +36,14 @@ COLLECTION = "enterprise_rag_eval_v1"
 PRODUCTION_COLLECTION = "enterprise_rag"
 CANDIDATE_POOL_K = 10
 EVALUATION_K_MAX = 5
+# Oracle metrics read the FULL candidate pool, not the Top-5 that the ranking metrics score.
+# Recall@5/MRR answer "was the right thing ranked highly"; the oracles answer "was it in the
+# pool at all", which is the ceiling a reranker or fusion change cannot exceed.
+ORACLE_K = CANDIDATE_POOL_K
+# Corpus V1's offline chunk count. Used ONLY to assert the collection was filled with the
+# frozen corpus -- it is an integrity expectation for this experiment, not a harness rule,
+# and is recorded separately from the runtime collection size so the two never get conflated.
+EXPECTED_CORPUS_CHUNKS = 78
 RESULTS_DIR = Path(__file__).resolve().parent / "results"
 STRATEGY_NAMES = ("vector", "hybrid", "hybrid_rerank")
 
@@ -61,6 +68,17 @@ def _document_record(
     }
 
 
+def _pool_record(
+    document: Any,
+    score: float,
+    rank: int,
+    context_by_file: Mapping[str, Sequence[str]],
+) -> dict[str, Any]:
+    """One candidate from the full Top-K pool, retaining full text for anchor matching."""
+    record = _document_record(document, score, rank, context_by_file)
+    return record
+
+
 def _question_result(
     question: Mapping[str, Any],
     documents: Sequence[Any],
@@ -68,6 +86,14 @@ def _question_result(
     latency: Mapping[str, float],
     context_by_file: Mapping[str, Sequence[str]],
 ) -> dict[str, Any]:
+    # Ranking metrics use the Top-5 cut; oracles use the whole pool. Both are derived from
+    # the SAME single search, so no strategy is advantaged by seeing a larger pool.
+    pool = [
+        _pool_record(document, score, rank, context_by_file)
+        for rank, (document, score) in enumerate(
+            zip(documents[:ORACLE_K], scores[:ORACLE_K]), start=1
+        )
+    ]
     retrieved = [
             _document_record(document, score, rank, context_by_file)
         for rank, (document, score) in enumerate(
@@ -85,6 +111,12 @@ def _question_result(
         "evidence_recall@1": evidence_recall(retrieved, question["relevant_anchors"], 1),
         "evidence_recall@3": evidence_recall(retrieved, question["relevant_anchors"], 3),
         "evidence_recall@5": evidence_recall(retrieved, question["relevant_anchors"], 5),
+        f"file_oracle@{ORACLE_K}": file_oracle_at_k(
+            pool, relevant_files, ORACLE_K
+        ),
+        f"evidence_oracle@{ORACLE_K}": evidence_oracle_at_k(
+            pool, question["relevant_anchors"], ORACLE_K
+        ),
     }
     for key, value in metrics.items():
         if not 0.0 <= value <= 1.0:
@@ -98,6 +130,7 @@ def _question_result(
         "relevant_files": list(question["relevant_files"]),
         "relevant_anchors": list(dict.fromkeys(question["relevant_anchors"])),
         "retrieved": retrieved,
+        "pool": pool,
         "metrics": metrics,
         "latency": dict(latency),
     }
@@ -128,6 +161,15 @@ def _aggregate(per_question: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
             if per_question
             else 0.0
         )
+    # Oracles are binary per question then macro-averaged, so the average IS the hit rate:
+    # 0.26 means "13 of 50 questions had a relevant file somewhere in the Top-10".
+    for key in (f"file_oracle@{ORACLE_K}", f"evidence_oracle@{ORACLE_K}"):
+        label = key.replace("file_oracle", "FileOracle").replace(
+            "evidence_oracle", "EvidenceOracle"
+        )
+        hits = sum(1 for item in per_question if float(item["metrics"][key]) == 1.0)
+        result[label] = hits / len(per_question) if per_question else 0.0
+        result[label.replace("Oracle@", "Oracle@") + "_hits"] = hits
     return result
 
 
@@ -221,6 +263,43 @@ def _raw_points(client: Any, collection: str) -> int:
     return int(client.get_collection(collection).points_count)
 
 
+def _collection_vector_size(client: Any, collection: str) -> int:
+    """Declared vector dimension of a Qdrant collection's config.
+
+    Read from the collection schema rather than assumed, so a mismatch with the embedding
+    backend is detectable before any query runs instead of surfacing as a Qdrant 400.
+    Handles both an unnamed single vector and a named-vector mapping.
+    """
+    params = client.get_collection(collection).config.params.vectors
+    size = getattr(params, "size", None)
+    if size is None:
+        # named vectors: dict[str, VectorParams]
+        sizes = {getattr(v, "size", None) for v in params.values()}
+        sizes.discard(None)
+        if len(sizes) != 1:
+            raise RuntimeError(f"Cannot determine a single vector size for {collection}: {sizes}")
+        size = sizes.pop()
+    return int(size)
+
+
+# Probe text for the embedding-dimension measurement. Short, non-empty, and stable: the
+# dimension is a property of the model, so any input yields the same length; a trivial
+# string just keeps this cheap. Deliberately NOT derived from the corpus, so this probe
+# cannot be confused with a retrieval measurement.
+EMBEDDING_DIMENSION_PROBE = "维度探针"
+
+
+def _runtime_embedding_dimension(embedding: Any) -> int:
+    """Measure the embedding dimension by actually embedding the probe text.
+
+    Not inferred from the model name: two models sharing a name across revisions can differ,
+    and a name-to-dimension table is exactly the kind of literal that goes stale silently.
+    The real vector length is the only trustworthy source.
+    """
+    vector = embedding.embed_query(EMBEDDING_DIMENSION_PROBE)
+    return len(vector)
+
+
 def _write_json(path: Path, payload: Any) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
@@ -241,12 +320,26 @@ def main() -> int:
     if settings.qdrant_collection != COLLECTION:
         raise RuntimeError(f"Collection binding failed: {settings.qdrant_collection!r}")
     client = QdrantClient(url=settings.qdrant_url, api_key=settings.qdrant_api_key, timeout=30.0)
+
+    # Production guard: the demo collection must exist and must never be touched.
     production_before = _raw_points(client, PRODUCTION_COLLECTION)
-    eval_points = _raw_points(client, COLLECTION)
     if production_before != 1:
         raise RuntimeError(f"Production collection pre-flight expected 1 point, got {production_before}")
-    if eval_points != 78:
-        raise RuntimeError(f"Evaluation collection pre-flight expected 78 points, got {eval_points}")
+
+    # RUNTIME facts, read from the live environment rather than hardcoded. 78/384 are
+    # properties of THIS experiment (Corpus V1 under all-MiniLM-L6-v2), not harness rules:
+    # the multilingual experiment is expected to keep 78 points while its dimension and its
+    # scores legitimately change. Baking either number in would silently misreport that run.
+    collection_points = _raw_points(client, COLLECTION)
+    collection_vector_size = _collection_vector_size(client, COLLECTION)
+
+    if collection_points <= 0:
+        raise RuntimeError(f"Collection {COLLECTION} holds {collection_points} points; nothing to evaluate")
+    if collection_points != EXPECTED_CORPUS_CHUNKS:
+        raise RuntimeError(
+            f"Corpus integrity: frozen corpus yields {EXPECTED_CORPUS_CHUNKS} chunks but "
+            f"{COLLECTION} holds {collection_points}. Re-ingest the frozen corpus before scoring."
+        )
     if not CROSS_ENCODER_AVAILABLE:
         raise RuntimeError("CROSS_ENCODER_AVAILABLE is not True; formal benchmark must fail")
 
@@ -257,6 +350,21 @@ def main() -> int:
 
     embedding = embedding_service.get_embeddings()
     embedding_backend = type(embedding).__name__
+    embedding_dimension = _runtime_embedding_dimension(embedding)
+
+    if embedding_dimension <= 0:
+        raise RuntimeError(f"Measured embedding dimension is {embedding_dimension}; the backend returned no vector")
+    if collection_vector_size != embedding_dimension:
+        raise RuntimeError(
+            f"Embedding/collection dimension mismatch: {embedding_backend} produces "
+            f"{embedding_dimension}-d vectors but {COLLECTION} is declared {collection_vector_size}-d. "
+            f"Querying would fail or return garbage; the collection must be rebuilt with this backend."
+        )
+
+    print(f"[i] runtime metadata: collection={COLLECTION} points={collection_points} "
+          f"vector_size={collection_vector_size} embedding={settings.embedding_model} "
+          f"backend={embedding_backend} dimension={embedding_dimension}")
+
     warm_up(retrieval_service, advanced_retrieval, questions[0]["question"])
     all_documents = vector_store.get_all_documents()
     context_by_file: dict[str, list[str]] = {}
@@ -302,7 +410,7 @@ def main() -> int:
     production_after = _raw_points(client, PRODUCTION_COLLECTION)
     if production_after != production_before or production_after != 1:
         raise RuntimeError(f"Production collection changed: before={production_before}, after={production_after}")
-    if _raw_points(client, COLLECTION) != 78:
+    if _raw_points(client, COLLECTION) != collection_points:
         raise RuntimeError("Evaluation collection point count changed during benchmark")
 
     sanity: dict[str, Any] = {}
@@ -326,22 +434,54 @@ def main() -> int:
             for item in items
             for key in item["metrics"]
         )
+        # Oracle@K must dominate Recall@5: anything ranked in the Top-5 is also in the
+        # Top-10 pool, so a question Recall@5 scores as a hit cannot be an oracle miss.
+        # This catches a pool that was accidentally built from the truncated list.
+        sanity[f"{name}_oracle_dominates_recall5"] = all(
+            item["metrics"][f"file_oracle@{ORACLE_K}"] >= item["metrics"]["recall@5"]
+            and item["metrics"][f"evidence_oracle@{ORACLE_K}"] >= item["metrics"]["evidence_recall@5"]
+            for item in items
+        )
+        sanity[f"{name}_pool_at_least_eval_k"] = all(
+            len(item["pool"]) >= len(item["retrieved"]) for item in items
+        )
     if not all(sanity.values()):
         raise RuntimeError(f"Sanity checks failed: {sanity}")
 
     reranker_device = str(getattr(reranker, "device", getattr(getattr(reranker, "model", None), "device", "unknown")))
+    # Integrity hashes come from load_frozen_dataset() above -- the single authoritative
+    # source. They are NOT recomputed here: a second implementation of the same check is
+    # how the canonical gate and the recorded values drift apart.
     experiment = {
-        "corpus_tree_sha256": hashes["corpus_tree_sha256"],
-        "corpus_manifest_sha256": hashes["corpus_manifest_sha256"],
-        "eval_dataset_sha256": hashes["eval_dataset_sha256"],
+        # Authority marker: which hash family decided this run's pass/fail.
+        "frozen_integrity_authority": hashes["frozen_integrity_authority"],
+        "canonical_hash_policy": hashes["canonical_hash_policy"],
+        "canonical_hashes": hashes["canonical"]["actual"],
+        "canonical_expected": hashes["canonical"]["expected"],
+        "canonical_sha_match": hashes["canonical"]["match"],
+        # Legacy raw digests: historical audit trail only. Kept so results stay comparable
+        # with the pre-hardening runs, explicitly labelled so nobody reads them as the gate.
+        "legacy_hashes": hashes["legacy"]["actual"],
+        "legacy_expected": hashes["legacy"]["expected"],
+        "legacy_sha_match": hashes["legacy"]["match"],
+        "legacy_sha_role": "audit-only; a mismatch here is a byte-representation change, not corruption",
         "collection": COLLECTION,
-        "collection_points": 78,
+        # Runtime-observed, read from the live Qdrant collection rather than assumed.
+        "collection_points": collection_points,
+        "collection_vector_size": collection_vector_size,
+        # Runtime-observed: measured by embedding a probe string through the live backend.
         "embedding_model": settings.embedding_model,
-        "embedding_dimension": 384,
         "embedding_backend": embedding_backend,
+        "embedding_dimension": embedding_dimension,
+        "embedding_dimension_source": f"len(embed_query({EMBEDDING_DIMENSION_PROBE!r}))",
+        # Frozen-corpus expectation for THIS experiment, kept separate from the runtime count
+        # above so an integrity failure and an environment change are never conflated.
+        "expected_corpus_chunks": EXPECTED_CORPUS_CHUNKS,
+        "corpus_chunks_match_collection": collection_points == EXPECTED_CORPUS_CHUNKS,
         "distance": "Cosine",
         "candidate_pool_k": CANDIDATE_POOL_K,
         "evaluation_k_max": EVALUATION_K_MAX,
+        "oracle_k": ORACLE_K,
         "reranker_model": "cross-encoder/ms-marco-MiniLM-L-6-v2",
         "reranker_backend": "sentence-transformers.CrossEncoder",
         "reranker_device": reranker_device,
@@ -386,7 +526,13 @@ def main() -> int:
         "manual_spot_checks": _manual_cases(results),
         "sanity_checks": sanity,
         "production_points": {"collection": PRODUCTION_COLLECTION, "before": production_before, "after": production_after, "expected": 1},
-        "frozen_sha_match": all(hashes.values()),
+        # Reaching this point means the canonical gate already passed, so integrity is true
+        # by construction. The old `frozen_sha_match: all(hashes.values())` was ambiguous --
+        # it collapsed the authoritative and audit hash families into one bool and would now
+        # be False whenever legacy raw bytes merely differed. Named explicitly instead.
+        "frozen_integrity_authority": hashes["frozen_integrity_authority"],
+        "canonical_frozen_sha_match": all(hashes["canonical"]["match"].values()),
+        "legacy_sha_match_is_audit_only": hashes["legacy"]["match"],
     }
 
     for name in STRATEGY_NAMES:
@@ -394,6 +540,7 @@ def main() -> int:
             {
                 **item,
                 "retrieved": _public_retrieved(item["retrieved"]),
+                "pool": _public_retrieved(item["pool"]),
             }
             for item in results[name]
         ]
