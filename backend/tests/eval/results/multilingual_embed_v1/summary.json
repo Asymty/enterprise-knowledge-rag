@@ -1,0 +1,2192 @@
+{
+  "experiment": {
+    "frozen_integrity_authority": "canonical",
+    "canonical_hash_policy": "utf8-sig->utf8;crlf/cr->lf;sorted-relative-posix-paths-v1",
+    "canonical_hashes": {
+      "canonical_corpus_tree_sha256": "59338ee57180358b08251e67081c1cc944b70cb976f2e740619a410cffb1f6ac",
+      "canonical_corpus_manifest_sha256": "004d5c98c4d7cb01ce54741a2d9df2db8259f02ee95c28572694359beaf7f139",
+      "canonical_eval_dataset_sha256": "ef70367de540ceee5502602eb142cbd9122cc5c34a4fe3174852ac4919ba9b25"
+    },
+    "canonical_expected": {
+      "canonical_corpus_tree_sha256": "59338ee57180358b08251e67081c1cc944b70cb976f2e740619a410cffb1f6ac",
+      "canonical_corpus_manifest_sha256": "004d5c98c4d7cb01ce54741a2d9df2db8259f02ee95c28572694359beaf7f139",
+      "canonical_eval_dataset_sha256": "ef70367de540ceee5502602eb142cbd9122cc5c34a4fe3174852ac4919ba9b25"
+    },
+    "canonical_sha_match": {
+      "canonical_corpus_tree_sha256": true,
+      "canonical_corpus_manifest_sha256": true,
+      "canonical_eval_dataset_sha256": true
+    },
+    "legacy_hashes": {
+      "corpus_tree_sha256": "12e9f65afb1753c8b5489c4edfb7462ff51fe2a7ea144a1a835da7c3ac6b4815",
+      "corpus_manifest_sha256": "8f769f4e19da025a05d782f5f56b3586c2549e62fcae6eb381af64c51a235462",
+      "eval_dataset_sha256": "4bb1f59df0d504140ac0d5d55d2b90ab20de92f7a0f8ac430cca4fe512bb0dd9"
+    },
+    "legacy_expected": {
+      "corpus_tree_sha256": "12e9f65afb1753c8b5489c4edfb7462ff51fe2a7ea144a1a835da7c3ac6b4815",
+      "corpus_manifest_sha256": "8f769f4e19da025a05d782f5f56b3586c2549e62fcae6eb381af64c51a235462",
+      "eval_dataset_sha256": "4bb1f59df0d504140ac0d5d55d2b90ab20de92f7a0f8ac430cca4fe512bb0dd9"
+    },
+    "legacy_sha_match": {
+      "corpus_tree_sha256": true,
+      "corpus_manifest_sha256": true,
+      "eval_dataset_sha256": true
+    },
+    "legacy_sha_role": "audit-only; a mismatch here is a byte-representation change, not corruption",
+    "collection": "enterprise_rag_eval_multilingual_v1",
+    "collection_points": 78,
+    "collection_vector_size": 384,
+    "embedding_model": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+    "embedding_backend": "HuggingFaceEmbeddings",
+    "embedding_dimension": 384,
+    "embedding_dimension_source": "len(embed_query('维度探针'))",
+    "expected_corpus_chunks": 78,
+    "corpus_chunks_match_collection": true,
+    "distance": "Cosine",
+    "candidate_pool_k": 10,
+    "evaluation_k_max": 5,
+    "oracle_k": 10,
+    "reranker_model": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+    "reranker_backend": "sentence-transformers.CrossEncoder",
+    "reranker_device": "cpu",
+    "reranker_available": true
+  },
+  "verified_fairness": {
+    "same_dataset": true,
+    "same_collection": true,
+    "same_embedding": true,
+    "same_candidate_pool_for_hybrid_and_rerank": true,
+    "single_search_for_all_k": true,
+    "llm_generation_used": false,
+    "rag_cache_used": false
+  },
+  "fairness_verification_pass": true,
+  "overall": {
+    "vector": {
+      "n": 50,
+      "Recall@1": 0.545,
+      "Recall@3": 0.655,
+      "Recall@5": 0.77,
+      "Hit@1": 0.62,
+      "MRR": 0.6886666666666668,
+      "EvidenceRecall@1": 0.305,
+      "EvidenceRecall@3": 0.485,
+      "EvidenceRecall@5": 0.575,
+      "FileOracle@10": 0.88,
+      "FileOracle@10_hits": 44,
+      "EvidenceOracle@10": 0.74,
+      "EvidenceOracle@10_hits": 37
+    },
+    "hybrid": {
+      "n": 50,
+      "Recall@1": 0.565,
+      "Recall@3": 0.695,
+      "Recall@5": 0.805,
+      "Hit@1": 0.64,
+      "MRR": 0.7113333333333333,
+      "EvidenceRecall@1": 0.345,
+      "EvidenceRecall@3": 0.525,
+      "EvidenceRecall@5": 0.655,
+      "FileOracle@10": 0.94,
+      "FileOracle@10_hits": 47,
+      "EvidenceOracle@10": 0.82,
+      "EvidenceOracle@10_hits": 41
+    },
+    "hybrid_rerank": {
+      "n": 50,
+      "Recall@1": 0.365,
+      "Recall@3": 0.585,
+      "Recall@5": 0.755,
+      "Hit@1": 0.42,
+      "MRR": 0.5576666666666666,
+      "EvidenceRecall@1": 0.05,
+      "EvidenceRecall@3": 0.31,
+      "EvidenceRecall@5": 0.475,
+      "FileOracle@10": 0.94,
+      "FileOracle@10_hits": 47,
+      "EvidenceOracle@10": 0.82,
+      "EvidenceOracle@10_hits": 41
+    }
+  },
+  "by_difficulty": {
+    "easy": {
+      "vector": {
+        "n": 15,
+        "Recall@1": 0.6333333333333333,
+        "Recall@3": 0.7666666666666667,
+        "Recall@5": 0.9333333333333333,
+        "Hit@1": 0.6666666666666666,
+        "MRR": 0.7633333333333333,
+        "EvidenceRecall@1": 0.36666666666666664,
+        "EvidenceRecall@3": 0.5333333333333333,
+        "EvidenceRecall@5": 0.5333333333333333,
+        "FileOracle@10": 0.9333333333333333,
+        "FileOracle@10_hits": 14,
+        "EvidenceOracle@10": 0.6666666666666666,
+        "EvidenceOracle@10_hits": 10
+      },
+      "hybrid": {
+        "n": 15,
+        "Recall@1": 0.7,
+        "Recall@3": 0.9,
+        "Recall@5": 0.9333333333333333,
+        "Hit@1": 0.7333333333333333,
+        "MRR": 0.8333333333333334,
+        "EvidenceRecall@1": 0.36666666666666664,
+        "EvidenceRecall@3": 0.5333333333333333,
+        "EvidenceRecall@5": 0.6666666666666666,
+        "FileOracle@10": 1.0,
+        "FileOracle@10_hits": 15,
+        "EvidenceOracle@10": 0.8666666666666667,
+        "EvidenceOracle@10_hits": 13
+      },
+      "hybrid_rerank": {
+        "n": 15,
+        "Recall@1": 0.43333333333333335,
+        "Recall@3": 0.7333333333333333,
+        "Recall@5": 0.9,
+        "Hit@1": 0.4666666666666667,
+        "MRR": 0.6377777777777779,
+        "EvidenceRecall@1": 0.0,
+        "EvidenceRecall@3": 0.4666666666666667,
+        "EvidenceRecall@5": 0.7,
+        "FileOracle@10": 1.0,
+        "FileOracle@10_hits": 15,
+        "EvidenceOracle@10": 0.8666666666666667,
+        "EvidenceOracle@10_hits": 13
+      }
+    },
+    "hard": {
+      "vector": {
+        "n": 15,
+        "Recall@1": 0.4166666666666667,
+        "Recall@3": 0.55,
+        "Recall@5": 0.7,
+        "Hit@1": 0.5333333333333333,
+        "MRR": 0.6188888888888887,
+        "EvidenceRecall@1": 0.21666666666666667,
+        "EvidenceRecall@3": 0.38333333333333336,
+        "EvidenceRecall@5": 0.55,
+        "FileOracle@10": 0.8666666666666667,
+        "FileOracle@10_hits": 13,
+        "EvidenceOracle@10": 0.7333333333333333,
+        "EvidenceOracle@10_hits": 11
+      },
+      "hybrid": {
+        "n": 15,
+        "Recall@1": 0.4166666666666667,
+        "Recall@3": 0.55,
+        "Recall@5": 0.7833333333333333,
+        "Hit@1": 0.5333333333333333,
+        "MRR": 0.6355555555555555,
+        "EvidenceRecall@1": 0.2833333333333333,
+        "EvidenceRecall@3": 0.38333333333333336,
+        "EvidenceRecall@5": 0.6166666666666667,
+        "FileOracle@10": 0.8666666666666667,
+        "FileOracle@10_hits": 13,
+        "EvidenceOracle@10": 0.8,
+        "EvidenceOracle@10_hits": 12
+      },
+      "hybrid_rerank": {
+        "n": 15,
+        "Recall@1": 0.2833333333333333,
+        "Recall@3": 0.5166666666666667,
+        "Recall@5": 0.75,
+        "Hit@1": 0.4,
+        "MRR": 0.5355555555555556,
+        "EvidenceRecall@1": 0.03333333333333333,
+        "EvidenceRecall@3": 0.03333333333333333,
+        "EvidenceRecall@5": 0.25,
+        "FileOracle@10": 0.8666666666666667,
+        "FileOracle@10_hits": 13,
+        "EvidenceOracle@10": 0.8,
+        "EvidenceOracle@10_hits": 12
+      }
+    },
+    "medium": {
+      "vector": {
+        "n": 20,
+        "Recall@1": 0.575,
+        "Recall@3": 0.65,
+        "Recall@5": 0.7,
+        "Hit@1": 0.65,
+        "MRR": 0.6849999999999999,
+        "EvidenceRecall@1": 0.325,
+        "EvidenceRecall@3": 0.525,
+        "EvidenceRecall@5": 0.625,
+        "FileOracle@10": 0.85,
+        "FileOracle@10_hits": 17,
+        "EvidenceOracle@10": 0.8,
+        "EvidenceOracle@10_hits": 16
+      },
+      "hybrid": {
+        "n": 20,
+        "Recall@1": 0.575,
+        "Recall@3": 0.65,
+        "Recall@5": 0.725,
+        "Hit@1": 0.65,
+        "MRR": 0.6766666666666666,
+        "EvidenceRecall@1": 0.375,
+        "EvidenceRecall@3": 0.625,
+        "EvidenceRecall@5": 0.675,
+        "FileOracle@10": 0.95,
+        "FileOracle@10_hits": 19,
+        "EvidenceOracle@10": 0.8,
+        "EvidenceOracle@10_hits": 16
+      },
+      "hybrid_rerank": {
+        "n": 20,
+        "Recall@1": 0.375,
+        "Recall@3": 0.525,
+        "Recall@5": 0.65,
+        "Hit@1": 0.4,
+        "MRR": 0.5141666666666667,
+        "EvidenceRecall@1": 0.1,
+        "EvidenceRecall@3": 0.4,
+        "EvidenceRecall@5": 0.475,
+        "FileOracle@10": 0.95,
+        "FileOracle@10_hits": 19,
+        "EvidenceOracle@10": 0.8,
+        "EvidenceOracle@10_hits": 16
+      }
+    }
+  },
+  "by_domain": {
+    "engineering": {
+      "vector": {
+        "n": 13,
+        "Recall@1": 0.4423076923076923,
+        "Recall@3": 0.6730769230769231,
+        "Recall@5": 0.9615384615384616,
+        "Hit@1": 0.5384615384615384,
+        "MRR": 0.7038461538461539,
+        "EvidenceRecall@1": 0.36538461538461536,
+        "EvidenceRecall@3": 0.40384615384615385,
+        "EvidenceRecall@5": 0.5576923076923077,
+        "FileOracle@10": 1.0,
+        "FileOracle@10_hits": 13,
+        "EvidenceOracle@10": 0.7692307692307693,
+        "EvidenceOracle@10_hits": 10
+      },
+      "hybrid": {
+        "n": 13,
+        "Recall@1": 0.5192307692307693,
+        "Recall@3": 0.8269230769230769,
+        "Recall@5": 0.9807692307692307,
+        "Hit@1": 0.6153846153846154,
+        "MRR": 0.7756410256410255,
+        "EvidenceRecall@1": 0.36538461538461536,
+        "EvidenceRecall@3": 0.4807692307692308,
+        "EvidenceRecall@5": 0.6346153846153846,
+        "FileOracle@10": 1.0,
+        "FileOracle@10_hits": 13,
+        "EvidenceOracle@10": 0.8461538461538461,
+        "EvidenceOracle@10_hits": 11
+      },
+      "hybrid_rerank": {
+        "n": 13,
+        "Recall@1": 0.36538461538461536,
+        "Recall@3": 0.4807692307692308,
+        "Recall@5": 0.6346153846153846,
+        "Hit@1": 0.46153846153846156,
+        "MRR": 0.5448717948717949,
+        "EvidenceRecall@1": 0.07692307692307693,
+        "EvidenceRecall@3": 0.3076923076923077,
+        "EvidenceRecall@5": 0.4423076923076923,
+        "FileOracle@10": 1.0,
+        "FileOracle@10_hits": 13,
+        "EvidenceOracle@10": 0.8461538461538461,
+        "EvidenceOracle@10_hits": 11
+      }
+    },
+    "finance": {
+      "vector": {
+        "n": 12,
+        "Recall@1": 0.5416666666666666,
+        "Recall@3": 0.6666666666666666,
+        "Recall@5": 0.75,
+        "Hit@1": 0.5833333333333334,
+        "MRR": 0.6277777777777778,
+        "EvidenceRecall@1": 0.4583333333333333,
+        "EvidenceRecall@3": 0.5416666666666666,
+        "EvidenceRecall@5": 0.625,
+        "FileOracle@10": 0.9166666666666666,
+        "FileOracle@10_hits": 11,
+        "EvidenceOracle@10": 0.8333333333333334,
+        "EvidenceOracle@10_hits": 10
+      },
+      "hybrid": {
+        "n": 12,
+        "Recall@1": 0.5416666666666666,
+        "Recall@3": 0.75,
+        "Recall@5": 0.8333333333333334,
+        "Hit@1": 0.5833333333333334,
+        "MRR": 0.6694444444444444,
+        "EvidenceRecall@1": 0.4583333333333333,
+        "EvidenceRecall@3": 0.625,
+        "EvidenceRecall@5": 0.875,
+        "FileOracle@10": 0.9166666666666666,
+        "FileOracle@10_hits": 11,
+        "EvidenceOracle@10": 0.9166666666666666,
+        "EvidenceOracle@10_hits": 11
+      },
+      "hybrid_rerank": {
+        "n": 12,
+        "Recall@1": 0.4166666666666667,
+        "Recall@3": 0.625,
+        "Recall@5": 0.9166666666666666,
+        "Hit@1": 0.4166666666666667,
+        "MRR": 0.5680555555555555,
+        "EvidenceRecall@1": 0.0,
+        "EvidenceRecall@3": 0.2916666666666667,
+        "EvidenceRecall@5": 0.5833333333333334,
+        "FileOracle@10": 0.9166666666666666,
+        "FileOracle@10_hits": 11,
+        "EvidenceOracle@10": 0.9166666666666666,
+        "EvidenceOracle@10_hits": 11
+      }
+    },
+    "hr": {
+      "vector": {
+        "n": 13,
+        "Recall@1": 0.5769230769230769,
+        "Recall@3": 0.6538461538461539,
+        "Recall@5": 0.6538461538461539,
+        "Hit@1": 0.6923076923076923,
+        "MRR": 0.7307692307692307,
+        "EvidenceRecall@1": 0.15384615384615385,
+        "EvidenceRecall@3": 0.46153846153846156,
+        "EvidenceRecall@5": 0.5,
+        "FileOracle@10": 0.7692307692307693,
+        "FileOracle@10_hits": 10,
+        "EvidenceOracle@10": 0.6923076923076923,
+        "EvidenceOracle@10_hits": 9
+      },
+      "hybrid": {
+        "n": 13,
+        "Recall@1": 0.5769230769230769,
+        "Recall@3": 0.5769230769230769,
+        "Recall@5": 0.6923076923076923,
+        "Hit@1": 0.6923076923076923,
+        "MRR": 0.7076923076923076,
+        "EvidenceRecall@1": 0.3076923076923077,
+        "EvidenceRecall@3": 0.46153846153846156,
+        "EvidenceRecall@5": 0.5,
+        "FileOracle@10": 1.0,
+        "FileOracle@10_hits": 13,
+        "EvidenceOracle@10": 0.8461538461538461,
+        "EvidenceOracle@10_hits": 11
+      },
+      "hybrid_rerank": {
+        "n": 13,
+        "Recall@1": 0.34615384615384615,
+        "Recall@3": 0.6153846153846154,
+        "Recall@5": 0.8461538461538461,
+        "Hit@1": 0.46153846153846156,
+        "MRR": 0.6141025641025641,
+        "EvidenceRecall@1": 0.038461538461538464,
+        "EvidenceRecall@3": 0.2692307692307692,
+        "EvidenceRecall@5": 0.5,
+        "FileOracle@10": 1.0,
+        "FileOracle@10_hits": 13,
+        "EvidenceOracle@10": 0.8461538461538461,
+        "EvidenceOracle@10_hits": 11
+      }
+    },
+    "it": {
+      "vector": {
+        "n": 12,
+        "Recall@1": 0.625,
+        "Recall@3": 0.625,
+        "Recall@5": 0.7083333333333334,
+        "Hit@1": 0.6666666666666666,
+        "MRR": 0.6875,
+        "EvidenceRecall@1": 0.25,
+        "EvidenceRecall@3": 0.5416666666666666,
+        "EvidenceRecall@5": 0.625,
+        "FileOracle@10": 0.8333333333333334,
+        "FileOracle@10_hits": 10,
+        "EvidenceOracle@10": 0.6666666666666666,
+        "EvidenceOracle@10_hits": 8
+      },
+      "hybrid": {
+        "n": 12,
+        "Recall@1": 0.625,
+        "Recall@3": 0.625,
+        "Recall@5": 0.7083333333333334,
+        "Hit@1": 0.6666666666666666,
+        "MRR": 0.6875,
+        "EvidenceRecall@1": 0.25,
+        "EvidenceRecall@3": 0.5416666666666666,
+        "EvidenceRecall@5": 0.625,
+        "FileOracle@10": 0.8333333333333334,
+        "FileOracle@10_hits": 10,
+        "EvidenceOracle@10": 0.6666666666666666,
+        "EvidenceOracle@10_hits": 8
+      },
+      "hybrid_rerank": {
+        "n": 12,
+        "Recall@1": 0.3333333333333333,
+        "Recall@3": 0.625,
+        "Recall@5": 0.625,
+        "Hit@1": 0.3333333333333333,
+        "MRR": 0.5,
+        "EvidenceRecall@1": 0.08333333333333333,
+        "EvidenceRecall@3": 0.375,
+        "EvidenceRecall@5": 0.375,
+        "FileOracle@10": 0.8333333333333334,
+        "FileOracle@10_hits": 10,
+        "EvidenceOracle@10": 0.6666666666666666,
+        "EvidenceOracle@10_hits": 8
+      }
+    }
+  },
+  "by_category": {
+    "cross_section": {
+      "vector": {
+        "n": 13,
+        "Recall@1": 0.36538461538461536,
+        "Recall@3": 0.5192307692307693,
+        "Recall@5": 0.6538461538461539,
+        "Hit@1": 0.5384615384615384,
+        "MRR": 0.6307692307692307,
+        "EvidenceRecall@1": 0.1346153846153846,
+        "EvidenceRecall@3": 0.28846153846153844,
+        "EvidenceRecall@5": 0.40384615384615385,
+        "FileOracle@10": 0.8461538461538461,
+        "FileOracle@10_hits": 11,
+        "EvidenceOracle@10": 0.6923076923076923,
+        "EvidenceOracle@10_hits": 9
+      },
+      "hybrid": {
+        "n": 13,
+        "Recall@1": 0.36538461538461536,
+        "Recall@3": 0.5192307692307693,
+        "Recall@5": 0.75,
+        "Hit@1": 0.5384615384615384,
+        "MRR": 0.6499999999999999,
+        "EvidenceRecall@1": 0.1346153846153846,
+        "EvidenceRecall@3": 0.28846153846153844,
+        "EvidenceRecall@5": 0.4807692307692308,
+        "FileOracle@10": 0.8461538461538461,
+        "FileOracle@10_hits": 11,
+        "EvidenceOracle@10": 0.7692307692307693,
+        "EvidenceOracle@10_hits": 10
+      },
+      "hybrid_rerank": {
+        "n": 13,
+        "Recall@1": 0.17307692307692307,
+        "Recall@3": 0.36538461538461536,
+        "Recall@5": 0.6730769230769231,
+        "Hit@1": 0.3076923076923077,
+        "MRR": 0.45128205128205123,
+        "EvidenceRecall@1": 0.038461538461538464,
+        "EvidenceRecall@3": 0.11538461538461539,
+        "EvidenceRecall@5": 0.3269230769230769,
+        "FileOracle@10": 0.8461538461538461,
+        "FileOracle@10_hits": 11,
+        "EvidenceOracle@10": 0.7692307692307693,
+        "EvidenceOracle@10_hits": 10
+      }
+    },
+    "numeric": {
+      "vector": {
+        "n": 25,
+        "Recall@1": 0.56,
+        "Recall@3": 0.64,
+        "Recall@5": 0.8,
+        "Hit@1": 0.56,
+        "MRR": 0.6293333333333333,
+        "EvidenceRecall@1": 0.44,
+        "EvidenceRecall@3": 0.6,
+        "EvidenceRecall@5": 0.72,
+        "FileOracle@10": 0.88,
+        "FileOracle@10_hits": 22,
+        "EvidenceOracle@10": 0.84,
+        "EvidenceOracle@10_hits": 21
+      },
+      "hybrid": {
+        "n": 25,
+        "Recall@1": 0.6,
+        "Recall@3": 0.72,
+        "Recall@5": 0.8,
+        "Hit@1": 0.6,
+        "MRR": 0.6646666666666667,
+        "EvidenceRecall@1": 0.52,
+        "EvidenceRecall@3": 0.68,
+        "EvidenceRecall@5": 0.8,
+        "FileOracle@10": 0.96,
+        "FileOracle@10_hits": 24,
+        "EvidenceOracle@10": 0.88,
+        "EvidenceOracle@10_hits": 22
+      },
+      "hybrid_rerank": {
+        "n": 25,
+        "Recall@1": 0.4,
+        "Recall@3": 0.68,
+        "Recall@5": 0.8,
+        "Hit@1": 0.4,
+        "MRR": 0.5526666666666666,
+        "EvidenceRecall@1": 0.08,
+        "EvidenceRecall@3": 0.4,
+        "EvidenceRecall@5": 0.52,
+        "FileOracle@10": 0.96,
+        "FileOracle@10_hits": 24,
+        "EvidenceOracle@10": 0.88,
+        "EvidenceOracle@10_hits": 22
+      }
+    },
+    "policy_lookup": {
+      "vector": {
+        "n": 8,
+        "Recall@1": 0.75,
+        "Recall@3": 0.75,
+        "Recall@5": 0.75,
+        "Hit@1": 0.875,
+        "MRR": 0.875,
+        "EvidenceRecall@1": 0.125,
+        "EvidenceRecall@3": 0.375,
+        "EvidenceRecall@5": 0.375,
+        "FileOracle@10": 0.875,
+        "FileOracle@10_hits": 7,
+        "EvidenceOracle@10": 0.5,
+        "EvidenceOracle@10_hits": 4
+      },
+      "hybrid": {
+        "n": 8,
+        "Recall@1": 0.75,
+        "Recall@3": 0.75,
+        "Recall@5": 0.8125,
+        "Hit@1": 0.875,
+        "MRR": 0.875,
+        "EvidenceRecall@1": 0.125,
+        "EvidenceRecall@3": 0.375,
+        "EvidenceRecall@5": 0.5,
+        "FileOracle@10": 1.0,
+        "FileOracle@10_hits": 8,
+        "EvidenceOracle@10": 0.75,
+        "EvidenceOracle@10_hits": 6
+      },
+      "hybrid_rerank": {
+        "n": 8,
+        "Recall@1": 0.4375,
+        "Recall@3": 0.5,
+        "Recall@5": 0.625,
+        "Hit@1": 0.5,
+        "MRR": 0.5875,
+        "EvidenceRecall@1": 0.0,
+        "EvidenceRecall@3": 0.1875,
+        "EvidenceRecall@5": 0.4375,
+        "FileOracle@10": 1.0,
+        "FileOracle@10_hits": 8,
+        "EvidenceOracle@10": 0.75,
+        "EvidenceOracle@10_hits": 6
+      }
+    },
+    "terminology": {
+      "vector": {
+        "n": 4,
+        "Recall@1": 0.625,
+        "Recall@3": 1.0,
+        "Recall@5": 1.0,
+        "Hit@1": 0.75,
+        "MRR": 0.875,
+        "EvidenceRecall@1": 0.375,
+        "EvidenceRecall@3": 0.625,
+        "EvidenceRecall@5": 0.625,
+        "FileOracle@10": 1.0,
+        "FileOracle@10_hits": 4,
+        "EvidenceOracle@10": 0.75,
+        "EvidenceOracle@10_hits": 3
+      },
+      "hybrid": {
+        "n": 4,
+        "Recall@1": 0.625,
+        "Recall@3": 1.0,
+        "Recall@5": 1.0,
+        "Hit@1": 0.75,
+        "MRR": 0.875,
+        "EvidenceRecall@1": 0.375,
+        "EvidenceRecall@3": 0.625,
+        "EvidenceRecall@5": 0.625,
+        "FileOracle@10": 1.0,
+        "FileOracle@10_hits": 4,
+        "EvidenceOracle@10": 0.75,
+        "EvidenceOracle@10_hits": 3
+      },
+      "hybrid_rerank": {
+        "n": 4,
+        "Recall@1": 0.625,
+        "Recall@3": 0.875,
+        "Recall@5": 1.0,
+        "Hit@1": 0.75,
+        "MRR": 0.875,
+        "EvidenceRecall@1": 0.0,
+        "EvidenceRecall@3": 0.625,
+        "EvidenceRecall@5": 0.75,
+        "FileOracle@10": 1.0,
+        "FileOracle@10_hits": 4,
+        "EvidenceOracle@10": 0.75,
+        "EvidenceOracle@10_hits": 3
+      }
+    }
+  },
+  "latency_diagnostic": {
+    "note": "single-run local latency diagnostic; not a production SLA",
+    "vector_retrieval_ms": {
+      "mean": 230.8234200021252,
+      "median": 211.87254996038973,
+      "p95": 280.5506899545435
+    },
+    "hybrid_retrieval_ms": {
+      "mean": 385.5607939977199,
+      "median": 381.6173999221064,
+      "p95": 421.9442799920215
+    },
+    "rerank_ms": {
+      "mean": 484.84577000839636,
+      "median": 476.3525999733247,
+      "p95": 542.7312650717795
+    },
+    "total_retrieval_ms": {
+      "mean": 870.4065640061162,
+      "median": 861.7006500135176,
+      "p95": 935.0716700020712
+    }
+  },
+  "manual_spot_checks": [
+    {
+      "case": "all_three_correct",
+      "id": "q001",
+      "question": "上下班具体是几点到几点？",
+      "ground_truth": {
+        "relevant_files": [
+          "attendance_policy.md"
+        ],
+        "relevant_anchors": [
+          "上午九时整至下午六时整"
+        ]
+      },
+      "vector_top5": [
+        {
+          "rank": 1,
+          "file_name": "attendance_policy.md",
+          "chunk_index": 3,
+          "score": 0.673414,
+          "snippet": "工作日加班的，按一倍时长安排调休；休息日加班的，按一点五倍时长安排调休；法定节假日加班的，按两倍时长安排调休或者发放加班工资。调休应当在加班发生之日起六个月内使用完毕，逾期作废，不予折算工资。\n\n员工离职时尚未使用的调休，按离职前十二个月的日平均工资折算，在最后一个工资发放日一并结清。\n\n## 七、考勤异常处理与申诉\n\n员工对考勤记录有异议的，可在记录产生之日起十个工作日内通过系统提交申诉。人力资源部应当在收到申诉后五个工作日内完成核查并答复。申诉期间，原考勤记录继续生效。\n\n考勤数据由人力资源"
+        },
+        {
+          "rank": 2,
+          "file_name": "attendance_policy.md",
+          "chunk_index": 2,
+          "score": 0.5348345,
+          "snippet": "有下列情形之一的，认定为旷工：未办理请假手续擅自不到岗；请假未获批准仍不到岗；假期届满未续假且未到岗；伪造请假证明材料。旷工半日扣发一日工资，旷工一日扣发三日工资。连续旷工三个工作日或者年度累计旷工五个工作日的，公司有权解除劳动合同且不支付经济补偿。\n\n## 五、请假类型与审批权限\n\n员工请假应当提前在考勤系统提交申请，经审批通过后方可休假。紧急情况可先电话报备，事后一个工作日内补办手续。\n\n请假审批权限如下：一日以内的请假，由直属主管审批；一日以上三日以内的，由部门负责人审批；三日以上七日以内"
+        },
+        {
+          "rank": 3,
+          "file_name": "onboarding_guide.md",
+          "chunk_index": 1,
+          "score": 0.5303298,
+          "snippet": "新员工在首日应当完成工位分配、办公设备领取及内部系统账号开通。系统账号包括邮箱、办公协作平台、代码仓库（技术岗位）及财务报销系统。账号开通一般在入职后一个工作日内完成。\n\n## 四、试用期管理\n\n劳动合同期限三年及以上的，试用期为六个月；合同期限一年以上不满三年的，试用期为两个月；合同期限三个月以上不满一年的，试用期为一个月。\n\n试用期员工应当在入职后第十五个工作日前与直属主管完成第一次绩效沟通，在试用期届满前十个工作日完成转正评估。转正评估采用主管评价与同事互评相结合的方式，主管评价权重为百分"
+        },
+        {
+          "rank": 4,
+          "file_name": "leave_policy.md",
+          "chunk_index": 1,
+          "score": 0.49074596,
+          "snippet": "## 三、病假\n\n员工因病需要休息或治疗的，可申请病假。病假在三日以内的，提交申请时说明病情即可。病假超过三日的，应当提供二级及以上医疗机构出具的病假证明。\n\n病假期间工资按下列标准发放：病假在三日以内的，按正常工资发放；病假超过三日不满一个月的，按正常工资的百分之七十发放；病假超过一个月的，按当地最低工资标准的百分之八十发放。\n\n员工年度累计病假超过三十日的，公司有权要求其进行复工体检，体检合格后方可返岗。\n\n## 四、事假\n\n员工因个人事务需要请假的，可申请事假。事假为无薪假期，按日扣减工资"
+        },
+        {
+          "rank": 5,
+          "file_name": "travel_policy.md",
+          "chunk_index": 2,
+          "score": 0.48775733,
+          "snippet": "当日往返的出差，伙食补贴减半发放。出差期间由公司统一安排用餐的，相应餐次的补贴不再发放。\n\n## 六、出差延期与变更\n\n因工作需要延长出差时间的，应当在原定返回日期前提交延期申请，经原审批人批准后生效。延期期间的差旅费用按本制度标准执行。\n\n因个人原因延长出差时间的，延期期间产生的住宿与伙食费用由员工自行承担，且延期天数不得超过两天。\n\n出差行程变更的，应当在变更后一个工作日内更新系统中的出差记录。\n\n## 七、费用报销与结算\n\n出差结束后应当在十个工作日内提交差旅费报销申请。报销时应当附出差申"
+        }
+      ],
+      "hybrid_top5": [
+        {
+          "rank": 1,
+          "file_name": "attendance_policy.md",
+          "chunk_index": 2,
+          "score": 0.5243841499999999,
+          "snippet": "有下列情形之一的，认定为旷工：未办理请假手续擅自不到岗；请假未获批准仍不到岗；假期届满未续假且未到岗；伪造请假证明材料。旷工半日扣发一日工资，旷工一日扣发三日工资。连续旷工三个工作日或者年度累计旷工五个工作日的，公司有权解除劳动合同且不支付经济补偿。\n\n## 五、请假类型与审批权限\n\n员工请假应当提前在考勤系统提交申请，经审批通过后方可休假。紧急情况可先电话报备，事后一个工作日内补办手续。\n\n请假审批权限如下：一日以内的请假，由直属主管审批；一日以上三日以内的，由部门负责人审批；三日以上七日以内"
+        },
+        {
+          "rank": 2,
+          "file_name": "travel_policy.md",
+          "chunk_index": 2,
+          "score": 0.491430131,
+          "snippet": "当日往返的出差，伙食补贴减半发放。出差期间由公司统一安排用餐的，相应餐次的补贴不再发放。\n\n## 六、出差延期与变更\n\n因工作需要延长出差时间的，应当在原定返回日期前提交延期申请，经原审批人批准后生效。延期期间的差旅费用按本制度标准执行。\n\n因个人原因延长出差时间的，延期期间产生的住宿与伙食费用由员工自行承担，且延期天数不得超过两天。\n\n出差行程变更的，应当在变更后一个工作日内更新系统中的出差记录。\n\n## 七、费用报销与结算\n\n出差结束后应当在十个工作日内提交差旅费报销申请。报销时应当附出差申"
+        },
+        {
+          "rank": 3,
+          "file_name": "attendance_policy.md",
+          "chunk_index": 1,
+          "score": 0.48091268,
+          "snippet": "## 三、上下班打卡规则\n\n员工须通过公司统一的门禁考勤系统完成上下班打卡。每个工作日应当完成两次打卡，即上班打卡与下班打卡。忘记打卡的员工应在次日内通过考勤系统提交《忘打卡补登申请》，每月补登次数上限为三次。超过三次的部分，每次扣减当月全勤奖的百分之五十。\n\n外勤人员因公外出无法打卡的，应在出行前通过系统提交外勤申请，由直属主管审批。外勤申请应当在事前提交，遇紧急情况确实无法事前提交的，应当在外出当日二十四时前补交，并在申请说明中注明紧急事由。\n\n## 四、迟到、早退与旷工\n\n员工在上午九时零"
+        },
+        {
+          "rank": 4,
+          "file_name": "attendance_policy.md",
+          "chunk_index": 3,
+          "score": 0.4713897999999999,
+          "snippet": "工作日加班的，按一倍时长安排调休；休息日加班的，按一点五倍时长安排调休；法定节假日加班的，按两倍时长安排调休或者发放加班工资。调休应当在加班发生之日起六个月内使用完毕，逾期作废，不予折算工资。\n\n员工离职时尚未使用的调休，按离职前十二个月的日平均工资折算，在最后一个工资发放日一并结清。\n\n## 七、考勤异常处理与申诉\n\n员工对考勤记录有异议的，可在记录产生之日起十个工作日内通过系统提交申诉。人力资源部应当在收到申诉后五个工作日内完成核查并答复。申诉期间，原考勤记录继续生效。\n\n考勤数据由人力资源"
+        },
+        {
+          "rank": 5,
+          "file_name": "leave_policy.md",
+          "chunk_index": 0,
+          "score": 0.464582905,
+          "snippet": "# 休假与年假制度\n\n## 一、总则\n\n为保障员工休息休假权利，规范各类假期的申请与审批流程，特制定本制度。本制度适用于公司全体正式员工。试用期员工享有法定假期，年假部分按本制度第五节的规定执行。\n\n各类假期的申请均应通过考勤系统提交，并附相应证明材料。未提供证明材料的申请，审批人有权驳回。\n\n## 二、年度带薪年假\n\n员工在公司连续工作满十二个月后，开始享有带薪年假。年假天数根据员工累计工作年限确定，具体标准如下：\n\n累计工作年限满一年不满十年的，年假为五天；累计工作年限满十年不满二十年的，年"
+        }
+      ],
+      "hybrid_rerank_top5": [
+        {
+          "rank": 1,
+          "file_name": "attendance_policy.md",
+          "chunk_index": 1,
+          "score": 1.0,
+          "snippet": "## 三、上下班打卡规则\n\n员工须通过公司统一的门禁考勤系统完成上下班打卡。每个工作日应当完成两次打卡，即上班打卡与下班打卡。忘记打卡的员工应在次日内通过考勤系统提交《忘打卡补登申请》，每月补登次数上限为三次。超过三次的部分，每次扣减当月全勤奖的百分之五十。\n\n外勤人员因公外出无法打卡的，应在出行前通过系统提交外勤申请，由直属主管审批。外勤申请应当在事前提交，遇紧急情况确实无法事前提交的，应当在外出当日二十四时前补交，并在申请说明中注明紧急事由。\n\n## 四、迟到、早退与旷工\n\n员工在上午九时零"
+        },
+        {
+          "rank": 2,
+          "file_name": "attendance_policy.md",
+          "chunk_index": 2,
+          "score": 0.8098802081235291,
+          "snippet": "有下列情形之一的，认定为旷工：未办理请假手续擅自不到岗；请假未获批准仍不到岗；假期届满未续假且未到岗；伪造请假证明材料。旷工半日扣发一日工资，旷工一日扣发三日工资。连续旷工三个工作日或者年度累计旷工五个工作日的，公司有权解除劳动合同且不支付经济补偿。\n\n## 五、请假类型与审批权限\n\n员工请假应当提前在考勤系统提交申请，经审批通过后方可休假。紧急情况可先电话报备，事后一个工作日内补办手续。\n\n请假审批权限如下：一日以内的请假，由直属主管审批；一日以上三日以内的，由部门负责人审批；三日以上七日以内"
+        },
+        {
+          "rank": 3,
+          "file_name": "attendance_policy.md",
+          "chunk_index": 3,
+          "score": 0.5615738168375783,
+          "snippet": "工作日加班的，按一倍时长安排调休；休息日加班的，按一点五倍时长安排调休；法定节假日加班的，按两倍时长安排调休或者发放加班工资。调休应当在加班发生之日起六个月内使用完毕，逾期作废，不予折算工资。\n\n员工离职时尚未使用的调休，按离职前十二个月的日平均工资折算，在最后一个工资发放日一并结清。\n\n## 七、考勤异常处理与申诉\n\n员工对考勤记录有异议的，可在记录产生之日起十个工作日内通过系统提交申诉。人力资源部应当在收到申诉后五个工作日内完成核查并答复。申诉期间，原考勤记录继续生效。\n\n考勤数据由人力资源"
+        },
+        {
+          "rank": 4,
+          "file_name": "travel_policy.md",
+          "chunk_index": 2,
+          "score": 0.33711410872853087,
+          "snippet": "当日往返的出差，伙食补贴减半发放。出差期间由公司统一安排用餐的，相应餐次的补贴不再发放。\n\n## 六、出差延期与变更\n\n因工作需要延长出差时间的，应当在原定返回日期前提交延期申请，经原审批人批准后生效。延期期间的差旅费用按本制度标准执行。\n\n因个人原因延长出差时间的，延期期间产生的住宿与伙食费用由员工自行承担，且延期天数不得超过两天。\n\n出差行程变更的，应当在变更后一个工作日内更新系统中的出差记录。\n\n## 七、费用报销与结算\n\n出差结束后应当在十个工作日内提交差旅费报销申请。报销时应当附出差申"
+        },
+        {
+          "rank": 5,
+          "file_name": "promotion_policy.md",
+          "chunk_index": 3,
+          "score": 0.30643273354721845,
+          "snippet": "连续两次考核不合格的员工，公司将启动绩效改进计划，改进期为三个月。改进期届满仍不合格的，公司有权调整岗位或解除劳动合同。\n\n## 八、申诉\n\n员工对晋升评审结果有异议的，可在结果公布之日起五个工作日内向人力资源部提交书面申诉。人力资源部应当在十个工作日内组织复核并答复。复核期间不影响评审结果的执行。\n\n## 九、附则\n\n本制度由人力资源部负责解释。职级体系的具体能力标准由各序列另行规定，与本制度配套执行。"
+        }
+      ]
+    },
+    {
+      "case": "all_three_correct",
+      "id": "q002",
+      "question": "忘打卡一个月最多能补几次？",
+      "ground_truth": {
+        "relevant_files": [
+          "attendance_policy.md"
+        ],
+        "relevant_anchors": [
+          "每月补登次数上限为三次"
+        ]
+      },
+      "vector_top5": [
+        {
+          "rank": 1,
+          "file_name": "attendance_policy.md",
+          "chunk_index": 1,
+          "score": 0.62327635,
+          "snippet": "## 三、上下班打卡规则\n\n员工须通过公司统一的门禁考勤系统完成上下班打卡。每个工作日应当完成两次打卡，即上班打卡与下班打卡。忘记打卡的员工应在次日内通过考勤系统提交《忘打卡补登申请》，每月补登次数上限为三次。超过三次的部分，每次扣减当月全勤奖的百分之五十。\n\n外勤人员因公外出无法打卡的，应在出行前通过系统提交外勤申请，由直属主管审批。外勤申请应当在事前提交，遇紧急情况确实无法事前提交的，应当在外出当日二十四时前补交，并在申请说明中注明紧急事由。\n\n## 四、迟到、早退与旷工\n\n员工在上午九时零"
+        },
+        {
+          "rank": 2,
+          "file_name": "invoice_policy.md",
+          "chunk_index": 1,
+          "score": 0.47887897,
+          "snippet": "发票开具一般在申请审批通过后三个工作日内完成。月末最后两个工作日的开票申请，可能顺延至次月处理。\n\n已开具的发票需要作废或红冲的，应当收回原发票全部联次，并说明作废原因。跨月发票只能开具红字发票冲销。\n\n## 四、进项发票取得\n\n员工在采购或发生费用支出时，应当主动向对方索取发票。发票抬头必须为公司全称，纳税人识别号必须准确。\n\n取得增值税专用发票的，应当在开票之日起三百六十日内完成认证抵扣。超过期限未认证的，进项税额无法抵扣，由此造成的损失由责任人承担。\n\n发票内容应当与实际交易一致。不得要求"
+        },
+        {
+          "rank": 3,
+          "file_name": "attendance_policy.md",
+          "chunk_index": 3,
+          "score": 0.45569485,
+          "snippet": "工作日加班的，按一倍时长安排调休；休息日加班的，按一点五倍时长安排调休；法定节假日加班的，按两倍时长安排调休或者发放加班工资。调休应当在加班发生之日起六个月内使用完毕，逾期作废，不予折算工资。\n\n员工离职时尚未使用的调休，按离职前十二个月的日平均工资折算，在最后一个工资发放日一并结清。\n\n## 七、考勤异常处理与申诉\n\n员工对考勤记录有异议的，可在记录产生之日起十个工作日内通过系统提交申诉。人力资源部应当在收到申诉后五个工作日内完成核查并答复。申诉期间，原考勤记录继续生效。\n\n考勤数据由人力资源"
+        },
+        {
+          "rank": 4,
+          "file_name": "invoice_policy.md",
+          "chunk_index": 2,
+          "score": 0.3981073,
+          "snippet": "## 六、发票保管\n\n空白发票由财务部指定专人保管，存放于保险柜中。空白发票的领用应当登记，登记内容包括领用日期、领用人、发票号码区间及用途。\n\n已开具的发票存根联与记账联应当按照会计档案管理规定保存，保存期限为十年。\n\n发票丢失的，应当及时向财务部报告。丢失增值税专用发票的，按规定办理挂失与补办手续。因保管不善导致发票丢失并造成损失的，追究相关人员责任。\n\n## 七、电子发票管理\n\n电子发票与纸质发票具有同等法律效力。员工取得电子发票的，应当提交原始电子文件，不接受截图或自行打印件。\n\n电子发"
+        },
+        {
+          "rank": 5,
+          "file_name": "reimbursement_policy.md",
+          "chunk_index": 2,
+          "score": 0.39532292,
+          "snippet": "## 六、报销时限\n\n费用发生后应当在三十日内提交报销申请。跨年度费用应当在次年一月十五日前完成报销，逾期不予受理。\n\n因发票未及时取得等客观原因导致逾期的，应当在申请中说明情况，经财务负责人批准后可延期，延期最长不超过三十日。\n\n## 七、报销流程\n\n报销流程为：申请人在系统中填写报销单并上传票据、直属主管审批、部门负责人审批（如适用）、财务部审核、出纳付款。\n\n报销单填写应当准确完整，包括费用类型、发生日期、事由、金额及承担部门。事由描述应当具体，不得使用\"其他\"、\"杂费\"等模糊表述。\n\n报"
+        }
+      ],
+      "hybrid_top5": [
+        {
+          "rank": 1,
+          "file_name": "attendance_policy.md",
+          "chunk_index": 1,
+          "score": 0.586293445,
+          "snippet": "## 三、上下班打卡规则\n\n员工须通过公司统一的门禁考勤系统完成上下班打卡。每个工作日应当完成两次打卡，即上班打卡与下班打卡。忘记打卡的员工应在次日内通过考勤系统提交《忘打卡补登申请》，每月补登次数上限为三次。超过三次的部分，每次扣减当月全勤奖的百分之五十。\n\n外勤人员因公外出无法打卡的，应在出行前通过系统提交外勤申请，由直属主管审批。外勤申请应当在事前提交，遇紧急情况确实无法事前提交的，应当在外出当日二十四时前补交，并在申请说明中注明紧急事由。\n\n## 四、迟到、早退与旷工\n\n员工在上午九时零"
+        },
+        {
+          "rank": 2,
+          "file_name": "attendance_policy.md",
+          "chunk_index": 3,
+          "score": 0.468986395,
+          "snippet": "工作日加班的，按一倍时长安排调休；休息日加班的，按一点五倍时长安排调休；法定节假日加班的，按两倍时长安排调休或者发放加班工资。调休应当在加班发生之日起六个月内使用完毕，逾期作废，不予折算工资。\n\n员工离职时尚未使用的调休，按离职前十二个月的日平均工资折算，在最后一个工资发放日一并结清。\n\n## 七、考勤异常处理与申诉\n\n员工对考勤记录有异议的，可在记录产生之日起十个工作日内通过系统提交申诉。人力资源部应当在收到申诉后五个工作日内完成核查并答复。申诉期间，原考勤记录继续生效。\n\n考勤数据由人力资源"
+        },
+        {
+          "rank": 3,
+          "file_name": "attendance_policy.md",
+          "chunk_index": 2,
+          "score": 0.40458433,
+          "snippet": "有下列情形之一的，认定为旷工：未办理请假手续擅自不到岗；请假未获批准仍不到岗；假期届满未续假且未到岗；伪造请假证明材料。旷工半日扣发一日工资，旷工一日扣发三日工资。连续旷工三个工作日或者年度累计旷工五个工作日的，公司有权解除劳动合同且不支付经济补偿。\n\n## 五、请假类型与审批权限\n\n员工请假应当提前在考勤系统提交申请，经审批通过后方可休假。紧急情况可先电话报备，事后一个工作日内补办手续。\n\n请假审批权限如下：一日以内的请假，由直属主管审批；一日以上三日以内的，由部门负责人审批；三日以上七日以内"
+        },
+        {
+          "rank": 4,
+          "file_name": "onboarding_guide.md",
+          "chunk_index": 1,
+          "score": 0.402235249,
+          "snippet": "新员工在首日应当完成工位分配、办公设备领取及内部系统账号开通。系统账号包括邮箱、办公协作平台、代码仓库（技术岗位）及财务报销系统。账号开通一般在入职后一个工作日内完成。\n\n## 四、试用期管理\n\n劳动合同期限三年及以上的，试用期为六个月；合同期限一年以上不满三年的，试用期为两个月；合同期限三个月以上不满一年的，试用期为一个月。\n\n试用期员工应当在入职后第十五个工作日前与直属主管完成第一次绩效沟通，在试用期届满前十个工作日完成转正评估。转正评估采用主管评价与同事互评相结合的方式，主管评价权重为百分"
+        },
+        {
+          "rank": 5,
+          "file_name": "leave_policy.md",
+          "chunk_index": 1,
+          "score": 0.39976539,
+          "snippet": "## 三、病假\n\n员工因病需要休息或治疗的，可申请病假。病假在三日以内的，提交申请时说明病情即可。病假超过三日的，应当提供二级及以上医疗机构出具的病假证明。\n\n病假期间工资按下列标准发放：病假在三日以内的，按正常工资发放；病假超过三日不满一个月的，按正常工资的百分之七十发放；病假超过一个月的，按当地最低工资标准的百分之八十发放。\n\n员工年度累计病假超过三十日的，公司有权要求其进行复工体检，体检合格后方可返岗。\n\n## 四、事假\n\n员工因个人事务需要请假的，可申请事假。事假为无薪假期，按日扣减工资"
+        }
+      ],
+      "hybrid_rerank_top5": [
+        {
+          "rank": 1,
+          "file_name": "invoice_policy.md",
+          "chunk_index": 1,
+          "score": 1.0,
+          "snippet": "发票开具一般在申请审批通过后三个工作日内完成。月末最后两个工作日的开票申请，可能顺延至次月处理。\n\n已开具的发票需要作废或红冲的，应当收回原发票全部联次，并说明作废原因。跨月发票只能开具红字发票冲销。\n\n## 四、进项发票取得\n\n员工在采购或发生费用支出时，应当主动向对方索取发票。发票抬头必须为公司全称，纳税人识别号必须准确。\n\n取得增值税专用发票的，应当在开票之日起三百六十日内完成认证抵扣。超过期限未认证的，进项税额无法抵扣，由此造成的损失由责任人承担。\n\n发票内容应当与实际交易一致。不得要求"
+        },
+        {
+          "rank": 2,
+          "file_name": "attendance_policy.md",
+          "chunk_index": 3,
+          "score": 0.9723250425103036,
+          "snippet": "工作日加班的，按一倍时长安排调休；休息日加班的，按一点五倍时长安排调休；法定节假日加班的，按两倍时长安排调休或者发放加班工资。调休应当在加班发生之日起六个月内使用完毕，逾期作废，不予折算工资。\n\n员工离职时尚未使用的调休，按离职前十二个月的日平均工资折算，在最后一个工资发放日一并结清。\n\n## 七、考勤异常处理与申诉\n\n员工对考勤记录有异议的，可在记录产生之日起十个工作日内通过系统提交申诉。人力资源部应当在收到申诉后五个工作日内完成核查并答复。申诉期间，原考勤记录继续生效。\n\n考勤数据由人力资源"
+        },
+        {
+          "rank": 3,
+          "file_name": "attendance_policy.md",
+          "chunk_index": 2,
+          "score": 0.7450135471550974,
+          "snippet": "有下列情形之一的，认定为旷工：未办理请假手续擅自不到岗；请假未获批准仍不到岗；假期届满未续假且未到岗；伪造请假证明材料。旷工半日扣发一日工资，旷工一日扣发三日工资。连续旷工三个工作日或者年度累计旷工五个工作日的，公司有权解除劳动合同且不支付经济补偿。\n\n## 五、请假类型与审批权限\n\n员工请假应当提前在考勤系统提交申请，经审批通过后方可休假。紧急情况可先电话报备，事后一个工作日内补办手续。\n\n请假审批权限如下：一日以内的请假，由直属主管审批；一日以上三日以内的，由部门负责人审批；三日以上七日以内"
+        },
+        {
+          "rank": 4,
+          "file_name": "attendance_policy.md",
+          "chunk_index": 1,
+          "score": 0.6647004129132882,
+          "snippet": "## 三、上下班打卡规则\n\n员工须通过公司统一的门禁考勤系统完成上下班打卡。每个工作日应当完成两次打卡，即上班打卡与下班打卡。忘记打卡的员工应在次日内通过考勤系统提交《忘打卡补登申请》，每月补登次数上限为三次。超过三次的部分，每次扣减当月全勤奖的百分之五十。\n\n外勤人员因公外出无法打卡的，应在出行前通过系统提交外勤申请，由直属主管审批。外勤申请应当在事前提交，遇紧急情况确实无法事前提交的，应当在外出当日二十四时前补交，并在申请说明中注明紧急事由。\n\n## 四、迟到、早退与旷工\n\n员工在上午九时零"
+        },
+        {
+          "rank": 5,
+          "file_name": "git_workflow.md",
+          "chunk_index": 1,
+          "score": 0.5486040239242067,
+          "snippet": "## 三、分支生命周期\n\n功能分支的生命周期原则上不超过十个工作日。超过十个工作日未合并的分支，应当评估是否拆分需求。\n\n功能分支合并后应当删除远端分支。长期未更新的分支（超过三十天无提交）将由仓库管理员清理。\n\n发布分支从 develop 切出，用于版本发布前的冻结与回归。发布分支存在期间，develop 分支继续接收下一个版本的功能开发。\n\n## 四、提交规范\n\n提交信息采用约定式提交格式，结构为：类型(范围): 简述。\n\n类型包括：feat 表示新增功能，fix 表示缺陷修复，docs 表"
+        }
+      ]
+    },
+    {
+      "case": "all_three_correct",
+      "id": "q004",
+      "question": "加班之后给的调休，最晚什么时候得用完？",
+      "ground_truth": {
+        "relevant_files": [
+          "attendance_policy.md"
+        ],
+        "relevant_anchors": [
+          "六个月内使用完毕"
+        ]
+      },
+      "vector_top5": [
+        {
+          "rank": 1,
+          "file_name": "attendance_policy.md",
+          "chunk_index": 3,
+          "score": 0.8302905,
+          "snippet": "工作日加班的，按一倍时长安排调休；休息日加班的，按一点五倍时长安排调休；法定节假日加班的，按两倍时长安排调休或者发放加班工资。调休应当在加班发生之日起六个月内使用完毕，逾期作废，不予折算工资。\n\n员工离职时尚未使用的调休，按离职前十二个月的日平均工资折算，在最后一个工资发放日一并结清。\n\n## 七、考勤异常处理与申诉\n\n员工对考勤记录有异议的，可在记录产生之日起十个工作日内通过系统提交申诉。人力资源部应当在收到申诉后五个工作日内完成核查并答复。申诉期间，原考勤记录继续生效。\n\n考勤数据由人力资源"
+        },
+        {
+          "rank": 2,
+          "file_name": "attendance_policy.md",
+          "chunk_index": 2,
+          "score": 0.63902843,
+          "snippet": "有下列情形之一的，认定为旷工：未办理请假手续擅自不到岗；请假未获批准仍不到岗；假期届满未续假且未到岗；伪造请假证明材料。旷工半日扣发一日工资，旷工一日扣发三日工资。连续旷工三个工作日或者年度累计旷工五个工作日的，公司有权解除劳动合同且不支付经济补偿。\n\n## 五、请假类型与审批权限\n\n员工请假应当提前在考勤系统提交申请，经审批通过后方可休假。紧急情况可先电话报备，事后一个工作日内补办手续。\n\n请假审批权限如下：一日以内的请假，由直属主管审批；一日以上三日以内的，由部门负责人审批；三日以上七日以内"
+        },
+        {
+          "rank": 3,
+          "file_name": "attendance_policy.md",
+          "chunk_index": 1,
+          "score": 0.6095222,
+          "snippet": "## 三、上下班打卡规则\n\n员工须通过公司统一的门禁考勤系统完成上下班打卡。每个工作日应当完成两次打卡，即上班打卡与下班打卡。忘记打卡的员工应在次日内通过考勤系统提交《忘打卡补登申请》，每月补登次数上限为三次。超过三次的部分，每次扣减当月全勤奖的百分之五十。\n\n外勤人员因公外出无法打卡的，应在出行前通过系统提交外勤申请，由直属主管审批。外勤申请应当在事前提交，遇紧急情况确实无法事前提交的，应当在外出当日二十四时前补交，并在申请说明中注明紧急事由。\n\n## 四、迟到、早退与旷工\n\n员工在上午九时零"
+        },
+        {
+          "rank": 4,
+          "file_name": "onboarding_guide.md",
+          "chunk_index": 1,
+          "score": 0.6070907,
+          "snippet": "新员工在首日应当完成工位分配、办公设备领取及内部系统账号开通。系统账号包括邮箱、办公协作平台、代码仓库（技术岗位）及财务报销系统。账号开通一般在入职后一个工作日内完成。\n\n## 四、试用期管理\n\n劳动合同期限三年及以上的，试用期为六个月；合同期限一年以上不满三年的，试用期为两个月；合同期限三个月以上不满一年的，试用期为一个月。\n\n试用期员工应当在入职后第十五个工作日前与直属主管完成第一次绩效沟通，在试用期届满前十个工作日完成转正评估。转正评估采用主管评价与同事互评相结合的方式，主管评价权重为百分"
+        },
+        {
+          "rank": 5,
+          "file_name": "leave_policy.md",
+          "chunk_index": 1,
+          "score": 0.5976738,
+          "snippet": "## 三、病假\n\n员工因病需要休息或治疗的，可申请病假。病假在三日以内的，提交申请时说明病情即可。病假超过三日的，应当提供二级及以上医疗机构出具的病假证明。\n\n病假期间工资按下列标准发放：病假在三日以内的，按正常工资发放；病假超过三日不满一个月的，按正常工资的百分之七十发放；病假超过一个月的，按当地最低工资标准的百分之八十发放。\n\n员工年度累计病假超过三十日的，公司有权要求其进行复工体检，体检合格后方可返岗。\n\n## 四、事假\n\n员工因个人事务需要请假的，可申请事假。事假为无薪假期，按日扣减工资"
+        }
+      ],
+      "hybrid_top5": [
+        {
+          "rank": 1,
+          "file_name": "attendance_policy.md",
+          "chunk_index": 3,
+          "score": 0.73120335,
+          "snippet": "工作日加班的，按一倍时长安排调休；休息日加班的，按一点五倍时长安排调休；法定节假日加班的，按两倍时长安排调休或者发放加班工资。调休应当在加班发生之日起六个月内使用完毕，逾期作废，不予折算工资。\n\n员工离职时尚未使用的调休，按离职前十二个月的日平均工资折算，在最后一个工资发放日一并结清。\n\n## 七、考勤异常处理与申诉\n\n员工对考勤记录有异议的，可在记录产生之日起十个工作日内通过系统提交申诉。人力资源部应当在收到申诉后五个工作日内完成核查并答复。申诉期间，原考勤记录继续生效。\n\n考勤数据由人力资源"
+        },
+        {
+          "rank": 2,
+          "file_name": "attendance_policy.md",
+          "chunk_index": 2,
+          "score": 0.597319901,
+          "snippet": "有下列情形之一的，认定为旷工：未办理请假手续擅自不到岗；请假未获批准仍不到岗；假期届满未续假且未到岗；伪造请假证明材料。旷工半日扣发一日工资，旷工一日扣发三日工资。连续旷工三个工作日或者年度累计旷工五个工作日的，公司有权解除劳动合同且不支付经济补偿。\n\n## 五、请假类型与审批权限\n\n员工请假应当提前在考勤系统提交申请，经审批通过后方可休假。紧急情况可先电话报备，事后一个工作日内补办手续。\n\n请假审批权限如下：一日以内的请假，由直属主管审批；一日以上三日以内的，由部门负责人审批；三日以上七日以内"
+        },
+        {
+          "rank": 3,
+          "file_name": "attendance_policy.md",
+          "chunk_index": 1,
+          "score": 0.57666554,
+          "snippet": "## 三、上下班打卡规则\n\n员工须通过公司统一的门禁考勤系统完成上下班打卡。每个工作日应当完成两次打卡，即上班打卡与下班打卡。忘记打卡的员工应在次日内通过考勤系统提交《忘打卡补登申请》，每月补登次数上限为三次。超过三次的部分，每次扣减当月全勤奖的百分之五十。\n\n外勤人员因公外出无法打卡的，应在出行前通过系统提交外勤申请，由直属主管审批。外勤申请应当在事前提交，遇紧急情况确实无法事前提交的，应当在外出当日二十四时前补交，并在申请说明中注明紧急事由。\n\n## 四、迟到、早退与旷工\n\n员工在上午九时零"
+        },
+        {
+          "rank": 4,
+          "file_name": "leave_policy.md",
+          "chunk_index": 1,
+          "score": 0.56837166,
+          "snippet": "## 三、病假\n\n员工因病需要休息或治疗的，可申请病假。病假在三日以内的，提交申请时说明病情即可。病假超过三日的，应当提供二级及以上医疗机构出具的病假证明。\n\n病假期间工资按下列标准发放：病假在三日以内的，按正常工资发放；病假超过三日不满一个月的，按正常工资的百分之七十发放；病假超过一个月的，按当地最低工资标准的百分之八十发放。\n\n员工年度累计病假超过三十日的，公司有权要求其进行复工体检，体检合格后方可返岗。\n\n## 四、事假\n\n员工因个人事务需要请假的，可申请事假。事假为无薪假期，按日扣减工资"
+        },
+        {
+          "rank": 5,
+          "file_name": "travel_policy.md",
+          "chunk_index": 2,
+          "score": 0.5567364,
+          "snippet": "当日往返的出差，伙食补贴减半发放。出差期间由公司统一安排用餐的，相应餐次的补贴不再发放。\n\n## 六、出差延期与变更\n\n因工作需要延长出差时间的，应当在原定返回日期前提交延期申请，经原审批人批准后生效。延期期间的差旅费用按本制度标准执行。\n\n因个人原因延长出差时间的，延期期间产生的住宿与伙食费用由员工自行承担，且延期天数不得超过两天。\n\n出差行程变更的，应当在变更后一个工作日内更新系统中的出差记录。\n\n## 七、费用报销与结算\n\n出差结束后应当在十个工作日内提交差旅费报销申请。报销时应当附出差申"
+        }
+      ],
+      "hybrid_rerank_top5": [
+        {
+          "rank": 1,
+          "file_name": "attendance_policy.md",
+          "chunk_index": 2,
+          "score": 1.0,
+          "snippet": "有下列情形之一的，认定为旷工：未办理请假手续擅自不到岗；请假未获批准仍不到岗；假期届满未续假且未到岗；伪造请假证明材料。旷工半日扣发一日工资，旷工一日扣发三日工资。连续旷工三个工作日或者年度累计旷工五个工作日的，公司有权解除劳动合同且不支付经济补偿。\n\n## 五、请假类型与审批权限\n\n员工请假应当提前在考勤系统提交申请，经审批通过后方可休假。紧急情况可先电话报备，事后一个工作日内补办手续。\n\n请假审批权限如下：一日以内的请假，由直属主管审批；一日以上三日以内的，由部门负责人审批；三日以上七日以内"
+        },
+        {
+          "rank": 2,
+          "file_name": "attendance_policy.md",
+          "chunk_index": 3,
+          "score": 0.9693106317995425,
+          "snippet": "工作日加班的，按一倍时长安排调休；休息日加班的，按一点五倍时长安排调休；法定节假日加班的，按两倍时长安排调休或者发放加班工资。调休应当在加班发生之日起六个月内使用完毕，逾期作废，不予折算工资。\n\n员工离职时尚未使用的调休，按离职前十二个月的日平均工资折算，在最后一个工资发放日一并结清。\n\n## 七、考勤异常处理与申诉\n\n员工对考勤记录有异议的，可在记录产生之日起十个工作日内通过系统提交申诉。人力资源部应当在收到申诉后五个工作日内完成核查并答复。申诉期间，原考勤记录继续生效。\n\n考勤数据由人力资源"
+        },
+        {
+          "rank": 3,
+          "file_name": "attendance_policy.md",
+          "chunk_index": 1,
+          "score": 0.6297500322725063,
+          "snippet": "## 三、上下班打卡规则\n\n员工须通过公司统一的门禁考勤系统完成上下班打卡。每个工作日应当完成两次打卡，即上班打卡与下班打卡。忘记打卡的员工应在次日内通过考勤系统提交《忘打卡补登申请》，每月补登次数上限为三次。超过三次的部分，每次扣减当月全勤奖的百分之五十。\n\n外勤人员因公外出无法打卡的，应在出行前通过系统提交外勤申请，由直属主管审批。外勤申请应当在事前提交，遇紧急情况确实无法事前提交的，应当在外出当日二十四时前补交，并在申请说明中注明紧急事由。\n\n## 四、迟到、早退与旷工\n\n员工在上午九时零"
+        },
+        {
+          "rank": 4,
+          "file_name": "leave_policy.md",
+          "chunk_index": 2,
+          "score": 0.6290024087649381,
+          "snippet": "男性员工配偶生育的，享受陪产假十五天。陪产假应当在配偶分娩之日起三个月内使用完毕。\n\n女性员工怀孕未满四个月流产的，享受十五天产假；怀孕满四个月流产的，享受四十二天产假。\n\n## 六、丧假与工伤假\n\n员工的直系亲属（父母、配偶、子女）去世的，可享受丧假三天。员工的祖父母、外祖父母、配偶父母去世的，可享受丧假一天。丧假期间工资照发。\n\n员工因工作遭受事故伤害或者患职业病的，按工伤保险相关规定处理，停工留薪期一般不超过十二个月，伤情严重经批准可适当延长。\n\n## 七、假期申请与审批\n\n各类假期的审批"
+        },
+        {
+          "rank": 5,
+          "file_name": "release_process.md",
+          "chunk_index": 1,
+          "score": 0.6097432756456561,
+          "snippet": "风险评估：对本次发布的风险进行评估，明确风险等级与应对措施。高风险发布应当提前报备。\n\n## 四、发布评审\n\n发布前应当召开发布评审会，参加人员包括产品负责人、研发负责人、测试负责人、运维负责人。\n\n评审会的决议事项包括：是否按计划发布、是否需要延期、发布窗口的具体时间、值守人员安排。\n\n评审会未通过的事项不得发布。评审结论应当记录并留存。\n\n## 五、发布窗口\n\n标准发布窗口为周四晚二十时至二十三时。选择该时段的原因是业务流量较低，且留有充足的验证时间。\n\n禁止在下列时段发布：法定节假日前一个"
+        }
+      ]
+    },
+    {
+      "case": "vector_miss_hybrid_hit",
+      "id": "q011",
+      "question": "入职体检的钱谁先垫，什么时候能报回来？",
+      "ground_truth": {
+        "relevant_files": [
+          "onboarding_guide.md"
+        ],
+        "relevant_anchors": [
+          "由候选人先行垫付",
+          "入职满一个月后凭发票报销"
+        ]
+      },
+      "vector_top5": [
+        {
+          "rank": 1,
+          "file_name": "employee_benefits.md",
+          "chunk_index": 1,
+          "score": 0.6337131,
+          "snippet": "## 四、年度健康体检\n\n公司每年为员工安排一次健康体检，体检时间一般安排在第三季度。体检机构由公司统一选定，员工可在指定机构中自行选择。\n\n员工可自行前往非指定机构体检，费用凭发票报销，报销上限为五百元。体检费用超出部分的，由员工自行承担。\n\n员工因个人原因未在当年度参加体检的，视为放弃，不予折现。新入职员工当年已参加入职体检的，不再重复安排年度体检。\n\n直系亲属可自费参加公司的团体体检套餐，享受团体价格。\n\n## 五、餐饮与交通补贴\n\n公司提供工作日午餐补贴，标准为每工作日二十五元，随工资发"
+        },
+        {
+          "rank": 2,
+          "file_name": "reimbursement_policy.md",
+          "chunk_index": 2,
+          "score": 0.5857676,
+          "snippet": "## 六、报销时限\n\n费用发生后应当在三十日内提交报销申请。跨年度费用应当在次年一月十五日前完成报销，逾期不予受理。\n\n因发票未及时取得等客观原因导致逾期的，应当在申请中说明情况，经财务负责人批准后可延期，延期最长不超过三十日。\n\n## 七、报销流程\n\n报销流程为：申请人在系统中填写报销单并上传票据、直属主管审批、部门负责人审批（如适用）、财务部审核、出纳付款。\n\n报销单填写应当准确完整，包括费用类型、发生日期、事由、金额及承担部门。事由描述应当具体，不得使用\"其他\"、\"杂费\"等模糊表述。\n\n报"
+        },
+        {
+          "rank": 3,
+          "file_name": "reimbursement_policy.md",
+          "chunk_index": 1,
+          "score": 0.5144255,
+          "snippet": "电子发票应当提供原件文件，不接受截图。同一张发票重复报销的，一经查实按严重违纪处理。\n\n确实无法取得发票的特殊支出，应当填写《无票支出说明》，由部门负责人与财务负责人共同签字确认后方可报销，单笔上限为五百元。\n\n## 四、报销标准与限额\n\n办公用品采购单笔不超过两千元的，据实报销。超过两千元的，应当纳入采购流程。\n\n业务招待费按人次控制，人均不超过三百元。单次招待费用超过三千元的，须事前提交招待申请并获得分管副总批准。\n\n通讯费按岗位定额报销：普通员工每月不超过一百元，主管级每月不超过两百元，部"
+        },
+        {
+          "rank": 4,
+          "file_name": "invoice_policy.md",
+          "chunk_index": 1,
+          "score": 0.51436466,
+          "snippet": "发票开具一般在申请审批通过后三个工作日内完成。月末最后两个工作日的开票申请，可能顺延至次月处理。\n\n已开具的发票需要作废或红冲的，应当收回原发票全部联次，并说明作废原因。跨月发票只能开具红字发票冲销。\n\n## 四、进项发票取得\n\n员工在采购或发生费用支出时，应当主动向对方索取发票。发票抬头必须为公司全称，纳税人识别号必须准确。\n\n取得增值税专用发票的，应当在开票之日起三百六十日内完成认证抵扣。超过期限未认证的，进项税额无法抵扣，由此造成的损失由责任人承担。\n\n发票内容应当与实际交易一致。不得要求"
+        },
+        {
+          "rank": 5,
+          "file_name": "employee_benefits.md",
+          "chunk_index": 2,
+          "score": 0.49146578,
+          "snippet": "员工因重大疾病或意外事故导致家庭困难的，可申请困难补助，单次补助上限为两万元，每年申请一次，需由部门负责人与人力资源部共同审核。\n\n## 七、学习与发展福利\n\n公司设立学习基金，员工每年可申请用于参加外部培训、购买专业书籍或考取职业资格证书。学习基金年度额度为每人三千元，凭发票与结业证明报销。\n\n员工考取与岗位相关的职业资格证书的，公司在证书取得当年给予一次性奖励，奖励标准为考试费用的全额，上限为两千元。\n\n员工参加学历提升教育的，可申请弹性工作时间支持，但不提供学费资助。\n\n## 八、团队建设"
+        }
+      ],
+      "hybrid_top5": [
+        {
+          "rank": 1,
+          "file_name": "employee_benefits.md",
+          "chunk_index": 1,
+          "score": 0.5935991700000001,
+          "snippet": "## 四、年度健康体检\n\n公司每年为员工安排一次健康体检，体检时间一般安排在第三季度。体检机构由公司统一选定，员工可在指定机构中自行选择。\n\n员工可自行前往非指定机构体检，费用凭发票报销，报销上限为五百元。体检费用超出部分的，由员工自行承担。\n\n员工因个人原因未在当年度参加体检的，视为放弃，不予折现。新入职员工当年已参加入职体检的，不再重复安排年度体检。\n\n直系亲属可自费参加公司的团体体检套餐，享受团体价格。\n\n## 五、餐饮与交通补贴\n\n公司提供工作日午餐补贴，标准为每工作日二十五元，随工资发"
+        },
+        {
+          "rank": 2,
+          "file_name": "leave_policy.md",
+          "chunk_index": 1,
+          "score": 0.466695435,
+          "snippet": "## 三、病假\n\n员工因病需要休息或治疗的，可申请病假。病假在三日以内的，提交申请时说明病情即可。病假超过三日的，应当提供二级及以上医疗机构出具的病假证明。\n\n病假期间工资按下列标准发放：病假在三日以内的，按正常工资发放；病假超过三日不满一个月的，按正常工资的百分之七十发放；病假超过一个月的，按当地最低工资标准的百分之八十发放。\n\n员工年度累计病假超过三十日的，公司有权要求其进行复工体检，体检合格后方可返岗。\n\n## 四、事假\n\n员工因个人事务需要请假的，可申请事假。事假为无薪假期，按日扣减工资"
+        },
+        {
+          "rank": 3,
+          "file_name": "code_review.md",
+          "chunk_index": 2,
+          "score": 0.445728062,
+          "snippet": "测试：是否补充了对应测试；测试是否覆盖了新增分支。\n\n## 六、评审时限\n\n评审人应当在收到评审请求后一个工作日内给出首次反馈。合并请求的整个评审周期原则上不超过三个工作日。\n\n提交人应当在收到评审意见后两个工作日内响应。超过五个工作日无响应的合并请求，将被标记为待关闭，由提交人确认后关闭或继续。\n\n评审人与提交人对技术方案存在分歧且无法达成一致的，提交架构组裁决。\n\n## 七、评审意见的处理\n\n评审意见分为三类：必须修改、建议修改、仅供讨论。\n\n必须修改的意见，提交人完成修改后应当回复说明并请"
+        },
+        {
+          "rank": 4,
+          "file_name": "attendance_policy.md",
+          "chunk_index": 2,
+          "score": 0.44013414500000003,
+          "snippet": "有下列情形之一的，认定为旷工：未办理请假手续擅自不到岗；请假未获批准仍不到岗；假期届满未续假且未到岗；伪造请假证明材料。旷工半日扣发一日工资，旷工一日扣发三日工资。连续旷工三个工作日或者年度累计旷工五个工作日的，公司有权解除劳动合同且不支付经济补偿。\n\n## 五、请假类型与审批权限\n\n员工请假应当提前在考勤系统提交申请，经审批通过后方可休假。紧急情况可先电话报备，事后一个工作日内补办手续。\n\n请假审批权限如下：一日以内的请假，由直属主管审批；一日以上三日以内的，由部门负责人审批；三日以上七日以内"
+        },
+        {
+          "rank": 5,
+          "file_name": "onboarding_guide.md",
+          "chunk_index": 1,
+          "score": 0.433454171,
+          "snippet": "新员工在首日应当完成工位分配、办公设备领取及内部系统账号开通。系统账号包括邮箱、办公协作平台、代码仓库（技术岗位）及财务报销系统。账号开通一般在入职后一个工作日内完成。\n\n## 四、试用期管理\n\n劳动合同期限三年及以上的，试用期为六个月；合同期限一年以上不满三年的，试用期为两个月；合同期限三个月以上不满一年的，试用期为一个月。\n\n试用期员工应当在入职后第十五个工作日前与直属主管完成第一次绩效沟通，在试用期届满前十个工作日完成转正评估。转正评估采用主管评价与同事互评相结合的方式，主管评价权重为百分"
+        }
+      ],
+      "hybrid_rerank_top5": [
+        {
+          "rank": 1,
+          "file_name": "attendance_policy.md",
+          "chunk_index": 2,
+          "score": 1.0,
+          "snippet": "有下列情形之一的，认定为旷工：未办理请假手续擅自不到岗；请假未获批准仍不到岗；假期届满未续假且未到岗；伪造请假证明材料。旷工半日扣发一日工资，旷工一日扣发三日工资。连续旷工三个工作日或者年度累计旷工五个工作日的，公司有权解除劳动合同且不支付经济补偿。\n\n## 五、请假类型与审批权限\n\n员工请假应当提前在考勤系统提交申请，经审批通过后方可休假。紧急情况可先电话报备，事后一个工作日内补办手续。\n\n请假审批权限如下：一日以内的请假，由直属主管审批；一日以上三日以内的，由部门负责人审批；三日以上七日以内"
+        },
+        {
+          "rank": 2,
+          "file_name": "invoice_policy.md",
+          "chunk_index": 1,
+          "score": 0.7446717880424027,
+          "snippet": "发票开具一般在申请审批通过后三个工作日内完成。月末最后两个工作日的开票申请，可能顺延至次月处理。\n\n已开具的发票需要作废或红冲的，应当收回原发票全部联次，并说明作废原因。跨月发票只能开具红字发票冲销。\n\n## 四、进项发票取得\n\n员工在采购或发生费用支出时，应当主动向对方索取发票。发票抬头必须为公司全称，纳税人识别号必须准确。\n\n取得增值税专用发票的，应当在开票之日起三百六十日内完成认证抵扣。超过期限未认证的，进项税额无法抵扣，由此造成的损失由责任人承担。\n\n发票内容应当与实际交易一致。不得要求"
+        },
+        {
+          "rank": 3,
+          "file_name": "leave_policy.md",
+          "chunk_index": 1,
+          "score": 0.694115379457725,
+          "snippet": "## 三、病假\n\n员工因病需要休息或治疗的，可申请病假。病假在三日以内的，提交申请时说明病情即可。病假超过三日的，应当提供二级及以上医疗机构出具的病假证明。\n\n病假期间工资按下列标准发放：病假在三日以内的，按正常工资发放；病假超过三日不满一个月的，按正常工资的百分之七十发放；病假超过一个月的，按当地最低工资标准的百分之八十发放。\n\n员工年度累计病假超过三十日的，公司有权要求其进行复工体检，体检合格后方可返岗。\n\n## 四、事假\n\n员工因个人事务需要请假的，可申请事假。事假为无薪假期，按日扣减工资"
+        },
+        {
+          "rank": 4,
+          "file_name": "onboarding_guide.md",
+          "chunk_index": 0,
+          "score": 0.6743818835134526,
+          "snippet": "# 新员工入职指南\n\n## 一、适用范围\n\n本指南适用于所有新入职的正式员工、试用期员工及实习生，用于指导入职前后的各项准备工作与流程办理。入职手续由人力资源部统一协调，用人部门配合完成。\n\n## 二、入职前准备\n\n录用通知发出后，候选人应当在入职前三个工作日提交以下材料：身份证原件及复印件、学历学位证书原件及复印件、离职证明、近三个月的银行流水、一寸免冠照片四张。从事财务、法务、安全等岗位的，还应当提供无犯罪记录证明。\n\n人力资源部在收到材料后完成背景核查。核查不通过的，公司有权撤销录用通知。"
+        },
+        {
+          "rank": 5,
+          "file_name": "reimbursement_policy.md",
+          "chunk_index": 2,
+          "score": 0.6071279014374674,
+          "snippet": "## 六、报销时限\n\n费用发生后应当在三十日内提交报销申请。跨年度费用应当在次年一月十五日前完成报销，逾期不予受理。\n\n因发票未及时取得等客观原因导致逾期的，应当在申请中说明情况，经财务负责人批准后可延期，延期最长不超过三十日。\n\n## 七、报销流程\n\n报销流程为：申请人在系统中填写报销单并上传票据、直属主管审批、部门负责人审批（如适用）、财务部审核、出纳付款。\n\n报销单填写应当准确完整，包括费用类型、发生日期、事由、金额及承担部门。事由描述应当具体，不得使用\"其他\"、\"杂费\"等模糊表述。\n\n报"
+        }
+      ]
+    },
+    {
+      "case": "vector_miss_hybrid_hit",
+      "id": "q013",
+      "question": "走得时候办公设备怎么处理，能不能留着自己用？",
+      "ground_truth": {
+        "relevant_files": [
+          "onboarding_guide.md",
+          "device_management.md"
+        ],
+        "relevant_anchors": [
+          "员工离职时应当归还全部设备",
+          "员工离职时应当在最后工作日前归还全部设备"
+        ]
+      },
+      "vector_top5": [
+        {
+          "rank": 1,
+          "file_name": "device_management.md",
+          "chunk_index": 0,
+          "score": 0.5890417,
+          "snippet": "# 办公设备管理制度\n\n## 一、总则\n\n为规范公司办公设备的配置、使用、维护与归还，延长设备使用寿命，控制设备成本，特制定本制度。本制度适用于公司所有固定资产类办公设备，包括笔记本电脑、台式机、显示器、移动设备及外设。\n\n设备属于公司资产，员工在任职期间享有使用权，不享有所有权。\n\n## 二、设备配置标准\n\n不同岗位的设备配置标准如下：\n\n普通职能岗位配置标准笔记本电脑一台，配置要求为处理器不低于四核、内存不低于十六GB、固态硬盘不低于五百GB。显示器一台，尺寸不低于二十四英寸。\n\n研发岗位配"
+        },
+        {
+          "rank": 2,
+          "file_name": "device_management.md",
+          "chunk_index": 1,
+          "score": 0.57007277,
+          "snippet": "员工需要超出标准配置的设备的，应当提交申请，说明业务理由，经部门负责人与信息技术部共同审批。\n\n研发岗位申请的第二台显示器、设计岗位申请的专用设备，纳入部门设备预算管理。\n\n## 四、设备使用规范\n\n员工应当妥善保管公司设备，不得将设备用于与工作无关的高风险用途。不得擅自拆解、改装设备。不得擅自更换设备的核心部件。\n\n设备应当安装公司统一的安全管理软件。禁止卸载或绕过安全管理软件。\n\n设备丢失或被盗的，应当在二十四小时内报告信息技术部与行政部，并配合办理相关手续。因个人疏忽导致设备丢失的，按设备"
+        },
+        {
+          "rank": 3,
+          "file_name": "device_management.md",
+          "chunk_index": 2,
+          "score": 0.40909573,
+          "snippet": "设备发生故障的，应当提交维修申请。在保修期内的设备由厂商提供维修服务，信息技术部负责协调。\n\n超出保修期的设备维修，单次维修费用不超过设备原值百分之二十的，由行政部直接安排；超过百分之二十的，应当评估是否更换新设备。\n\n设备更换后，原设备应当归还行政部，由行政部评估后处置（报废、转让或作为备用机）。\n\n因人为损坏导致的维修费用，由责任人承担。故意损坏设备的，除赔偿外还将受到纪律处分。\n\n## 七、设备归还\n\n员工离职时应当在最后工作日前归还全部设备。归还时由行政部核对设备状态，检查是否完好、附件"
+        },
+        {
+          "rank": 4,
+          "file_name": "deployment_policy.md",
+          "chunk_index": 1,
+          "score": 0.40091795,
+          "snippet": "## 四、生产环境访问\n\n访问生产环境必须通过统一的跳板机，禁止直连生产服务器。\n\n生产环境的登录采用密钥认证加双因素认证。密钥由运维团队统一管理，个人不得私自生成或分发密钥。\n\n特权操作（删除数据、修改配置、重启服务）必须双人在场或经过事后复核。紧急情况下单人操作的，应当在操作后二十四小时内补充复核记录。\n\n所有生产环境的操作全程录屏或记录命令日志，日志保存期限不少于一百八十天。\n\n## 五、发布与部署\n\n部署必须通过公司的持续集成与持续交付流水线执行，禁止手动拷贝文件或者直接在服务器上修改代"
+        },
+        {
+          "rank": 5,
+          "file_name": "device_management.md",
+          "chunk_index": 3,
+          "score": 0.39952305,
+          "snippet": "涉及数据存储的设备报废，必须执行数据擦除流程并留存擦除记录。\n\n## 九、附则\n\n本制度由行政部与信息技术部共同负责解释。本制度与固定资产管理制度配套执行。\n[adjacent chunk context]\n涉及数据存储的设备报废，必须执行数据擦除流程并留存擦除记录。\n\n## 九、附则\n\n本制度由行政部与信息技术部共同负责解释。本制度与固定资产管理制度配套执行。\n员工需要超出标准配置的设备的，应当提交申请，说明业务理由，经部门负责人与信息技术部共同审批。\n\n研发岗位申请的第二台显示器、设计岗位申"
+        }
+      ],
+      "hybrid_top5": [
+        {
+          "rank": 1,
+          "file_name": "device_management.md",
+          "chunk_index": 0,
+          "score": 0.56232919,
+          "snippet": "# 办公设备管理制度\n\n## 一、总则\n\n为规范公司办公设备的配置、使用、维护与归还，延长设备使用寿命，控制设备成本，特制定本制度。本制度适用于公司所有固定资产类办公设备，包括笔记本电脑、台式机、显示器、移动设备及外设。\n\n设备属于公司资产，员工在任职期间享有使用权，不享有所有权。\n\n## 二、设备配置标准\n\n不同岗位的设备配置标准如下：\n\n普通职能岗位配置标准笔记本电脑一台，配置要求为处理器不低于四核、内存不低于十六GB、固态硬盘不低于五百GB。显示器一台，尺寸不低于二十四英寸。\n\n研发岗位配"
+        },
+        {
+          "rank": 2,
+          "file_name": "device_management.md",
+          "chunk_index": 1,
+          "score": 0.549050939,
+          "snippet": "员工需要超出标准配置的设备的，应当提交申请，说明业务理由，经部门负责人与信息技术部共同审批。\n\n研发岗位申请的第二台显示器、设计岗位申请的专用设备，纳入部门设备预算管理。\n\n## 四、设备使用规范\n\n员工应当妥善保管公司设备，不得将设备用于与工作无关的高风险用途。不得擅自拆解、改装设备。不得擅自更换设备的核心部件。\n\n设备应当安装公司统一的安全管理软件。禁止卸载或绕过安全管理软件。\n\n设备丢失或被盗的，应当在二十四小时内报告信息技术部与行政部，并配合办理相关手续。因个人疏忽导致设备丢失的，按设备"
+        },
+        {
+          "rank": 3,
+          "file_name": "device_management.md",
+          "chunk_index": 2,
+          "score": 0.43636701099999997,
+          "snippet": "设备发生故障的，应当提交维修申请。在保修期内的设备由厂商提供维修服务，信息技术部负责协调。\n\n超出保修期的设备维修，单次维修费用不超过设备原值百分之二十的，由行政部直接安排；超过百分之二十的，应当评估是否更换新设备。\n\n设备更换后，原设备应当归还行政部，由行政部评估后处置（报废、转让或作为备用机）。\n\n因人为损坏导致的维修费用，由责任人承担。故意损坏设备的，除赔偿外还将受到纪律处分。\n\n## 七、设备归还\n\n员工离职时应当在最后工作日前归还全部设备。归还时由行政部核对设备状态，检查是否完好、附件"
+        },
+        {
+          "rank": 4,
+          "file_name": "onboarding_guide.md",
+          "chunk_index": 1,
+          "score": 0.39958957100000003,
+          "snippet": "新员工在首日应当完成工位分配、办公设备领取及内部系统账号开通。系统账号包括邮箱、办公协作平台、代码仓库（技术岗位）及财务报销系统。账号开通一般在入职后一个工作日内完成。\n\n## 四、试用期管理\n\n劳动合同期限三年及以上的，试用期为六个月；合同期限一年以上不满三年的，试用期为两个月；合同期限三个月以上不满一年的，试用期为一个月。\n\n试用期员工应当在入职后第十五个工作日前与直属主管完成第一次绩效沟通，在试用期届满前十个工作日完成转正评估。转正评估采用主管评价与同事互评相结合的方式，主管评价权重为百分"
+        },
+        {
+          "rank": 5,
+          "file_name": "information_security.md",
+          "chunk_index": 2,
+          "score": 0.39912104000000004,
+          "snippet": "与外部方共享机密级数据，应当采用去标识化或最小化原则，仅提供业务必需的部分。\n\n对外发布包含公司数据的内容（如案例分享、技术博客、公开演讲），应当经过部门负责人与市场部审核，涉及机密级及以上内容的还须经信息安全负责人批准。\n\n## 七、安全事件报告\n\n发现下列情形的，应当在两小时内报告信息技术部与信息安全负责人：数据泄露或疑似泄露；终端感染恶意软件；账号被盗用；收到钓鱼邮件并已点击；设备遗失且设备中存在机密级及以上数据。\n\n报告应当如实说明事件经过，不得隐瞒或延迟报告。隐瞒安全事件的，从重处理。"
+        }
+      ],
+      "hybrid_rerank_top5": [
+        {
+          "rank": 1,
+          "file_name": "device_management.md",
+          "chunk_index": 0,
+          "score": 1.0,
+          "snippet": "# 办公设备管理制度\n\n## 一、总则\n\n为规范公司办公设备的配置、使用、维护与归还，延长设备使用寿命，控制设备成本，特制定本制度。本制度适用于公司所有固定资产类办公设备，包括笔记本电脑、台式机、显示器、移动设备及外设。\n\n设备属于公司资产，员工在任职期间享有使用权，不享有所有权。\n\n## 二、设备配置标准\n\n不同岗位的设备配置标准如下：\n\n普通职能岗位配置标准笔记本电脑一台，配置要求为处理器不低于四核、内存不低于十六GB、固态硬盘不低于五百GB。显示器一台，尺寸不低于二十四英寸。\n\n研发岗位配"
+        },
+        {
+          "rank": 2,
+          "file_name": "password_policy.md",
+          "chunk_index": 2,
+          "score": 0.8378520284455383,
+          "snippet": "特权账号的操作全程留痕，日志保存期限为一年。特权账号禁止用于日常办公，禁止共享使用。\n\n特权操作应当遵循变更管理流程，生产环境的特权操作原则上需要双人在场或事后复核。\n\n## 七、密码存储与传输\n\n任何情况下不得以明文形式记录密码。禁止将密码写在便签、纸质笔记本或未加密的文档中。禁止通过即时通讯工具、邮件发送密码。\n\n如确需传递账号信息，应当使用公司认可的密码管理工具，或采用分渠道传递的方式（如密码通过一种渠道、账号通过另一种渠道）。\n\n推荐使用公司统一采购的密码管理器存储个人账号密码。\n\n##"
+        },
+        {
+          "rank": 3,
+          "file_name": "travel_policy.md",
+          "chunk_index": 0,
+          "score": 0.729716696641914,
+          "snippet": "# 差旅管理制度\n\n## 一、总则\n\n为规范员工因公出差行为，控制差旅费用支出，保障出差人员的工作与生活需要，特制定本制度。本制度适用于公司全体员工的国内及国外出差活动。\n\n出差应当遵循必要、经济、高效的原则。能够通过远程会议完成的事项，原则上不安排出差。\n\n## 二、出差申请与审批\n\n员工出差前应当通过办公系统提交出差申请，注明出差事由、目的地、起止日期、预计费用及同行人员。出差申请经审批通过后方可购票订房。\n\n审批权限如下：出差三日内且目的地为国内的，由部门负责人审批；出差超过三日或者前往国"
+        },
+        {
+          "rank": 4,
+          "file_name": "information_security.md",
+          "chunk_index": 1,
+          "score": 0.6603506765099325,
+          "snippet": "访问权限不得转借、共享或委托他人使用。\n\n## 四、数据存储与传输\n\n机密级及以上的数据必须存储在公司批准的存储位置，包括内部文件服务器与公司统一采购的云盘。\n\n禁止将机密级及以上数据存储在个人设备、个人网盘或未经批准的第三方服务中。\n\n数据传输要求：内部级数据在公司网络内传输即可；机密级数据必须加密传输；绝密级数据必须使用公司指定的加密工具，并采用独立的传输渠道。\n\n禁止通过个人邮箱、个人即时通讯工具传输机密级及以上数据。\n\n## 五、终端与设备安全\n\n办公终端必须启用全盘加密与屏幕锁定。屏幕"
+        },
+        {
+          "rank": 5,
+          "file_name": "device_management.md",
+          "chunk_index": 1,
+          "score": 0.6175685217888649,
+          "snippet": "员工需要超出标准配置的设备的，应当提交申请，说明业务理由，经部门负责人与信息技术部共同审批。\n\n研发岗位申请的第二台显示器、设计岗位申请的专用设备，纳入部门设备预算管理。\n\n## 四、设备使用规范\n\n员工应当妥善保管公司设备，不得将设备用于与工作无关的高风险用途。不得擅自拆解、改装设备。不得擅自更换设备的核心部件。\n\n设备应当安装公司统一的安全管理软件。禁止卸载或绕过安全管理软件。\n\n设备丢失或被盗的，应当在二十四小时内报告信息技术部与行政部，并配合办理相关手续。因个人疏忽导致设备丢失的，按设备"
+        }
+      ]
+    },
+    {
+      "case": "vector_miss_hybrid_hit",
+      "id": "q019",
+      "question": "账单超过多少就要开管理层会议讨论？",
+      "ground_truth": {
+        "relevant_files": [
+          "expense_approval.md"
+        ],
+        "relevant_anchors": [
+          "单笔超过五万元的支出"
+        ]
+      },
+      "vector_top5": [
+        {
+          "rank": 1,
+          "file_name": "reimbursement_policy.md",
+          "chunk_index": 2,
+          "score": 0.62085843,
+          "snippet": "## 六、报销时限\n\n费用发生后应当在三十日内提交报销申请。跨年度费用应当在次年一月十五日前完成报销，逾期不予受理。\n\n因发票未及时取得等客观原因导致逾期的，应当在申请中说明情况，经财务负责人批准后可延期，延期最长不超过三十日。\n\n## 七、报销流程\n\n报销流程为：申请人在系统中填写报销单并上传票据、直属主管审批、部门负责人审批（如适用）、财务部审核、出纳付款。\n\n报销单填写应当准确完整，包括费用类型、发生日期、事由、金额及承担部门。事由描述应当具体，不得使用\"其他\"、\"杂费\"等模糊表述。\n\n报"
+        },
+        {
+          "rank": 2,
+          "file_name": "procurement_policy.md",
+          "chunk_index": 2,
+          "score": 0.5768956,
+          "snippet": "审批权限如下：小额采购由部门负责人审批；一般采购由部门负责人与财务负责人共同审批；重要采购由分管副总审批；重大采购由总经理审批，并提交管理层会议审议。\n\n采购申请与费用报销属于不同环节，已经审批的采购申请不能替代报销时的审批要求。\n\n## 六、合同管理\n\n单笔金额超过一万元的采购应当签订书面合同。合同应当明确标的、数量、价格、交付时间、质量标准、验收方式、付款条件及违约责任。\n\n合同签署前应当经法务部审核。标准范本合同可由采购部门直接签署，非标准合同必须经过法务审核。\n\n合同变更应当以书面补充协"
+        },
+        {
+          "rank": 3,
+          "file_name": "reimbursement_policy.md",
+          "chunk_index": 1,
+          "score": 0.5768453,
+          "snippet": "电子发票应当提供原件文件，不接受截图。同一张发票重复报销的，一经查实按严重违纪处理。\n\n确实无法取得发票的特殊支出，应当填写《无票支出说明》，由部门负责人与财务负责人共同签字确认后方可报销，单笔上限为五百元。\n\n## 四、报销标准与限额\n\n办公用品采购单笔不超过两千元的，据实报销。超过两千元的，应当纳入采购流程。\n\n业务招待费按人次控制，人均不超过三百元。单次招待费用超过三千元的，须事前提交招待申请并获得分管副总批准。\n\n通讯费按岗位定额报销：普通员工每月不超过一百元，主管级每月不超过两百元，部"
+        },
+        {
+          "rank": 4,
+          "file_name": "procurement_policy.md",
+          "chunk_index": 1,
+          "score": 0.5421379,
+          "snippet": "重要采购应当采用竞争性谈判方式，由采购部门组织不少于三家供应商进行谈判，形成谈判记录并留存。\n\n重大采购应当采用公开招标方式。招标文件由采购部门会同需求部门与法务部共同编制，评标委员会由不少于五人组成，其中技术专家不少于两人。\n\n## 四、供应商管理\n\n新供应商准入应当提交营业执照、相关资质证书、近一年财务报表及无重大违法记录承诺函。采购部门应当在收到材料后十个工作日内完成准入评估。\n\n供应商实行年度评价制度，评价维度包括质量、价格、交付及时率、服务响应速度与配合度。评价得分低于七十分的供应商列"
+        },
+        {
+          "rank": 5,
+          "file_name": "promotion_policy.md",
+          "chunk_index": 2,
+          "score": 0.5162635,
+          "snippet": "管理序列晋升主要考察以下维度：团队管理能力、目标达成情况、人才培养成果、跨部门协作能力。\n\n以下情形不予通过晋升评审：申报前十二个月内存在严重违纪记录；申报前两次绩效考核中存在一次不合格；申报材料存在虚假陈述。\n\n## 六、调薪机制\n\n公司调薪分为三类：年度普调、晋升调薪、特别调薪。\n\n年度普调每年一次，在三月份实施，调薪幅度取决于公司经营状况、市场薪酬水平与个人绩效结果。年度普调的覆盖范围由管理层根据当年预算确定，并非全员覆盖。\n\n晋升调薪在晋升生效当月实施，调薪幅度一般为原薪资的百分之十至百"
+        }
+      ],
+      "hybrid_top5": [
+        {
+          "rank": 1,
+          "file_name": "procurement_policy.md",
+          "chunk_index": 2,
+          "score": 0.5538269199999999,
+          "snippet": "审批权限如下：小额采购由部门负责人审批；一般采购由部门负责人与财务负责人共同审批；重要采购由分管副总审批；重大采购由总经理审批，并提交管理层会议审议。\n\n采购申请与费用报销属于不同环节，已经审批的采购申请不能替代报销时的审批要求。\n\n## 六、合同管理\n\n单笔金额超过一万元的采购应当签订书面合同。合同应当明确标的、数量、价格、交付时间、质量标准、验收方式、付款条件及违约责任。\n\n合同签署前应当经法务部审核。标准范本合同可由采购部门直接签署，非标准合同必须经过法务审核。\n\n合同变更应当以书面补充协"
+        },
+        {
+          "rank": 2,
+          "file_name": "reimbursement_policy.md",
+          "chunk_index": 1,
+          "score": 0.55379171,
+          "snippet": "电子发票应当提供原件文件，不接受截图。同一张发票重复报销的，一经查实按严重违纪处理。\n\n确实无法取得发票的特殊支出，应当填写《无票支出说明》，由部门负责人与财务负责人共同签字确认后方可报销，单笔上限为五百元。\n\n## 四、报销标准与限额\n\n办公用品采购单笔不超过两千元的，据实报销。超过两千元的，应当纳入采购流程。\n\n业务招待费按人次控制，人均不超过三百元。单次招待费用超过三千元的，须事前提交招待申请并获得分管副总批准。\n\n通讯费按岗位定额报销：普通员工每月不超过一百元，主管级每月不超过两百元，部"
+        },
+        {
+          "rank": 3,
+          "file_name": "promotion_policy.md",
+          "chunk_index": 2,
+          "score": 0.51138445,
+          "snippet": "管理序列晋升主要考察以下维度：团队管理能力、目标达成情况、人才培养成果、跨部门协作能力。\n\n以下情形不予通过晋升评审：申报前十二个月内存在严重违纪记录；申报前两次绩效考核中存在一次不合格；申报材料存在虚假陈述。\n\n## 六、调薪机制\n\n公司调薪分为三类：年度普调、晋升调薪、特别调薪。\n\n年度普调每年一次，在三月份实施，调薪幅度取决于公司经营状况、市场薪酬水平与个人绩效结果。年度普调的覆盖范围由管理层根据当年预算确定，并非全员覆盖。\n\n晋升调薪在晋升生效当月实施，调薪幅度一般为原薪资的百分之十至百"
+        },
+        {
+          "rank": 4,
+          "file_name": "promotion_policy.md",
+          "chunk_index": 1,
+          "score": 0.49505737,
+          "snippet": "公司每年组织两次晋升评审，分别在四月与十月进行。晋升评审的申报窗口为期十个工作日，逾期不再受理。\n\n员工在同一职级任职满十二个月方可申报晋升，职级跨越原则上一次不超过一级。业绩特别突出的员工，经部门负责人提名并经总经理批准，可跨级晋升，跨级晋升每年全公司不超过三人。\n\n## 四、晋升评审流程\n\n晋升评审分为四个环节：主管提名、材料评审、述职答辩、评审委员会表决。\n\n主管提名环节，由直属主管填写提名表并说明理由。材料评审环节，由人力资源部核对申报资格与业绩材料完整性。述职答辩环节，申报人向评审委员"
+        },
+        {
+          "rank": 5,
+          "file_name": "expense_approval.md",
+          "chunk_index": 1,
+          "score": 0.48788447,
+          "snippet": "## 三、禁止拆分\n\n任何部门或个人不得为规避审批权限而将同一笔业务拆分为多笔申请。下列情形视为拆分：同一供应商同一自然月内的多笔采购；同一出差行程的多次报销；同一合同的多阶段付款在无合理商业理由的情况下人为切分。\n\n经查实属于拆分的，审批无效，相关费用不予报销，并对责任人进行纪律处分。\n\n## 四、特殊审批事项\n\n下列事项无论金额大小，均须报总经理审批：对外捐赠与赞助；罚款与滞纳金的支付；涉及诉讼与仲裁的费用；对供应商的预付款超过合同金额百分之三十的部分；员工困难补助与特殊奖励。\n\n下列事项还"
+        }
+      ],
+      "hybrid_rerank_top5": [
+        {
+          "rank": 1,
+          "file_name": "expense_approval.md",
+          "chunk_index": 0,
+          "score": 1.0,
+          "snippet": "# 费用审批权限制度\n\n## 一、总则\n\n为明确各层级管理人员的费用审批权限，提高审批效率，防范资金风险，特制定本制度。本制度适用于公司所有涉及资金支出的审批事项，包括费用报销、采购付款、合同付款、借款及预付款。\n\n费用审批实行分级授权、逐级审批、超权限上报的原则。审批人应当在授权范围内行使审批权，不得越权审批，也不得将审批权转授他人。\n\n## 二、审批权限总表\n\n费用审批权限按单笔金额划分，具体如下：\n\n单笔金额在一千元以内的，由直属主管审批。\n\n单笔金额在一千元以上五千元以内的，由部门负责人"
+        },
+        {
+          "rank": 2,
+          "file_name": "procurement_policy.md",
+          "chunk_index": 2,
+          "score": 0.7838418791232228,
+          "snippet": "审批权限如下：小额采购由部门负责人审批；一般采购由部门负责人与财务负责人共同审批；重要采购由分管副总审批；重大采购由总经理审批，并提交管理层会议审议。\n\n采购申请与费用报销属于不同环节，已经审批的采购申请不能替代报销时的审批要求。\n\n## 六、合同管理\n\n单笔金额超过一万元的采购应当签订书面合同。合同应当明确标的、数量、价格、交付时间、质量标准、验收方式、付款条件及违约责任。\n\n合同签署前应当经法务部审核。标准范本合同可由采购部门直接签署，非标准合同必须经过法务审核。\n\n合同变更应当以书面补充协"
+        },
+        {
+          "rank": 3,
+          "file_name": "promotion_policy.md",
+          "chunk_index": 2,
+          "score": 0.5985375863784974,
+          "snippet": "管理序列晋升主要考察以下维度：团队管理能力、目标达成情况、人才培养成果、跨部门协作能力。\n\n以下情形不予通过晋升评审：申报前十二个月内存在严重违纪记录；申报前两次绩效考核中存在一次不合格；申报材料存在虚假陈述。\n\n## 六、调薪机制\n\n公司调薪分为三类：年度普调、晋升调薪、特别调薪。\n\n年度普调每年一次，在三月份实施，调薪幅度取决于公司经营状况、市场薪酬水平与个人绩效结果。年度普调的覆盖范围由管理层根据当年预算确定，并非全员覆盖。\n\n晋升调薪在晋升生效当月实施，调薪幅度一般为原薪资的百分之十至百"
+        },
+        {
+          "rank": 4,
+          "file_name": "git_workflow.md",
+          "chunk_index": 1,
+          "score": 0.4849672858040919,
+          "snippet": "## 三、分支生命周期\n\n功能分支的生命周期原则上不超过十个工作日。超过十个工作日未合并的分支，应当评估是否拆分需求。\n\n功能分支合并后应当删除远端分支。长期未更新的分支（超过三十天无提交）将由仓库管理员清理。\n\n发布分支从 develop 切出，用于版本发布前的冻结与回归。发布分支存在期间，develop 分支继续接收下一个版本的功能开发。\n\n## 四、提交规范\n\n提交信息采用约定式提交格式，结构为：类型(范围): 简述。\n\n类型包括：feat 表示新增功能，fix 表示缺陷修复，docs 表"
+        },
+        {
+          "rank": 5,
+          "file_name": "reimbursement_policy.md",
+          "chunk_index": 0,
+          "score": 0.4515086232719308,
+          "snippet": "# 费用报销管理制度\n\n## 一、总则\n\n为规范公司费用报销行为，保证费用支出的真实性与合理性，明确报销流程与审批职责，特制定本制度。本制度适用于公司总部及各分支机构全体员工的费用报销事项。\n\n报销遵循真实性、相关性、合理性、及时性原则。与公司经营无关的个人消费不得报销。\n\n## 二、报销范围\n\n可报销的费用类型包括：差旅费、办公用品费、业务招待费、会议费、培训费、快递费、通讯费、市内交通费、印刷费及其他经批准的经营性支出。\n\n不可报销的费用类型包括：个人生活消费、罚款与滞纳金、非因公的娱乐消费"
+        }
+      ]
+    },
+    {
+      "case": "hybrid_hit_reranker_lift",
+      "id": "q019",
+      "question": "账单超过多少就要开管理层会议讨论？",
+      "ground_truth": {
+        "relevant_files": [
+          "expense_approval.md"
+        ],
+        "relevant_anchors": [
+          "单笔超过五万元的支出"
+        ]
+      },
+      "vector_top5": [
+        {
+          "rank": 1,
+          "file_name": "reimbursement_policy.md",
+          "chunk_index": 2,
+          "score": 0.62085843,
+          "snippet": "## 六、报销时限\n\n费用发生后应当在三十日内提交报销申请。跨年度费用应当在次年一月十五日前完成报销，逾期不予受理。\n\n因发票未及时取得等客观原因导致逾期的，应当在申请中说明情况，经财务负责人批准后可延期，延期最长不超过三十日。\n\n## 七、报销流程\n\n报销流程为：申请人在系统中填写报销单并上传票据、直属主管审批、部门负责人审批（如适用）、财务部审核、出纳付款。\n\n报销单填写应当准确完整，包括费用类型、发生日期、事由、金额及承担部门。事由描述应当具体，不得使用\"其他\"、\"杂费\"等模糊表述。\n\n报"
+        },
+        {
+          "rank": 2,
+          "file_name": "procurement_policy.md",
+          "chunk_index": 2,
+          "score": 0.5768956,
+          "snippet": "审批权限如下：小额采购由部门负责人审批；一般采购由部门负责人与财务负责人共同审批；重要采购由分管副总审批；重大采购由总经理审批，并提交管理层会议审议。\n\n采购申请与费用报销属于不同环节，已经审批的采购申请不能替代报销时的审批要求。\n\n## 六、合同管理\n\n单笔金额超过一万元的采购应当签订书面合同。合同应当明确标的、数量、价格、交付时间、质量标准、验收方式、付款条件及违约责任。\n\n合同签署前应当经法务部审核。标准范本合同可由采购部门直接签署，非标准合同必须经过法务审核。\n\n合同变更应当以书面补充协"
+        },
+        {
+          "rank": 3,
+          "file_name": "reimbursement_policy.md",
+          "chunk_index": 1,
+          "score": 0.5768453,
+          "snippet": "电子发票应当提供原件文件，不接受截图。同一张发票重复报销的，一经查实按严重违纪处理。\n\n确实无法取得发票的特殊支出，应当填写《无票支出说明》，由部门负责人与财务负责人共同签字确认后方可报销，单笔上限为五百元。\n\n## 四、报销标准与限额\n\n办公用品采购单笔不超过两千元的，据实报销。超过两千元的，应当纳入采购流程。\n\n业务招待费按人次控制，人均不超过三百元。单次招待费用超过三千元的，须事前提交招待申请并获得分管副总批准。\n\n通讯费按岗位定额报销：普通员工每月不超过一百元，主管级每月不超过两百元，部"
+        },
+        {
+          "rank": 4,
+          "file_name": "procurement_policy.md",
+          "chunk_index": 1,
+          "score": 0.5421379,
+          "snippet": "重要采购应当采用竞争性谈判方式，由采购部门组织不少于三家供应商进行谈判，形成谈判记录并留存。\n\n重大采购应当采用公开招标方式。招标文件由采购部门会同需求部门与法务部共同编制，评标委员会由不少于五人组成，其中技术专家不少于两人。\n\n## 四、供应商管理\n\n新供应商准入应当提交营业执照、相关资质证书、近一年财务报表及无重大违法记录承诺函。采购部门应当在收到材料后十个工作日内完成准入评估。\n\n供应商实行年度评价制度，评价维度包括质量、价格、交付及时率、服务响应速度与配合度。评价得分低于七十分的供应商列"
+        },
+        {
+          "rank": 5,
+          "file_name": "promotion_policy.md",
+          "chunk_index": 2,
+          "score": 0.5162635,
+          "snippet": "管理序列晋升主要考察以下维度：团队管理能力、目标达成情况、人才培养成果、跨部门协作能力。\n\n以下情形不予通过晋升评审：申报前十二个月内存在严重违纪记录；申报前两次绩效考核中存在一次不合格；申报材料存在虚假陈述。\n\n## 六、调薪机制\n\n公司调薪分为三类：年度普调、晋升调薪、特别调薪。\n\n年度普调每年一次，在三月份实施，调薪幅度取决于公司经营状况、市场薪酬水平与个人绩效结果。年度普调的覆盖范围由管理层根据当年预算确定，并非全员覆盖。\n\n晋升调薪在晋升生效当月实施，调薪幅度一般为原薪资的百分之十至百"
+        }
+      ],
+      "hybrid_top5": [
+        {
+          "rank": 1,
+          "file_name": "procurement_policy.md",
+          "chunk_index": 2,
+          "score": 0.5538269199999999,
+          "snippet": "审批权限如下：小额采购由部门负责人审批；一般采购由部门负责人与财务负责人共同审批；重要采购由分管副总审批；重大采购由总经理审批，并提交管理层会议审议。\n\n采购申请与费用报销属于不同环节，已经审批的采购申请不能替代报销时的审批要求。\n\n## 六、合同管理\n\n单笔金额超过一万元的采购应当签订书面合同。合同应当明确标的、数量、价格、交付时间、质量标准、验收方式、付款条件及违约责任。\n\n合同签署前应当经法务部审核。标准范本合同可由采购部门直接签署，非标准合同必须经过法务审核。\n\n合同变更应当以书面补充协"
+        },
+        {
+          "rank": 2,
+          "file_name": "reimbursement_policy.md",
+          "chunk_index": 1,
+          "score": 0.55379171,
+          "snippet": "电子发票应当提供原件文件，不接受截图。同一张发票重复报销的，一经查实按严重违纪处理。\n\n确实无法取得发票的特殊支出，应当填写《无票支出说明》，由部门负责人与财务负责人共同签字确认后方可报销，单笔上限为五百元。\n\n## 四、报销标准与限额\n\n办公用品采购单笔不超过两千元的，据实报销。超过两千元的，应当纳入采购流程。\n\n业务招待费按人次控制，人均不超过三百元。单次招待费用超过三千元的，须事前提交招待申请并获得分管副总批准。\n\n通讯费按岗位定额报销：普通员工每月不超过一百元，主管级每月不超过两百元，部"
+        },
+        {
+          "rank": 3,
+          "file_name": "promotion_policy.md",
+          "chunk_index": 2,
+          "score": 0.51138445,
+          "snippet": "管理序列晋升主要考察以下维度：团队管理能力、目标达成情况、人才培养成果、跨部门协作能力。\n\n以下情形不予通过晋升评审：申报前十二个月内存在严重违纪记录；申报前两次绩效考核中存在一次不合格；申报材料存在虚假陈述。\n\n## 六、调薪机制\n\n公司调薪分为三类：年度普调、晋升调薪、特别调薪。\n\n年度普调每年一次，在三月份实施，调薪幅度取决于公司经营状况、市场薪酬水平与个人绩效结果。年度普调的覆盖范围由管理层根据当年预算确定，并非全员覆盖。\n\n晋升调薪在晋升生效当月实施，调薪幅度一般为原薪资的百分之十至百"
+        },
+        {
+          "rank": 4,
+          "file_name": "promotion_policy.md",
+          "chunk_index": 1,
+          "score": 0.49505737,
+          "snippet": "公司每年组织两次晋升评审，分别在四月与十月进行。晋升评审的申报窗口为期十个工作日，逾期不再受理。\n\n员工在同一职级任职满十二个月方可申报晋升，职级跨越原则上一次不超过一级。业绩特别突出的员工，经部门负责人提名并经总经理批准，可跨级晋升，跨级晋升每年全公司不超过三人。\n\n## 四、晋升评审流程\n\n晋升评审分为四个环节：主管提名、材料评审、述职答辩、评审委员会表决。\n\n主管提名环节，由直属主管填写提名表并说明理由。材料评审环节，由人力资源部核对申报资格与业绩材料完整性。述职答辩环节，申报人向评审委员"
+        },
+        {
+          "rank": 5,
+          "file_name": "expense_approval.md",
+          "chunk_index": 1,
+          "score": 0.48788447,
+          "snippet": "## 三、禁止拆分\n\n任何部门或个人不得为规避审批权限而将同一笔业务拆分为多笔申请。下列情形视为拆分：同一供应商同一自然月内的多笔采购；同一出差行程的多次报销；同一合同的多阶段付款在无合理商业理由的情况下人为切分。\n\n经查实属于拆分的，审批无效，相关费用不予报销，并对责任人进行纪律处分。\n\n## 四、特殊审批事项\n\n下列事项无论金额大小，均须报总经理审批：对外捐赠与赞助；罚款与滞纳金的支付；涉及诉讼与仲裁的费用；对供应商的预付款超过合同金额百分之三十的部分；员工困难补助与特殊奖励。\n\n下列事项还"
+        }
+      ],
+      "hybrid_rerank_top5": [
+        {
+          "rank": 1,
+          "file_name": "expense_approval.md",
+          "chunk_index": 0,
+          "score": 1.0,
+          "snippet": "# 费用审批权限制度\n\n## 一、总则\n\n为明确各层级管理人员的费用审批权限，提高审批效率，防范资金风险，特制定本制度。本制度适用于公司所有涉及资金支出的审批事项，包括费用报销、采购付款、合同付款、借款及预付款。\n\n费用审批实行分级授权、逐级审批、超权限上报的原则。审批人应当在授权范围内行使审批权，不得越权审批，也不得将审批权转授他人。\n\n## 二、审批权限总表\n\n费用审批权限按单笔金额划分，具体如下：\n\n单笔金额在一千元以内的，由直属主管审批。\n\n单笔金额在一千元以上五千元以内的，由部门负责人"
+        },
+        {
+          "rank": 2,
+          "file_name": "procurement_policy.md",
+          "chunk_index": 2,
+          "score": 0.7838418791232228,
+          "snippet": "审批权限如下：小额采购由部门负责人审批；一般采购由部门负责人与财务负责人共同审批；重要采购由分管副总审批；重大采购由总经理审批，并提交管理层会议审议。\n\n采购申请与费用报销属于不同环节，已经审批的采购申请不能替代报销时的审批要求。\n\n## 六、合同管理\n\n单笔金额超过一万元的采购应当签订书面合同。合同应当明确标的、数量、价格、交付时间、质量标准、验收方式、付款条件及违约责任。\n\n合同签署前应当经法务部审核。标准范本合同可由采购部门直接签署，非标准合同必须经过法务审核。\n\n合同变更应当以书面补充协"
+        },
+        {
+          "rank": 3,
+          "file_name": "promotion_policy.md",
+          "chunk_index": 2,
+          "score": 0.5985375863784974,
+          "snippet": "管理序列晋升主要考察以下维度：团队管理能力、目标达成情况、人才培养成果、跨部门协作能力。\n\n以下情形不予通过晋升评审：申报前十二个月内存在严重违纪记录；申报前两次绩效考核中存在一次不合格；申报材料存在虚假陈述。\n\n## 六、调薪机制\n\n公司调薪分为三类：年度普调、晋升调薪、特别调薪。\n\n年度普调每年一次，在三月份实施，调薪幅度取决于公司经营状况、市场薪酬水平与个人绩效结果。年度普调的覆盖范围由管理层根据当年预算确定，并非全员覆盖。\n\n晋升调薪在晋升生效当月实施，调薪幅度一般为原薪资的百分之十至百"
+        },
+        {
+          "rank": 4,
+          "file_name": "git_workflow.md",
+          "chunk_index": 1,
+          "score": 0.4849672858040919,
+          "snippet": "## 三、分支生命周期\n\n功能分支的生命周期原则上不超过十个工作日。超过十个工作日未合并的分支，应当评估是否拆分需求。\n\n功能分支合并后应当删除远端分支。长期未更新的分支（超过三十天无提交）将由仓库管理员清理。\n\n发布分支从 develop 切出，用于版本发布前的冻结与回归。发布分支存在期间，develop 分支继续接收下一个版本的功能开发。\n\n## 四、提交规范\n\n提交信息采用约定式提交格式，结构为：类型(范围): 简述。\n\n类型包括：feat 表示新增功能，fix 表示缺陷修复，docs 表"
+        },
+        {
+          "rank": 5,
+          "file_name": "reimbursement_policy.md",
+          "chunk_index": 0,
+          "score": 0.4515086232719308,
+          "snippet": "# 费用报销管理制度\n\n## 一、总则\n\n为规范公司费用报销行为，保证费用支出的真实性与合理性，明确报销流程与审批职责，特制定本制度。本制度适用于公司总部及各分支机构全体员工的费用报销事项。\n\n报销遵循真实性、相关性、合理性、及时性原则。与公司经营无关的个人消费不得报销。\n\n## 二、报销范围\n\n可报销的费用类型包括：差旅费、办公用品费、业务招待费、会议费、培训费、快递费、通讯费、市内交通费、印刷费及其他经批准的经营性支出。\n\n不可报销的费用类型包括：个人生活消费、罚款与滞纳金、非因公的娱乐消费"
+        }
+      ]
+    },
+    {
+      "case": "hybrid_hit_reranker_lift",
+      "id": "q025",
+      "question": "出差回来报销，上面的领导是谁来批？",
+      "ground_truth": {
+        "relevant_files": [
+          "reimbursement_policy.md"
+        ],
+        "relevant_anchors": [
+          "由部门负责人审批"
+        ]
+      },
+      "vector_top5": [
+        {
+          "rank": 1,
+          "file_name": "procurement_policy.md",
+          "chunk_index": 2,
+          "score": 0.4828617,
+          "snippet": "审批权限如下：小额采购由部门负责人审批；一般采购由部门负责人与财务负责人共同审批；重要采购由分管副总审批；重大采购由总经理审批，并提交管理层会议审议。\n\n采购申请与费用报销属于不同环节，已经审批的采购申请不能替代报销时的审批要求。\n\n## 六、合同管理\n\n单笔金额超过一万元的采购应当签订书面合同。合同应当明确标的、数量、价格、交付时间、质量标准、验收方式、付款条件及违约责任。\n\n合同签署前应当经法务部审核。标准范本合同可由采购部门直接签署，非标准合同必须经过法务审核。\n\n合同变更应当以书面补充协"
+        },
+        {
+          "rank": 2,
+          "file_name": "expense_approval.md",
+          "chunk_index": 1,
+          "score": 0.48028398,
+          "snippet": "## 三、禁止拆分\n\n任何部门或个人不得为规避审批权限而将同一笔业务拆分为多笔申请。下列情形视为拆分：同一供应商同一自然月内的多笔采购；同一出差行程的多次报销；同一合同的多阶段付款在无合理商业理由的情况下人为切分。\n\n经查实属于拆分的，审批无效，相关费用不予报销，并对责任人进行纪律处分。\n\n## 四、特殊审批事项\n\n下列事项无论金额大小，均须报总经理审批：对外捐赠与赞助；罚款与滞纳金的支付；涉及诉讼与仲裁的费用；对供应商的预付款超过合同金额百分之三十的部分；员工困难补助与特殊奖励。\n\n下列事项还"
+        },
+        {
+          "rank": 3,
+          "file_name": "reimbursement_policy.md",
+          "chunk_index": 1,
+          "score": 0.45848036,
+          "snippet": "电子发票应当提供原件文件，不接受截图。同一张发票重复报销的，一经查实按严重违纪处理。\n\n确实无法取得发票的特殊支出，应当填写《无票支出说明》，由部门负责人与财务负责人共同签字确认后方可报销，单笔上限为五百元。\n\n## 四、报销标准与限额\n\n办公用品采购单笔不超过两千元的，据实报销。超过两千元的，应当纳入采购流程。\n\n业务招待费按人次控制，人均不超过三百元。单次招待费用超过三千元的，须事前提交招待申请并获得分管副总批准。\n\n通讯费按岗位定额报销：普通员工每月不超过一百元，主管级每月不超过两百元，部"
+        },
+        {
+          "rank": 4,
+          "file_name": "expense_approval.md",
+          "chunk_index": 2,
+          "score": 0.45257866,
+          "snippet": "审批人不得审批本人提交的申请，也不得审批与其存在直接利益关系的申请。\n\n## 六、审批责任\n\n审批人对审批事项的真实性、合理性与合规性承担相应责任。审批人有权要求申请人补充说明或提供材料。\n\n因审批人未尽审核义务导致公司损失的，视情节追究相应责任。\n\n财务部对审批流程的完整性进行复核。发现越权审批的，财务部有权拒绝付款并报告上一级管理者。\n\n## 七、紧急支出\n\n发生下列紧急情形需要立即支出的，可先执行后补办审批：生产系统故障导致的紧急采购；安全事故的应急处置；客户现场的紧急需求响应。\n\n紧急支"
+        },
+        {
+          "rank": 5,
+          "file_name": "reimbursement_policy.md",
+          "chunk_index": 3,
+          "score": 0.45202976,
+          "snippet": "违规报销一经查实，除追回款项外，还将视情节给予警告、记过或解除劳动合同处理。涉及金额较大触犯法律的，移送司法机关。\n\n## 十、附则\n\n本制度由财务部负责解释与修订。各部门可在本制度框架内制定实施细则，报财务部备案。本制度自发布之日起施行。\n[adjacent chunk context]\n## 六、报销时限\n\n费用发生后应当在三十日内提交报销申请。跨年度费用应当在次年一月十五日前完成报销，逾期不予受理。\n\n因发票未及时取得等客观原因导致逾期的，应当在申请中说明情况，经财务负责人批准后可延期，延"
+        }
+      ],
+      "hybrid_top5": [
+        {
+          "rank": 1,
+          "file_name": "procurement_policy.md",
+          "chunk_index": 2,
+          "score": 0.48800319000000003,
+          "snippet": "审批权限如下：小额采购由部门负责人审批；一般采购由部门负责人与财务负责人共同审批；重要采购由分管副总审批；重大采购由总经理审批，并提交管理层会议审议。\n\n采购申请与费用报销属于不同环节，已经审批的采购申请不能替代报销时的审批要求。\n\n## 六、合同管理\n\n单笔金额超过一万元的采购应当签订书面合同。合同应当明确标的、数量、价格、交付时间、质量标准、验收方式、付款条件及违约责任。\n\n合同签署前应当经法务部审核。标准范本合同可由采购部门直接签署，非标准合同必须经过法务审核。\n\n合同变更应当以书面补充协"
+        },
+        {
+          "rank": 2,
+          "file_name": "expense_approval.md",
+          "chunk_index": 1,
+          "score": 0.486198786,
+          "snippet": "## 三、禁止拆分\n\n任何部门或个人不得为规避审批权限而将同一笔业务拆分为多笔申请。下列情形视为拆分：同一供应商同一自然月内的多笔采购；同一出差行程的多次报销；同一合同的多阶段付款在无合理商业理由的情况下人为切分。\n\n经查实属于拆分的，审批无效，相关费用不予报销，并对责任人进行纪律处分。\n\n## 四、特殊审批事项\n\n下列事项无论金额大小，均须报总经理审批：对外捐赠与赞助；罚款与滞纳金的支付；涉及诉讼与仲裁的费用；对供应商的预付款超过合同金额百分之三十的部分；员工困难补助与特殊奖励。\n\n下列事项还"
+        },
+        {
+          "rank": 3,
+          "file_name": "reimbursement_policy.md",
+          "chunk_index": 1,
+          "score": 0.470936252,
+          "snippet": "电子发票应当提供原件文件，不接受截图。同一张发票重复报销的，一经查实按严重违纪处理。\n\n确实无法取得发票的特殊支出，应当填写《无票支出说明》，由部门负责人与财务负责人共同签字确认后方可报销，单笔上限为五百元。\n\n## 四、报销标准与限额\n\n办公用品采购单笔不超过两千元的，据实报销。超过两千元的，应当纳入采购流程。\n\n业务招待费按人次控制，人均不超过三百元。单次招待费用超过三千元的，须事前提交招待申请并获得分管副总批准。\n\n通讯费按岗位定额报销：普通员工每月不超过一百元，主管级每月不超过两百元，部"
+        },
+        {
+          "rank": 4,
+          "file_name": "reimbursement_policy.md",
+          "chunk_index": 3,
+          "score": 0.466420832,
+          "snippet": "违规报销一经查实，除追回款项外，还将视情节给予警告、记过或解除劳动合同处理。涉及金额较大触犯法律的，移送司法机关。\n\n## 十、附则\n\n本制度由财务部负责解释与修订。各部门可在本制度框架内制定实施细则，报财务部备案。本制度自发布之日起施行。\n[adjacent chunk context]\n## 六、报销时限\n\n费用发生后应当在三十日内提交报销申请。跨年度费用应当在次年一月十五日前完成报销，逾期不予受理。\n\n因发票未及时取得等客观原因导致逾期的，应当在申请中说明情况，经财务负责人批准后可延期，延"
+        },
+        {
+          "rank": 5,
+          "file_name": "reimbursement_policy.md",
+          "chunk_index": 2,
+          "score": 0.459765792,
+          "snippet": "## 六、报销时限\n\n费用发生后应当在三十日内提交报销申请。跨年度费用应当在次年一月十五日前完成报销，逾期不予受理。\n\n因发票未及时取得等客观原因导致逾期的，应当在申请中说明情况，经财务负责人批准后可延期，延期最长不超过三十日。\n\n## 七、报销流程\n\n报销流程为：申请人在系统中填写报销单并上传票据、直属主管审批、部门负责人审批（如适用）、财务部审核、出纳付款。\n\n报销单填写应当准确完整，包括费用类型、发生日期、事由、金额及承担部门。事由描述应当具体，不得使用\"其他\"、\"杂费\"等模糊表述。\n\n报"
+        }
+      ],
+      "hybrid_rerank_top5": [
+        {
+          "rank": 1,
+          "file_name": "reimbursement_policy.md",
+          "chunk_index": 3,
+          "score": 1.0,
+          "snippet": "违规报销一经查实，除追回款项外，还将视情节给予警告、记过或解除劳动合同处理。涉及金额较大触犯法律的，移送司法机关。\n\n## 十、附则\n\n本制度由财务部负责解释与修订。各部门可在本制度框架内制定实施细则，报财务部备案。本制度自发布之日起施行。\n[adjacent chunk context]\n## 六、报销时限\n\n费用发生后应当在三十日内提交报销申请。跨年度费用应当在次年一月十五日前完成报销，逾期不予受理。\n\n因发票未及时取得等客观原因导致逾期的，应当在申请中说明情况，经财务负责人批准后可延期，延"
+        },
+        {
+          "rank": 2,
+          "file_name": "onboarding_guide.md",
+          "chunk_index": 0,
+          "score": 0.9105401427649882,
+          "snippet": "# 新员工入职指南\n\n## 一、适用范围\n\n本指南适用于所有新入职的正式员工、试用期员工及实习生，用于指导入职前后的各项准备工作与流程办理。入职手续由人力资源部统一协调，用人部门配合完成。\n\n## 二、入职前准备\n\n录用通知发出后，候选人应当在入职前三个工作日提交以下材料：身份证原件及复印件、学历学位证书原件及复印件、离职证明、近三个月的银行流水、一寸免冠照片四张。从事财务、法务、安全等岗位的，还应当提供无犯罪记录证明。\n\n人力资源部在收到材料后完成背景核查。核查不通过的，公司有权撤销录用通知。"
+        },
+        {
+          "rank": 3,
+          "file_name": "expense_approval.md",
+          "chunk_index": 1,
+          "score": 0.9104493409346907,
+          "snippet": "## 三、禁止拆分\n\n任何部门或个人不得为规避审批权限而将同一笔业务拆分为多笔申请。下列情形视为拆分：同一供应商同一自然月内的多笔采购；同一出差行程的多次报销；同一合同的多阶段付款在无合理商业理由的情况下人为切分。\n\n经查实属于拆分的，审批无效，相关费用不予报销，并对责任人进行纪律处分。\n\n## 四、特殊审批事项\n\n下列事项无论金额大小，均须报总经理审批：对外捐赠与赞助；罚款与滞纳金的支付；涉及诉讼与仲裁的费用；对供应商的预付款超过合同金额百分之三十的部分；员工困难补助与特殊奖励。\n\n下列事项还"
+        },
+        {
+          "rank": 4,
+          "file_name": "procurement_policy.md",
+          "chunk_index": 2,
+          "score": 0.7803097066599521,
+          "snippet": "审批权限如下：小额采购由部门负责人审批；一般采购由部门负责人与财务负责人共同审批；重要采购由分管副总审批；重大采购由总经理审批，并提交管理层会议审议。\n\n采购申请与费用报销属于不同环节，已经审批的采购申请不能替代报销时的审批要求。\n\n## 六、合同管理\n\n单笔金额超过一万元的采购应当签订书面合同。合同应当明确标的、数量、价格、交付时间、质量标准、验收方式、付款条件及违约责任。\n\n合同签署前应当经法务部审核。标准范本合同可由采购部门直接签署，非标准合同必须经过法务审核。\n\n合同变更应当以书面补充协"
+        },
+        {
+          "rank": 5,
+          "file_name": "reimbursement_policy.md",
+          "chunk_index": 1,
+          "score": 0.7162119704665655,
+          "snippet": "电子发票应当提供原件文件，不接受截图。同一张发票重复报销的，一经查实按严重违纪处理。\n\n确实无法取得发票的特殊支出，应当填写《无票支出说明》，由部门负责人与财务负责人共同签字确认后方可报销，单笔上限为五百元。\n\n## 四、报销标准与限额\n\n办公用品采购单笔不超过两千元的，据实报销。超过两千元的，应当纳入采购流程。\n\n业务招待费按人次控制，人均不超过三百元。单次招待费用超过三千元的，须事前提交招待申请并获得分管副总批准。\n\n通讯费按岗位定额报销：普通员工每月不超过一百元，主管级每月不超过两百元，部"
+        }
+      ]
+    },
+    {
+      "case": "hybrid_hit_reranker_lift",
+      "id": "q039",
+      "question": "分支合并进主干用的是哪种合并方式？",
+      "ground_truth": {
+        "relevant_files": [
+          "git_workflow.md"
+        ],
+        "relevant_anchors": [
+          "压缩合并（squash merge）"
+        ]
+      },
+      "vector_top5": [
+        {
+          "rank": 1,
+          "file_name": "code_review.md",
+          "chunk_index": 1,
+          "score": 0.4287553,
+          "snippet": "## 四、合并请求规范\n\n合并请求应当具备清晰的标题与描述。描述应当包含：变更背景与目的、实现方案要点、影响范围、测试方式、上线注意事项。\n\n合并请求的规模应当适中。单次变更的代码行数建议不超过四百行（不含自动生成代码与测试数据）。超过八百行的合并请求，评审人有权要求拆分。\n\n禁止在合并请求中混入无关改动。例如修复缺陷时顺带做的重构，应当拆分为独立的合并请求。\n\n合并请求应当关联对应的需求单或缺陷单编号。\n\n## 五、评审关注点\n\n评审人应当重点检查以下方面：\n\n正确性：逻辑是否满足需求；边界条"
+        },
+        {
+          "rank": 2,
+          "file_name": "git_workflow.md",
+          "chunk_index": 0,
+          "score": 0.4110577,
+          "snippet": "# 代码分支与提交规范\n\n## 一、总则\n\n为规范研发团队的代码协作方式，保证代码历史清晰可追溯，降低协作冲突，特制定本规范。本规范适用于公司全部研发仓库。\n\n代码管理遵循主干稳定、分支隔离、提交原子、评审必过的原则。\n\n## 二、分支模型\n\n仓库长期存在两条主干分支：main 分支与 develop 分支。\n\nmain 分支始终保持可发布状态，任何时刻从 main 分支构建的产物都应当能够上线。develop 分支为日常集成分支，功能开发完成后合并至 develop。\n\n临时分支包括：功能分支"
+        },
+        {
+          "rank": 3,
+          "file_name": "expense_approval.md",
+          "chunk_index": 1,
+          "score": 0.36782604,
+          "snippet": "## 三、禁止拆分\n\n任何部门或个人不得为规避审批权限而将同一笔业务拆分为多笔申请。下列情形视为拆分：同一供应商同一自然月内的多笔采购；同一出差行程的多次报销；同一合同的多阶段付款在无合理商业理由的情况下人为切分。\n\n经查实属于拆分的，审批无效，相关费用不予报销，并对责任人进行纪律处分。\n\n## 四、特殊审批事项\n\n下列事项无论金额大小，均须报总经理审批：对外捐赠与赞助；罚款与滞纳金的支付；涉及诉讼与仲裁的费用；对供应商的预付款超过合同金额百分之三十的部分；员工困难补助与特殊奖励。\n\n下列事项还"
+        },
+        {
+          "rank": 4,
+          "file_name": "deployment_policy.md",
+          "chunk_index": 0,
+          "score": 0.366524,
+          "snippet": "# 部署与运维管理制度\n\n## 一、总则\n\n为规范应用系统的部署、变更与运维活动，保障生产环境的稳定性与安全性，特制定本制度。本制度适用于公司所有生产环境的应用部署与基础设施变更。\n\n生产环境变更遵循变更受控、操作留痕、双人复核、可回滚的原则。\n\n## 二、环境划分\n\n公司环境分为四类：开发环境、测试环境、预发布环境、生产环境。\n\n四个环境的网络相互隔离。开发环境与测试环境可访问互联网，预发布环境与生产环境的出网流量需经代理并审计。\n\n生产环境的访问权限实行白名单管理，仅运维团队与经批准的核心研"
+        },
+        {
+          "rank": 5,
+          "file_name": "deployment_policy.md",
+          "chunk_index": 3,
+          "score": 0.36337224,
+          "snippet": "扩容与缩容操作按照变更类型提交审批。缩容操作应当评估对高峰流量的影响。\n\n## 十、附则\n\n本制度由运维团队负责解释。本制度与版本发布流程、安全事件响应制度配套执行。\n[adjacent chunk context]\n## 四、生产环境访问\n\n访问生产环境必须通过统一的跳板机，禁止直连生产服务器。\n\n生产环境的登录采用密钥认证加双因素认证。密钥由运维团队统一管理，个人不得私自生成或分发密钥。\n\n特权操作（删除数据、修改配置、重启服务）必须双人在场或经过事后复核。紧急情况下单人操作的，应当在操作后"
+        }
+      ],
+      "hybrid_top5": [
+        {
+          "rank": 1,
+          "file_name": "code_review.md",
+          "chunk_index": 1,
+          "score": 0.45012871,
+          "snippet": "## 四、合并请求规范\n\n合并请求应当具备清晰的标题与描述。描述应当包含：变更背景与目的、实现方案要点、影响范围、测试方式、上线注意事项。\n\n合并请求的规模应当适中。单次变更的代码行数建议不超过四百行（不含自动生成代码与测试数据）。超过八百行的合并请求，评审人有权要求拆分。\n\n禁止在合并请求中混入无关改动。例如修复缺陷时顺带做的重构，应当拆分为独立的合并请求。\n\n合并请求应当关联对应的需求单或缺陷单编号。\n\n## 五、评审关注点\n\n评审人应当重点检查以下方面：\n\n正确性：逻辑是否满足需求；边界条"
+        },
+        {
+          "rank": 2,
+          "file_name": "git_workflow.md",
+          "chunk_index": 0,
+          "score": 0.43774039000000003,
+          "snippet": "# 代码分支与提交规范\n\n## 一、总则\n\n为规范研发团队的代码协作方式，保证代码历史清晰可追溯，降低协作冲突，特制定本规范。本规范适用于公司全部研发仓库。\n\n代码管理遵循主干稳定、分支隔离、提交原子、评审必过的原则。\n\n## 二、分支模型\n\n仓库长期存在两条主干分支：main 分支与 develop 分支。\n\nmain 分支始终保持可发布状态，任何时刻从 main 分支构建的产物都应当能够上线。develop 分支为日常集成分支，功能开发完成后合并至 develop。\n\n临时分支包括：功能分支"
+        },
+        {
+          "rank": 3,
+          "file_name": "git_workflow.md",
+          "chunk_index": 1,
+          "score": 0.37814288,
+          "snippet": "## 三、分支生命周期\n\n功能分支的生命周期原则上不超过十个工作日。超过十个工作日未合并的分支，应当评估是否拆分需求。\n\n功能分支合并后应当删除远端分支。长期未更新的分支（超过三十天无提交）将由仓库管理员清理。\n\n发布分支从 develop 切出，用于版本发布前的冻结与回归。发布分支存在期间，develop 分支继续接收下一个版本的功能开发。\n\n## 四、提交规范\n\n提交信息采用约定式提交格式，结构为：类型(范围): 简述。\n\n类型包括：feat 表示新增功能，fix 表示缺陷修复，docs 表"
+        },
+        {
+          "rank": 4,
+          "file_name": "procurement_policy.md",
+          "chunk_index": 0,
+          "score": 0.375981308,
+          "snippet": "# 采购管理制度\n\n## 一、总则\n\n为规范公司采购行为，降低采购成本，防范采购风险，保证采购物资与服务的质量，特制定本制度。本制度适用于公司各部门的物资采购、服务采购及软件采购活动。\n\n采购活动应当遵循公开、公平、公正与诚实信用的原则，坚持货比三家、择优选择。\n\n## 二、采购分类与金额分级\n\n采购按照金额分为四类：小额采购、一般采购、重要采购与重大采购。\n\n小额采购指单笔金额在三千元以内的采购。一般采购指单笔金额在三千元以上三万元以内的采购。重要采购指单笔金额在三万元以上二十万元以内的采购。"
+        },
+        {
+          "rank": 5,
+          "file_name": "incident_response.md",
+          "chunk_index": 0,
+          "score": 0.37219719900000003,
+          "snippet": "# 安全事件响应制度\n\n## 一、总则\n\n为建立快速、有序的安全事件响应机制，降低安全事件对公司业务与声誉的影响，特制定本制度。本制度适用于公司范围内发生的各类信息安全事件与生产事故。\n\n事件响应遵循快速发现、及时止损、查明原因、闭环改进的原则。\n\n## 二、事件分级\n\n安全事件按影响范围与严重程度分为四级：\n\n一级事件（特别重大）：核心生产系统完全不可用；绝密级数据泄露；大规模客户数据外泄；造成直接经济损失超过五十万元。\n\n二级事件（重大）：重要业务系统不可用超过两小时；机密级数据泄露；核心账"
+        }
+      ],
+      "hybrid_rerank_top5": [
+        {
+          "rank": 1,
+          "file_name": "git_workflow.md",
+          "chunk_index": 1,
+          "score": 1.0,
+          "snippet": "## 三、分支生命周期\n\n功能分支的生命周期原则上不超过十个工作日。超过十个工作日未合并的分支，应当评估是否拆分需求。\n\n功能分支合并后应当删除远端分支。长期未更新的分支（超过三十天无提交）将由仓库管理员清理。\n\n发布分支从 develop 切出，用于版本发布前的冻结与回归。发布分支存在期间，develop 分支继续接收下一个版本的功能开发。\n\n## 四、提交规范\n\n提交信息采用约定式提交格式，结构为：类型(范围): 简述。\n\n类型包括：feat 表示新增功能，fix 表示缺陷修复，docs 表"
+        },
+        {
+          "rank": 2,
+          "file_name": "git_workflow.md",
+          "chunk_index": 0,
+          "score": 0.8548343401390298,
+          "snippet": "# 代码分支与提交规范\n\n## 一、总则\n\n为规范研发团队的代码协作方式，保证代码历史清晰可追溯，降低协作冲突，特制定本规范。本规范适用于公司全部研发仓库。\n\n代码管理遵循主干稳定、分支隔离、提交原子、评审必过的原则。\n\n## 二、分支模型\n\n仓库长期存在两条主干分支：main 分支与 develop 分支。\n\nmain 分支始终保持可发布状态，任何时刻从 main 分支构建的产物都应当能够上线。develop 分支为日常集成分支，功能开发完成后合并至 develop。\n\n临时分支包括：功能分支"
+        },
+        {
+          "rank": 3,
+          "file_name": "expense_approval.md",
+          "chunk_index": 1,
+          "score": 0.7831423761702433,
+          "snippet": "## 三、禁止拆分\n\n任何部门或个人不得为规避审批权限而将同一笔业务拆分为多笔申请。下列情形视为拆分：同一供应商同一自然月内的多笔采购；同一出差行程的多次报销；同一合同的多阶段付款在无合理商业理由的情况下人为切分。\n\n经查实属于拆分的，审批无效，相关费用不予报销，并对责任人进行纪律处分。\n\n## 四、特殊审批事项\n\n下列事项无论金额大小，均须报总经理审批：对外捐赠与赞助；罚款与滞纳金的支付；涉及诉讼与仲裁的费用；对供应商的预付款超过合同金额百分之三十的部分；员工困难补助与特殊奖励。\n\n下列事项还"
+        },
+        {
+          "rank": 4,
+          "file_name": "code_review.md",
+          "chunk_index": 1,
+          "score": 0.7310388553830989,
+          "snippet": "## 四、合并请求规范\n\n合并请求应当具备清晰的标题与描述。描述应当包含：变更背景与目的、实现方案要点、影响范围、测试方式、上线注意事项。\n\n合并请求的规模应当适中。单次变更的代码行数建议不超过四百行（不含自动生成代码与测试数据）。超过八百行的合并请求，评审人有权要求拆分。\n\n禁止在合并请求中混入无关改动。例如修复缺陷时顺带做的重构，应当拆分为独立的合并请求。\n\n合并请求应当关联对应的需求单或缺陷单编号。\n\n## 五、评审关注点\n\n评审人应当重点检查以下方面：\n\n正确性：逻辑是否满足需求；边界条"
+        },
+        {
+          "rank": 5,
+          "file_name": "procurement_policy.md",
+          "chunk_index": 0,
+          "score": 0.5611713000400655,
+          "snippet": "# 采购管理制度\n\n## 一、总则\n\n为规范公司采购行为，降低采购成本，防范采购风险，保证采购物资与服务的质量，特制定本制度。本制度适用于公司各部门的物资采购、服务采购及软件采购活动。\n\n采购活动应当遵循公开、公平、公正与诚实信用的原则，坚持货比三家、择优选择。\n\n## 二、采购分类与金额分级\n\n采购按照金额分为四类：小额采购、一般采购、重要采购与重大采购。\n\n小额采购指单笔金额在三千元以内的采购。一般采购指单笔金额在三千元以上三万元以内的采购。重要采购指单笔金额在三万元以上二十万元以内的采购。"
+        }
+      ]
+    },
+    {
+      "case": "all_three_miss",
+      "id": "q009",
+      "question": "请假和加班都有哪些门槛，什么情况下必须总经理点头？",
+      "ground_truth": {
+        "relevant_files": [
+          "attendance_policy.md",
+          "leave_policy.md"
+        ],
+        "relevant_anchors": [
+          "超过七日的，须报总经理审批",
+          "均须报总经理审批"
+        ]
+      },
+      "vector_top5": [
+        {
+          "rank": 1,
+          "file_name": "attendance_policy.md",
+          "chunk_index": 3,
+          "score": 0.6665777,
+          "snippet": "工作日加班的，按一倍时长安排调休；休息日加班的，按一点五倍时长安排调休；法定节假日加班的，按两倍时长安排调休或者发放加班工资。调休应当在加班发生之日起六个月内使用完毕，逾期作废，不予折算工资。\n\n员工离职时尚未使用的调休，按离职前十二个月的日平均工资折算，在最后一个工资发放日一并结清。\n\n## 七、考勤异常处理与申诉\n\n员工对考勤记录有异议的，可在记录产生之日起十个工作日内通过系统提交申诉。人力资源部应当在收到申诉后五个工作日内完成核查并答复。申诉期间，原考勤记录继续生效。\n\n考勤数据由人力资源"
+        },
+        {
+          "rank": 2,
+          "file_name": "attendance_policy.md",
+          "chunk_index": 2,
+          "score": 0.6656133,
+          "snippet": "有下列情形之一的，认定为旷工：未办理请假手续擅自不到岗；请假未获批准仍不到岗；假期届满未续假且未到岗；伪造请假证明材料。旷工半日扣发一日工资，旷工一日扣发三日工资。连续旷工三个工作日或者年度累计旷工五个工作日的，公司有权解除劳动合同且不支付经济补偿。\n\n## 五、请假类型与审批权限\n\n员工请假应当提前在考勤系统提交申请，经审批通过后方可休假。紧急情况可先电话报备，事后一个工作日内补办手续。\n\n请假审批权限如下：一日以内的请假，由直属主管审批；一日以上三日以内的，由部门负责人审批；三日以上七日以内"
+        },
+        {
+          "rank": 3,
+          "file_name": "promotion_policy.md",
+          "chunk_index": 1,
+          "score": 0.65964365,
+          "snippet": "公司每年组织两次晋升评审，分别在四月与十月进行。晋升评审的申报窗口为期十个工作日，逾期不再受理。\n\n员工在同一职级任职满十二个月方可申报晋升，职级跨越原则上一次不超过一级。业绩特别突出的员工，经部门负责人提名并经总经理批准，可跨级晋升，跨级晋升每年全公司不超过三人。\n\n## 四、晋升评审流程\n\n晋升评审分为四个环节：主管提名、材料评审、述职答辩、评审委员会表决。\n\n主管提名环节，由直属主管填写提名表并说明理由。材料评审环节，由人力资源部核对申报资格与业绩材料完整性。述职答辩环节，申报人向评审委员"
+        },
+        {
+          "rank": 4,
+          "file_name": "promotion_policy.md",
+          "chunk_index": 2,
+          "score": 0.6280502,
+          "snippet": "管理序列晋升主要考察以下维度：团队管理能力、目标达成情况、人才培养成果、跨部门协作能力。\n\n以下情形不予通过晋升评审：申报前十二个月内存在严重违纪记录；申报前两次绩效考核中存在一次不合格；申报材料存在虚假陈述。\n\n## 六、调薪机制\n\n公司调薪分为三类：年度普调、晋升调薪、特别调薪。\n\n年度普调每年一次，在三月份实施，调薪幅度取决于公司经营状况、市场薪酬水平与个人绩效结果。年度普调的覆盖范围由管理层根据当年预算确定，并非全员覆盖。\n\n晋升调薪在晋升生效当月实施，调薪幅度一般为原薪资的百分之十至百"
+        },
+        {
+          "rank": 5,
+          "file_name": "promotion_policy.md",
+          "chunk_index": 0,
+          "score": 0.59847003,
+          "snippet": "# 职级晋升与调薪制度\n\n## 一、总则\n\n为建立公平、透明的职业发展通道，激励员工持续提升专业能力与业务贡献，特制定本制度。本制度适用于公司全体正式员工，不含试用期员工与实习生。\n\n晋升与调薪遵循能力导向、业绩导向与公平公开的原则。\n\n## 二、职级体系\n\n公司职级体系分为专业序列与管理序列两类。专业序列共设六个等级，由低到高依次为 P1 至 P6；管理序列共设四个等级，由低到高依次为 M1 至 M4。\n\n专业序列侧重技术深度与专业影响力，管理序列侧重团队管理与业务结果。员工可根据自身发展意愿"
+        }
+      ],
+      "hybrid_top5": [
+        {
+          "rank": 1,
+          "file_name": "attendance_policy.md",
+          "chunk_index": 3,
+          "score": 0.61660439,
+          "snippet": "工作日加班的，按一倍时长安排调休；休息日加班的，按一点五倍时长安排调休；法定节假日加班的，按两倍时长安排调休或者发放加班工资。调休应当在加班发生之日起六个月内使用完毕，逾期作废，不予折算工资。\n\n员工离职时尚未使用的调休，按离职前十二个月的日平均工资折算，在最后一个工资发放日一并结清。\n\n## 七、考勤异常处理与申诉\n\n员工对考勤记录有异议的，可在记录产生之日起十个工作日内通过系统提交申诉。人力资源部应当在收到申诉后五个工作日内完成核查并答复。申诉期间，原考勤记录继续生效。\n\n考勤数据由人力资源"
+        },
+        {
+          "rank": 2,
+          "file_name": "attendance_policy.md",
+          "chunk_index": 2,
+          "score": 0.61592931,
+          "snippet": "有下列情形之一的，认定为旷工：未办理请假手续擅自不到岗；请假未获批准仍不到岗；假期届满未续假且未到岗；伪造请假证明材料。旷工半日扣发一日工资，旷工一日扣发三日工资。连续旷工三个工作日或者年度累计旷工五个工作日的，公司有权解除劳动合同且不支付经济补偿。\n\n## 五、请假类型与审批权限\n\n员工请假应当提前在考勤系统提交申请，经审批通过后方可休假。紧急情况可先电话报备，事后一个工作日内补办手续。\n\n请假审批权限如下：一日以内的请假，由直属主管审批；一日以上三日以内的，由部门负责人审批；三日以上七日以内"
+        },
+        {
+          "rank": 3,
+          "file_name": "promotion_policy.md",
+          "chunk_index": 1,
+          "score": 0.611750555,
+          "snippet": "公司每年组织两次晋升评审，分别在四月与十月进行。晋升评审的申报窗口为期十个工作日，逾期不再受理。\n\n员工在同一职级任职满十二个月方可申报晋升，职级跨越原则上一次不超过一级。业绩特别突出的员工，经部门负责人提名并经总经理批准，可跨级晋升，跨级晋升每年全公司不超过三人。\n\n## 四、晋升评审流程\n\n晋升评审分为四个环节：主管提名、材料评审、述职答辩、评审委员会表决。\n\n主管提名环节，由直属主管填写提名表并说明理由。材料评审环节，由人力资源部核对申报资格与业绩材料完整性。述职答辩环节，申报人向评审委员"
+        },
+        {
+          "rank": 4,
+          "file_name": "promotion_policy.md",
+          "chunk_index": 2,
+          "score": 0.58963514,
+          "snippet": "管理序列晋升主要考察以下维度：团队管理能力、目标达成情况、人才培养成果、跨部门协作能力。\n\n以下情形不予通过晋升评审：申报前十二个月内存在严重违纪记录；申报前两次绩效考核中存在一次不合格；申报材料存在虚假陈述。\n\n## 六、调薪机制\n\n公司调薪分为三类：年度普调、晋升调薪、特别调薪。\n\n年度普调每年一次，在三月份实施，调薪幅度取决于公司经营状况、市场薪酬水平与个人绩效结果。年度普调的覆盖范围由管理层根据当年预算确定，并非全员覆盖。\n\n晋升调薪在晋升生效当月实施，调薪幅度一般为原薪资的百分之十至百"
+        },
+        {
+          "rank": 5,
+          "file_name": "attendance_policy.md",
+          "chunk_index": 1,
+          "score": 0.55469947,
+          "snippet": "## 三、上下班打卡规则\n\n员工须通过公司统一的门禁考勤系统完成上下班打卡。每个工作日应当完成两次打卡，即上班打卡与下班打卡。忘记打卡的员工应在次日内通过考勤系统提交《忘打卡补登申请》，每月补登次数上限为三次。超过三次的部分，每次扣减当月全勤奖的百分之五十。\n\n外勤人员因公外出无法打卡的，应在出行前通过系统提交外勤申请，由直属主管审批。外勤申请应当在事前提交，遇紧急情况确实无法事前提交的，应当在外出当日二十四时前补交，并在申请说明中注明紧急事由。\n\n## 四、迟到、早退与旷工\n\n员工在上午九时零"
+        }
+      ],
+      "hybrid_rerank_top5": [
+        {
+          "rank": 1,
+          "file_name": "attendance_policy.md",
+          "chunk_index": 2,
+          "score": 1.0,
+          "snippet": "有下列情形之一的，认定为旷工：未办理请假手续擅自不到岗；请假未获批准仍不到岗；假期届满未续假且未到岗；伪造请假证明材料。旷工半日扣发一日工资，旷工一日扣发三日工资。连续旷工三个工作日或者年度累计旷工五个工作日的，公司有权解除劳动合同且不支付经济补偿。\n\n## 五、请假类型与审批权限\n\n员工请假应当提前在考勤系统提交申请，经审批通过后方可休假。紧急情况可先电话报备，事后一个工作日内补办手续。\n\n请假审批权限如下：一日以内的请假，由直属主管审批；一日以上三日以内的，由部门负责人审批；三日以上七日以内"
+        },
+        {
+          "rank": 2,
+          "file_name": "attendance_policy.md",
+          "chunk_index": 1,
+          "score": 0.8843465127963988,
+          "snippet": "## 三、上下班打卡规则\n\n员工须通过公司统一的门禁考勤系统完成上下班打卡。每个工作日应当完成两次打卡，即上班打卡与下班打卡。忘记打卡的员工应在次日内通过考勤系统提交《忘打卡补登申请》，每月补登次数上限为三次。超过三次的部分，每次扣减当月全勤奖的百分之五十。\n\n外勤人员因公外出无法打卡的，应在出行前通过系统提交外勤申请，由直属主管审批。外勤申请应当在事前提交，遇紧急情况确实无法事前提交的，应当在外出当日二十四时前补交，并在申请说明中注明紧急事由。\n\n## 四、迟到、早退与旷工\n\n员工在上午九时零"
+        },
+        {
+          "rank": 3,
+          "file_name": "attendance_policy.md",
+          "chunk_index": 3,
+          "score": 0.8323394169512183,
+          "snippet": "工作日加班的，按一倍时长安排调休；休息日加班的，按一点五倍时长安排调休；法定节假日加班的，按两倍时长安排调休或者发放加班工资。调休应当在加班发生之日起六个月内使用完毕，逾期作废，不予折算工资。\n\n员工离职时尚未使用的调休，按离职前十二个月的日平均工资折算，在最后一个工资发放日一并结清。\n\n## 七、考勤异常处理与申诉\n\n员工对考勤记录有异议的，可在记录产生之日起十个工作日内通过系统提交申诉。人力资源部应当在收到申诉后五个工作日内完成核查并答复。申诉期间，原考勤记录继续生效。\n\n考勤数据由人力资源"
+        },
+        {
+          "rank": 4,
+          "file_name": "procurement_policy.md",
+          "chunk_index": 2,
+          "score": 0.6711292560056134,
+          "snippet": "审批权限如下：小额采购由部门负责人审批；一般采购由部门负责人与财务负责人共同审批；重要采购由分管副总审批；重大采购由总经理审批，并提交管理层会议审议。\n\n采购申请与费用报销属于不同环节，已经审批的采购申请不能替代报销时的审批要求。\n\n## 六、合同管理\n\n单笔金额超过一万元的采购应当签订书面合同。合同应当明确标的、数量、价格、交付时间、质量标准、验收方式、付款条件及违约责任。\n\n合同签署前应当经法务部审核。标准范本合同可由采购部门直接签署，非标准合同必须经过法务审核。\n\n合同变更应当以书面补充协"
+        },
+        {
+          "rank": 5,
+          "file_name": "expense_approval.md",
+          "chunk_index": 0,
+          "score": 0.5799376842993439,
+          "snippet": "# 费用审批权限制度\n\n## 一、总则\n\n为明确各层级管理人员的费用审批权限，提高审批效率，防范资金风险，特制定本制度。本制度适用于公司所有涉及资金支出的审批事项，包括费用报销、采购付款、合同付款、借款及预付款。\n\n费用审批实行分级授权、逐级审批、超权限上报的原则。审批人应当在授权范围内行使审批权，不得越权审批，也不得将审批权转授他人。\n\n## 二、审批权限总表\n\n费用审批权限按单笔金额划分，具体如下：\n\n单笔金额在一千元以内的，由直属主管审批。\n\n单笔金额在一千元以上五千元以内的，由部门负责人"
+        }
+      ]
+    },
+    {
+      "case": "all_three_miss",
+      "id": "q024",
+      "question": "系统半夜挂了，紧急买东西是不是可以先花再补流程，上限多少？",
+      "ground_truth": {
+        "relevant_files": [
+          "expense_approval.md"
+        ],
+        "relevant_anchors": [
+          "先执行后补办审批",
+          "单笔上限为两万元"
+        ]
+      },
+      "vector_top5": [
+        {
+          "rank": 1,
+          "file_name": "invoice_policy.md",
+          "chunk_index": 1,
+          "score": 0.48749554,
+          "snippet": "发票开具一般在申请审批通过后三个工作日内完成。月末最后两个工作日的开票申请，可能顺延至次月处理。\n\n已开具的发票需要作废或红冲的，应当收回原发票全部联次，并说明作废原因。跨月发票只能开具红字发票冲销。\n\n## 四、进项发票取得\n\n员工在采购或发生费用支出时，应当主动向对方索取发票。发票抬头必须为公司全称，纳税人识别号必须准确。\n\n取得增值税专用发票的，应当在开票之日起三百六十日内完成认证抵扣。超过期限未认证的，进项税额无法抵扣，由此造成的损失由责任人承担。\n\n发票内容应当与实际交易一致。不得要求"
+        },
+        {
+          "rank": 2,
+          "file_name": "reimbursement_policy.md",
+          "chunk_index": 2,
+          "score": 0.4776437,
+          "snippet": "## 六、报销时限\n\n费用发生后应当在三十日内提交报销申请。跨年度费用应当在次年一月十五日前完成报销，逾期不予受理。\n\n因发票未及时取得等客观原因导致逾期的，应当在申请中说明情况，经财务负责人批准后可延期，延期最长不超过三十日。\n\n## 七、报销流程\n\n报销流程为：申请人在系统中填写报销单并上传票据、直属主管审批、部门负责人审批（如适用）、财务部审核、出纳付款。\n\n报销单填写应当准确完整，包括费用类型、发生日期、事由、金额及承担部门。事由描述应当具体，不得使用\"其他\"、\"杂费\"等模糊表述。\n\n报"
+        },
+        {
+          "rank": 3,
+          "file_name": "deployment_policy.md",
+          "chunk_index": 1,
+          "score": 0.4658394,
+          "snippet": "## 四、生产环境访问\n\n访问生产环境必须通过统一的跳板机，禁止直连生产服务器。\n\n生产环境的登录采用密钥认证加双因素认证。密钥由运维团队统一管理，个人不得私自生成或分发密钥。\n\n特权操作（删除数据、修改配置、重启服务）必须双人在场或经过事后复核。紧急情况下单人操作的，应当在操作后二十四小时内补充复核记录。\n\n所有生产环境的操作全程录屏或记录命令日志，日志保存期限不少于一百八十天。\n\n## 五、发布与部署\n\n部署必须通过公司的持续集成与持续交付流水线执行，禁止手动拷贝文件或者直接在服务器上修改代"
+        },
+        {
+          "rank": 4,
+          "file_name": "incident_response.md",
+          "chunk_index": 1,
+          "score": 0.46394736,
+          "snippet": "二级事件应当在发现后三十分钟内启动响应，一小时内完成初步止损，四小时内上报分管副总。\n\n三级事件应当在发现后两小时内启动响应，四小时内完成处置。\n\n四级事件应当在发现后一个工作日内响应并记录。\n\n响应时限自事件被首次报告或系统告警触发时起算。\n\n## 四、响应流程\n\n事件响应分为六个阶段：发现与报告、初步研判、止损与隔离、根因分析、恢复与验证、复盘与改进。\n\n发现与报告阶段，任何员工发现异常都应当立即报告。报告渠道包括信息技术部值班电话与安全事件邮箱。\n\n初步研判阶段，由信息技术部判断事件级别并"
+        },
+        {
+          "rank": 5,
+          "file_name": "incident_response.md",
+          "chunk_index": 0,
+          "score": 0.44752645,
+          "snippet": "# 安全事件响应制度\n\n## 一、总则\n\n为建立快速、有序的安全事件响应机制，降低安全事件对公司业务与声誉的影响，特制定本制度。本制度适用于公司范围内发生的各类信息安全事件与生产事故。\n\n事件响应遵循快速发现、及时止损、查明原因、闭环改进的原则。\n\n## 二、事件分级\n\n安全事件按影响范围与严重程度分为四级：\n\n一级事件（特别重大）：核心生产系统完全不可用；绝密级数据泄露；大规模客户数据外泄；造成直接经济损失超过五十万元。\n\n二级事件（重大）：重要业务系统不可用超过两小时；机密级数据泄露；核心账"
+        }
+      ],
+      "hybrid_top5": [
+        {
+          "rank": 1,
+          "file_name": "deployment_policy.md",
+          "chunk_index": 1,
+          "score": 0.47608758,
+          "snippet": "## 四、生产环境访问\n\n访问生产环境必须通过统一的跳板机，禁止直连生产服务器。\n\n生产环境的登录采用密钥认证加双因素认证。密钥由运维团队统一管理，个人不得私自生成或分发密钥。\n\n特权操作（删除数据、修改配置、重启服务）必须双人在场或经过事后复核。紧急情况下单人操作的，应当在操作后二十四小时内补充复核记录。\n\n所有生产环境的操作全程录屏或记录命令日志，日志保存期限不少于一百八十天。\n\n## 五、发布与部署\n\n部署必须通过公司的持续集成与持续交付流水线执行，禁止手动拷贝文件或者直接在服务器上修改代"
+        },
+        {
+          "rank": 2,
+          "file_name": "attendance_policy.md",
+          "chunk_index": 1,
+          "score": 0.432769032,
+          "snippet": "## 三、上下班打卡规则\n\n员工须通过公司统一的门禁考勤系统完成上下班打卡。每个工作日应当完成两次打卡，即上班打卡与下班打卡。忘记打卡的员工应在次日内通过考勤系统提交《忘打卡补登申请》，每月补登次数上限为三次。超过三次的部分，每次扣减当月全勤奖的百分之五十。\n\n外勤人员因公外出无法打卡的，应在出行前通过系统提交外勤申请，由直属主管审批。外勤申请应当在事前提交，遇紧急情况确实无法事前提交的，应当在外出当日二十四时前补交，并在申请说明中注明紧急事由。\n\n## 四、迟到、早退与旷工\n\n员工在上午九时零"
+        },
+        {
+          "rank": 3,
+          "file_name": "onboarding_guide.md",
+          "chunk_index": 1,
+          "score": 0.416842576,
+          "snippet": "新员工在首日应当完成工位分配、办公设备领取及内部系统账号开通。系统账号包括邮箱、办公协作平台、代码仓库（技术岗位）及财务报销系统。账号开通一般在入职后一个工作日内完成。\n\n## 四、试用期管理\n\n劳动合同期限三年及以上的，试用期为六个月；合同期限一年以上不满三年的，试用期为两个月；合同期限三个月以上不满一年的，试用期为一个月。\n\n试用期员工应当在入职后第十五个工作日前与直属主管完成第一次绩效沟通，在试用期届满前十个工作日完成转正评估。转正评估采用主管评价与同事互评相结合的方式，主管评价权重为百分"
+        },
+        {
+          "rank": 4,
+          "file_name": "attendance_policy.md",
+          "chunk_index": 2,
+          "score": 0.41662321,
+          "snippet": "有下列情形之一的，认定为旷工：未办理请假手续擅自不到岗；请假未获批准仍不到岗；假期届满未续假且未到岗；伪造请假证明材料。旷工半日扣发一日工资，旷工一日扣发三日工资。连续旷工三个工作日或者年度累计旷工五个工作日的，公司有权解除劳动合同且不支付经济补偿。\n\n## 五、请假类型与审批权限\n\n员工请假应当提前在考勤系统提交申请，经审批通过后方可休假。紧急情况可先电话报备，事后一个工作日内补办手续。\n\n请假审批权限如下：一日以内的请假，由直属主管审批；一日以上三日以内的，由部门负责人审批；三日以上七日以内"
+        },
+        {
+          "rank": 5,
+          "file_name": "code_review.md",
+          "chunk_index": 2,
+          "score": 0.41209246000000005,
+          "snippet": "测试：是否补充了对应测试；测试是否覆盖了新增分支。\n\n## 六、评审时限\n\n评审人应当在收到评审请求后一个工作日内给出首次反馈。合并请求的整个评审周期原则上不超过三个工作日。\n\n提交人应当在收到评审意见后两个工作日内响应。超过五个工作日无响应的合并请求，将被标记为待关闭，由提交人确认后关闭或继续。\n\n评审人与提交人对技术方案存在分歧且无法达成一致的，提交架构组裁决。\n\n## 七、评审意见的处理\n\n评审意见分为三类：必须修改、建议修改、仅供讨论。\n\n必须修改的意见，提交人完成修改后应当回复说明并请"
+        }
+      ],
+      "hybrid_rerank_top5": [
+        {
+          "rank": 1,
+          "file_name": "attendance_policy.md",
+          "chunk_index": 2,
+          "score": 1.0,
+          "snippet": "有下列情形之一的，认定为旷工：未办理请假手续擅自不到岗；请假未获批准仍不到岗；假期届满未续假且未到岗；伪造请假证明材料。旷工半日扣发一日工资，旷工一日扣发三日工资。连续旷工三个工作日或者年度累计旷工五个工作日的，公司有权解除劳动合同且不支付经济补偿。\n\n## 五、请假类型与审批权限\n\n员工请假应当提前在考勤系统提交申请，经审批通过后方可休假。紧急情况可先电话报备，事后一个工作日内补办手续。\n\n请假审批权限如下：一日以内的请假，由直属主管审批；一日以上三日以内的，由部门负责人审批；三日以上七日以内"
+        },
+        {
+          "rank": 2,
+          "file_name": "attendance_policy.md",
+          "chunk_index": 1,
+          "score": 0.9705746201640957,
+          "snippet": "## 三、上下班打卡规则\n\n员工须通过公司统一的门禁考勤系统完成上下班打卡。每个工作日应当完成两次打卡，即上班打卡与下班打卡。忘记打卡的员工应在次日内通过考勤系统提交《忘打卡补登申请》，每月补登次数上限为三次。超过三次的部分，每次扣减当月全勤奖的百分之五十。\n\n外勤人员因公外出无法打卡的，应在出行前通过系统提交外勤申请，由直属主管审批。外勤申请应当在事前提交，遇紧急情况确实无法事前提交的，应当在外出当日二十四时前补交，并在申请说明中注明紧急事由。\n\n## 四、迟到、早退与旷工\n\n员工在上午九时零"
+        },
+        {
+          "rank": 3,
+          "file_name": "reimbursement_policy.md",
+          "chunk_index": 2,
+          "score": 0.4448372203165935,
+          "snippet": "## 六、报销时限\n\n费用发生后应当在三十日内提交报销申请。跨年度费用应当在次年一月十五日前完成报销，逾期不予受理。\n\n因发票未及时取得等客观原因导致逾期的，应当在申请中说明情况，经财务负责人批准后可延期，延期最长不超过三十日。\n\n## 七、报销流程\n\n报销流程为：申请人在系统中填写报销单并上传票据、直属主管审批、部门负责人审批（如适用）、财务部审核、出纳付款。\n\n报销单填写应当准确完整，包括费用类型、发生日期、事由、金额及承担部门。事由描述应当具体，不得使用\"其他\"、\"杂费\"等模糊表述。\n\n报"
+        },
+        {
+          "rank": 4,
+          "file_name": "reimbursement_policy.md",
+          "chunk_index": 1,
+          "score": 0.4335261311267508,
+          "snippet": "电子发票应当提供原件文件，不接受截图。同一张发票重复报销的，一经查实按严重违纪处理。\n\n确实无法取得发票的特殊支出，应当填写《无票支出说明》，由部门负责人与财务负责人共同签字确认后方可报销，单笔上限为五百元。\n\n## 四、报销标准与限额\n\n办公用品采购单笔不超过两千元的，据实报销。超过两千元的，应当纳入采购流程。\n\n业务招待费按人次控制，人均不超过三百元。单次招待费用超过三千元的，须事前提交招待申请并获得分管副总批准。\n\n通讯费按岗位定额报销：普通员工每月不超过一百元，主管级每月不超过两百元，部"
+        },
+        {
+          "rank": 5,
+          "file_name": "invoice_policy.md",
+          "chunk_index": 1,
+          "score": 0.38254812633783336,
+          "snippet": "发票开具一般在申请审批通过后三个工作日内完成。月末最后两个工作日的开票申请，可能顺延至次月处理。\n\n已开具的发票需要作废或红冲的，应当收回原发票全部联次，并说明作废原因。跨月发票只能开具红字发票冲销。\n\n## 四、进项发票取得\n\n员工在采购或发生费用支出时，应当主动向对方索取发票。发票抬头必须为公司全称，纳税人识别号必须准确。\n\n取得增值税专用发票的，应当在开票之日起三百六十日内完成认证抵扣。超过期限未认证的，进项税额无法抵扣，由此造成的损失由责任人承担。\n\n发票内容应当与实际交易一致。不得要求"
+        }
+      ]
+    },
+    {
+      "case": "all_three_miss",
+      "id": "q030",
+      "question": "数据泄露了要让客户知道吗？",
+      "ground_truth": {
+        "relevant_files": [
+          "incident_response.md"
+        ],
+        "relevant_anchors": [
+          "七十二小时内通知受影响的客户"
+        ]
+      },
+      "vector_top5": [
+        {
+          "rank": 1,
+          "file_name": "information_security.md",
+          "chunk_index": 2,
+          "score": 0.6564643,
+          "snippet": "与外部方共享机密级数据，应当采用去标识化或最小化原则，仅提供业务必需的部分。\n\n对外发布包含公司数据的内容（如案例分享、技术博客、公开演讲），应当经过部门负责人与市场部审核，涉及机密级及以上内容的还须经信息安全负责人批准。\n\n## 七、安全事件报告\n\n发现下列情形的，应当在两小时内报告信息技术部与信息安全负责人：数据泄露或疑似泄露；终端感染恶意软件；账号被盗用；收到钓鱼邮件并已点击；设备遗失且设备中存在机密级及以上数据。\n\n报告应当如实说明事件经过，不得隐瞒或延迟报告。隐瞒安全事件的，从重处理。"
+        },
+        {
+          "rank": 2,
+          "file_name": "vpn_policy.md",
+          "chunk_index": 3,
+          "score": 0.4987241,
+          "snippet": "发现账号存在安全风险的，信息技术部有权立即停用该账号并通知使用人。\n\n## 九、附则\n\n本制度由信息技术部负责解释。本制度与信息安全管理制度配套执行，涉及安全事件的处理按照事件响应制度执行。\n[adjacent chunk context]\n# 远程接入与 VPN 管理制度\n\n## 一、总则\n\n为保障公司内部网络与信息系统的安全，规范员工远程接入行为，特制定本制度。本制度适用于所有需要从公司网络外部访问内部资源的员工、外包人员及合作伙伴。\n\n远程接入必须通过公司统一的虚拟专用网络（VPN）通道进"
+        },
+        {
+          "rank": 3,
+          "file_name": "information_security.md",
+          "chunk_index": 1,
+          "score": 0.49689257,
+          "snippet": "访问权限不得转借、共享或委托他人使用。\n\n## 四、数据存储与传输\n\n机密级及以上的数据必须存储在公司批准的存储位置，包括内部文件服务器与公司统一采购的云盘。\n\n禁止将机密级及以上数据存储在个人设备、个人网盘或未经批准的第三方服务中。\n\n数据传输要求：内部级数据在公司网络内传输即可；机密级数据必须加密传输；绝密级数据必须使用公司指定的加密工具，并采用独立的传输渠道。\n\n禁止通过个人邮箱、个人即时通讯工具传输机密级及以上数据。\n\n## 五、终端与设备安全\n\n办公终端必须启用全盘加密与屏幕锁定。屏幕"
+        },
+        {
+          "rank": 4,
+          "file_name": "information_security.md",
+          "chunk_index": 0,
+          "score": 0.48032072,
+          "snippet": "# 信息安全管理制度\n\n## 一、总则\n\n为保护公司信息资产，防范信息泄露、篡改与丢失，保障业务连续性，特制定本制度。本制度适用于公司全体员工、外包人员及合作伙伴。\n\n信息安全工作遵循预防为主、分级保护、责任到人的原则。员工应当签署保密协议，保密义务在离职后继续有效。\n\n## 二、数据分级\n\n公司数据按敏感程度分为四级：\n\n公开级：可对外公开发布的信息，如公司简介、公开产品文档。\n\n内部级：仅限公司内部使用的信息，如内部通知、流程文档、组织架构。\n\n机密级：泄露会对公司造成损害的信息，如客户名单"
+        },
+        {
+          "rank": 5,
+          "file_name": "device_management.md",
+          "chunk_index": 3,
+          "score": 0.45098674,
+          "snippet": "涉及数据存储的设备报废，必须执行数据擦除流程并留存擦除记录。\n\n## 九、附则\n\n本制度由行政部与信息技术部共同负责解释。本制度与固定资产管理制度配套执行。\n[adjacent chunk context]\n涉及数据存储的设备报废，必须执行数据擦除流程并留存擦除记录。\n\n## 九、附则\n\n本制度由行政部与信息技术部共同负责解释。本制度与固定资产管理制度配套执行。\n员工需要超出标准配置的设备的，应当提交申请，说明业务理由，经部门负责人与信息技术部共同审批。\n\n研发岗位申请的第二台显示器、设计岗位申"
+        }
+      ],
+      "hybrid_top5": [
+        {
+          "rank": 1,
+          "file_name": "information_security.md",
+          "chunk_index": 2,
+          "score": 0.60952501,
+          "snippet": "与外部方共享机密级数据，应当采用去标识化或最小化原则，仅提供业务必需的部分。\n\n对外发布包含公司数据的内容（如案例分享、技术博客、公开演讲），应当经过部门负责人与市场部审核，涉及机密级及以上内容的还须经信息安全负责人批准。\n\n## 七、安全事件报告\n\n发现下列情形的，应当在两小时内报告信息技术部与信息安全负责人：数据泄露或疑似泄露；终端感染恶意软件；账号被盗用；收到钓鱼邮件并已点击；设备遗失且设备中存在机密级及以上数据。\n\n报告应当如实说明事件经过，不得隐瞒或延迟报告。隐瞒安全事件的，从重处理。"
+        },
+        {
+          "rank": 2,
+          "file_name": "information_security.md",
+          "chunk_index": 1,
+          "score": 0.497824799,
+          "snippet": "访问权限不得转借、共享或委托他人使用。\n\n## 四、数据存储与传输\n\n机密级及以上的数据必须存储在公司批准的存储位置，包括内部文件服务器与公司统一采购的云盘。\n\n禁止将机密级及以上数据存储在个人设备、个人网盘或未经批准的第三方服务中。\n\n数据传输要求：内部级数据在公司网络内传输即可；机密级数据必须加密传输；绝密级数据必须使用公司指定的加密工具，并采用独立的传输渠道。\n\n禁止通过个人邮箱、个人即时通讯工具传输机密级及以上数据。\n\n## 五、终端与设备安全\n\n办公终端必须启用全盘加密与屏幕锁定。屏幕"
+        },
+        {
+          "rank": 3,
+          "file_name": "information_security.md",
+          "chunk_index": 0,
+          "score": 0.486224504,
+          "snippet": "# 信息安全管理制度\n\n## 一、总则\n\n为保护公司信息资产，防范信息泄露、篡改与丢失，保障业务连续性，特制定本制度。本制度适用于公司全体员工、外包人员及合作伙伴。\n\n信息安全工作遵循预防为主、分级保护、责任到人的原则。员工应当签署保密协议，保密义务在离职后继续有效。\n\n## 二、数据分级\n\n公司数据按敏感程度分为四级：\n\n公开级：可对外公开发布的信息，如公司简介、公开产品文档。\n\n内部级：仅限公司内部使用的信息，如内部通知、流程文档、组织架构。\n\n机密级：泄露会对公司造成损害的信息，如客户名单"
+        },
+        {
+          "rank": 4,
+          "file_name": "device_management.md",
+          "chunk_index": 3,
+          "score": 0.465690718,
+          "snippet": "涉及数据存储的设备报废，必须执行数据擦除流程并留存擦除记录。\n\n## 九、附则\n\n本制度由行政部与信息技术部共同负责解释。本制度与固定资产管理制度配套执行。\n[adjacent chunk context]\n涉及数据存储的设备报废，必须执行数据擦除流程并留存擦除记录。\n\n## 九、附则\n\n本制度由行政部与信息技术部共同负责解释。本制度与固定资产管理制度配套执行。\n员工需要超出标准配置的设备的，应当提交申请，说明业务理由，经部门负责人与信息技术部共同审批。\n\n研发岗位申请的第二台显示器、设计岗位申"
+        },
+        {
+          "rank": 5,
+          "file_name": "password_policy.md",
+          "chunk_index": 0,
+          "score": 0.45805341,
+          "snippet": "# 账号与密码管理制度\n\n## 一、总则\n\n为防范因账号与密码管理不当导致的信息泄露风险，规范各类系统的身份认证要求，特制定本制度。本制度适用于公司所有信息系统账号，包括办公协作系统、代码仓库、VPN、数据库、服务器及第三方业务系统。\n\n账号是员工在公司数字环境中的身份凭证，账号安全责任由账号持有人承担。\n\n## 二、密码强度要求\n\n系统账号密码必须满足以下强度要求：长度不少于十二位；包含大写字母、小写字母、数字、特殊符号四类字符中的至少三类；不包含连续三位及以上的顺序字符或重复字符；不包含用户"
+        }
+      ],
+      "hybrid_rerank_top5": [
+        {
+          "rank": 1,
+          "file_name": "vpn_policy.md",
+          "chunk_index": 3,
+          "score": 1.0,
+          "snippet": "发现账号存在安全风险的，信息技术部有权立即停用该账号并通知使用人。\n\n## 九、附则\n\n本制度由信息技术部负责解释。本制度与信息安全管理制度配套执行，涉及安全事件的处理按照事件响应制度执行。\n[adjacent chunk context]\n# 远程接入与 VPN 管理制度\n\n## 一、总则\n\n为保障公司内部网络与信息系统的安全，规范员工远程接入行为，特制定本制度。本制度适用于所有需要从公司网络外部访问内部资源的员工、外包人员及合作伙伴。\n\n远程接入必须通过公司统一的虚拟专用网络（VPN）通道进"
+        },
+        {
+          "rank": 2,
+          "file_name": "password_policy.md",
+          "chunk_index": 2,
+          "score": 0.8885307007993412,
+          "snippet": "特权账号的操作全程留痕，日志保存期限为一年。特权账号禁止用于日常办公，禁止共享使用。\n\n特权操作应当遵循变更管理流程，生产环境的特权操作原则上需要双人在场或事后复核。\n\n## 七、密码存储与传输\n\n任何情况下不得以明文形式记录密码。禁止将密码写在便签、纸质笔记本或未加密的文档中。禁止通过即时通讯工具、邮件发送密码。\n\n如确需传递账号信息，应当使用公司认可的密码管理工具，或采用分渠道传递的方式（如密码通过一种渠道、账号通过另一种渠道）。\n\n推荐使用公司统一采购的密码管理器存储个人账号密码。\n\n##"
+        },
+        {
+          "rank": 3,
+          "file_name": "device_management.md",
+          "chunk_index": 3,
+          "score": 0.8362337000774663,
+          "snippet": "涉及数据存储的设备报废，必须执行数据擦除流程并留存擦除记录。\n\n## 九、附则\n\n本制度由行政部与信息技术部共同负责解释。本制度与固定资产管理制度配套执行。\n[adjacent chunk context]\n涉及数据存储的设备报废，必须执行数据擦除流程并留存擦除记录。\n\n## 九、附则\n\n本制度由行政部与信息技术部共同负责解释。本制度与固定资产管理制度配套执行。\n员工需要超出标准配置的设备的，应当提交申请，说明业务理由，经部门负责人与信息技术部共同审批。\n\n研发岗位申请的第二台显示器、设计岗位申"
+        },
+        {
+          "rank": 4,
+          "file_name": "information_security.md",
+          "chunk_index": 3,
+          "score": 0.6493033972991057,
+          "snippet": "离职人员违反保密义务的，公司保留追究法律责任的权利。\n\n## 十、附则\n\n本制度由信息安全团队负责解释与修订。本制度与事件响应制度、密码管理制度配套执行。\n[adjacent chunk context]\n访问权限不得转借、共享或委托他人使用。\n\n## 四、数据存储与传输\n\n机密级及以上的数据必须存储在公司批准的存储位置，包括内部文件服务器与公司统一采购的云盘。\n\n禁止将机密级及以上数据存储在个人设备、个人网盘或未经批准的第三方服务中。\n\n数据传输要求：内部级数据在公司网络内传输即可；机密级数据"
+        },
+        {
+          "rank": 5,
+          "file_name": "password_policy.md",
+          "chunk_index": 0,
+          "score": 0.2850960542343177,
+          "snippet": "# 账号与密码管理制度\n\n## 一、总则\n\n为防范因账号与密码管理不当导致的信息泄露风险，规范各类系统的身份认证要求，特制定本制度。本制度适用于公司所有信息系统账号，包括办公协作系统、代码仓库、VPN、数据库、服务器及第三方业务系统。\n\n账号是员工在公司数字环境中的身份凭证，账号安全责任由账号持有人承担。\n\n## 二、密码强度要求\n\n系统账号密码必须满足以下强度要求：长度不少于十二位；包含大写字母、小写字母、数字、特殊符号四类字符中的至少三类；不包含连续三位及以上的顺序字符或重复字符；不包含用户"
+        }
+      ]
+    }
+  ],
+  "sanity_checks": {
+    "vector_n": true,
+    "vector_monotonic_official": true,
+    "vector_monotonic_evidence": true,
+    "vector_hit_equals_recall1_single_file": true,
+    "vector_all_metrics_in_range": true,
+    "vector_oracle_dominates_recall5": true,
+    "vector_pool_at_least_eval_k": true,
+    "hybrid_n": true,
+    "hybrid_monotonic_official": true,
+    "hybrid_monotonic_evidence": true,
+    "hybrid_hit_equals_recall1_single_file": true,
+    "hybrid_all_metrics_in_range": true,
+    "hybrid_oracle_dominates_recall5": true,
+    "hybrid_pool_at_least_eval_k": true,
+    "hybrid_rerank_n": true,
+    "hybrid_rerank_monotonic_official": true,
+    "hybrid_rerank_monotonic_evidence": true,
+    "hybrid_rerank_hit_equals_recall1_single_file": true,
+    "hybrid_rerank_all_metrics_in_range": true,
+    "hybrid_rerank_oracle_dominates_recall5": true,
+    "hybrid_rerank_pool_at_least_eval_k": true,
+    "rerank_file_oracle@10_equals_hybrid": true,
+    "rerank_evidence_oracle@10_equals_hybrid": true,
+    "rerank_pool_equals_hybrid_pool": true
+  },
+  "production_points": {
+    "collection": "enterprise_rag",
+    "before": 1,
+    "after": 1,
+    "expected": 1
+  },
+  "frozen_integrity_authority": "canonical",
+  "canonical_frozen_sha_match": true,
+  "legacy_sha_match_is_audit_only": {
+    "corpus_tree_sha256": true,
+    "corpus_manifest_sha256": true,
+    "eval_dataset_sha256": true
+  }
+}

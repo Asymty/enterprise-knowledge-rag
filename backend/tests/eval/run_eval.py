@@ -85,13 +85,32 @@ def _question_result(
     scores: Sequence[float],
     latency: Mapping[str, float],
     context_by_file: Mapping[str, Sequence[str]],
+    oracle_pool_documents: Sequence[Any] | None = None,
+    oracle_pool_scores: Sequence[float] | None = None,
 ) -> dict[str, Any]:
-    # Ranking metrics use the Top-5 cut; oracles use the whole pool. Both are derived from
-    # the SAME single search, so no strategy is advantaged by seeing a larger pool.
+    """Score one question for one strategy.
+
+    ``documents``/``scores`` are the strategy's OWN ranked output and drive the ranking
+    metrics plus ``retrieved``.
+
+    ``oracle_pool_documents``/``oracle_pool_scores`` are the candidate pool the ORACLES read.
+    They default to ``documents`` (correct for vector and hybrid, whose output IS the pool),
+    but a reranking strategy must pass the PRE-rerank pool here.
+
+    Why the distinction is load-bearing: the oracles are defined as "was the answer anywhere
+    in the Top-K candidate pool", i.e. the ceiling a reranker can reach, not what it achieved.
+    Feeding them the reranked Top-5 instead silently redefines them as a ranking metric AND
+    breaks the invariant that hybrid and hybrid+rerank share one pool -- measured as
+    FileOracle@10 0.940 vs 0.800 and EvidenceOracle@10 0.820 vs 0.520, a "regression" that was
+    entirely an artifact of passing the wrong object.
+    """
+    pool_documents = documents if oracle_pool_documents is None else oracle_pool_documents
+    pool_scores = scores if oracle_pool_scores is None else oracle_pool_scores
+
     pool = [
         _pool_record(document, score, rank, context_by_file)
         for rank, (document, score) in enumerate(
-            zip(documents[:ORACLE_K], scores[:ORACLE_K]), start=1
+            zip(pool_documents[:ORACLE_K], pool_scores[:ORACLE_K]), start=1
         )
     ]
     retrieved = [
@@ -404,6 +423,11 @@ def main() -> int:
                     "total_retrieval_ms": hybrid_ms + rerank_ms,
                 },
                 context_by_file,
+                # The oracles read the SAME pre-rerank pool hybrid used: reranking reorders
+                # and truncates, it does not change what was reachable. Passing rerank_docs
+                # here is the bug this parameter exists to prevent.
+                oracle_pool_documents=hybrid_docs,
+                oracle_pool_scores=hybrid_scores,
             )
         )
 
@@ -445,6 +469,41 @@ def main() -> int:
         sanity[f"{name}_pool_at_least_eval_k"] = all(
             len(item["pool"]) >= len(item["retrieved"]) for item in items
         )
+
+    # Reranking must NOT move the oracles. hybrid and hybrid_rerank consume the same
+    # pre-rerank Top-K pool, so their oracle inputs are identical by construction and every
+    # per-question value must be equal. A difference means the rerank path was handed the
+    # wrong object (its own reranked Top-5), which would silently redefine the oracle as a
+    # ranking metric and report a phantom reranker regression.
+    per_q = {
+        name: {item["id"]: item for item in results[name]} for name in STRATEGY_NAMES
+    }
+    for oracle_key in (f"file_oracle@{ORACLE_K}", f"evidence_oracle@{ORACLE_K}"):
+        mismatched = [
+            qid
+            for qid, hybrid_item in per_q["hybrid"].items()
+            if hybrid_item["metrics"][oracle_key]
+            != per_q["hybrid_rerank"][qid]["metrics"][oracle_key]
+        ]
+        sanity[f"rerank_{oracle_key}_equals_hybrid"] = not mismatched
+        if mismatched:
+            raise RuntimeError(
+                f"{oracle_key} differs between hybrid and hybrid_rerank for "
+                f"{len(mismatched)} question(s): {mismatched[:5]}. The rerank strategy must "
+                f"read the same pre-rerank candidate pool as hybrid; check the "
+                f"oracle_pool_documents argument."
+            )
+    sanity["rerank_pool_equals_hybrid_pool"] = all(
+        [p["file_name"] for p in per_q["hybrid"][qid]["pool"]]
+        == [p["file_name"] for p in per_q["hybrid_rerank"][qid]["pool"]]
+        for qid in per_q["hybrid"]
+    )
+    if not sanity["rerank_pool_equals_hybrid_pool"]:
+        raise RuntimeError(
+            "hybrid and hybrid_rerank saved different `pool` contents; the rerank entry "
+            "must carry the shared pre-rerank pool, not its reranked output."
+        )
+
     if not all(sanity.values()):
         raise RuntimeError(f"Sanity checks failed: {sanity}")
 
