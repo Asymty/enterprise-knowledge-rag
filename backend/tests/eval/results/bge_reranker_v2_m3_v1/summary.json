@@ -1,0 +1,755 @@
+{
+  "experiment": {
+    "milestone": "M4",
+    "variable": "reranker model + inference backend only",
+    "collection": "enterprise_rag_eval_multilingual_v1",
+    "collection_points": 78,
+    "collection_vector_size": 384,
+    "embedding_model": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+    "embedding_backend": "HuggingFaceEmbeddings",
+    "embedding_dimension": 384,
+    "expected_corpus_chunks": 78,
+    "frozen_questions": 50,
+    "distance": "Cosine",
+    "candidate_pool_k": 10,
+    "evaluation_k_max": 5,
+    "oracle_k": 10,
+    "hybrid_vector_weight": 0.7,
+    "hybrid_bm25_weight": 0.3,
+    "bm25_tokenizer": "jieba (chinese_bm25_tokenizer)",
+    "reranker_model": "BAAI/bge-reranker-v2-m3",
+    "reranker_backend": "SiliconFlow API",
+    "reranker_endpoint": "https://api.siliconflow.cn/v1/rerank",
+    "reranker_scores_normalized": false,
+    "reranker_fallback_enabled": false,
+    "old_reranker_model": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+    "old_reranker_backend": "sentence-transformers.CrossEncoder",
+    "frozen_integrity_authority": "canonical",
+    "canonical_hashes": {
+      "canonical_corpus_tree_sha256": "59338ee57180358b08251e67081c1cc944b70cb976f2e740619a410cffb1f6ac",
+      "canonical_corpus_manifest_sha256": "004d5c98c4d7cb01ce54741a2d9df2db8259f02ee95c28572694359beaf7f139",
+      "canonical_eval_dataset_sha256": "ef70367de540ceee5502602eb142cbd9122cc5c34a4fe3174852ac4919ba9b25"
+    },
+    "canonical_sha_match": {
+      "canonical_corpus_tree_sha256": true,
+      "canonical_corpus_manifest_sha256": true,
+      "canonical_eval_dataset_sha256": true
+    },
+    "legacy_hashes": {
+      "corpus_tree_sha256": "12e9f65afb1753c8b5489c4edfb7462ff51fe2a7ea144a1a835da7c3ac6b4815",
+      "corpus_manifest_sha256": "8f769f4e19da025a05d782f5f56b3586c2549e62fcae6eb381af64c51a235462",
+      "eval_dataset_sha256": "4bb1f59df0d504140ac0d5d55d2b90ab20de92f7a0f8ac430cca4fe512bb0dd9"
+    },
+    "legacy_sha_match": {
+      "corpus_tree_sha256": true,
+      "corpus_manifest_sha256": true,
+      "eval_dataset_sha256": true
+    }
+  },
+  "m3_baseline": {
+    "directory": "tests\\eval\\results\\multilingual_embed_v1",
+    "verified_constants": {
+      "m3_constants_match_saved_json": true,
+      "values": {
+        "hybrid_recall@1": 0.565,
+        "hybrid_recall@5": 0.805,
+        "hybrid_mrr": 0.7113333333333333,
+        "hybrid_evidence_recall@5": 0.655,
+        "hybrid_file_oracle@10": 0.94,
+        "hybrid_evidence_oracle@10": 0.82,
+        "hybrid_rerank_recall@1": 0.365,
+        "hybrid_rerank_recall@5": 0.755,
+        "hybrid_rerank_mrr": 0.5576666666666666,
+        "hybrid_rerank_evidence_recall@5": 0.475
+      }
+    },
+    "runtime_facts": {
+      "collection": "enterprise_rag_eval_multilingual_v1",
+      "collection_points": 78,
+      "collection_vector_size": 384,
+      "embedding_model": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+      "embedding_dimension": 384,
+      "candidate_pool_k": 10,
+      "evaluation_k_max": 5,
+      "oracle_k": 10,
+      "reranker_model": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+      "reranker_backend": "sentence-transformers.CrossEncoder"
+    }
+  },
+  "binding_checks": {
+    "collection_matches_m3": true,
+    "points_match_m3": true,
+    "vector_size_matches_m3": true,
+    "embedding_model_matches_m3": true,
+    "embedding_dimension_matches_m3": true,
+    "pool_k_matches_m3": true,
+    "eval_k_matches_m3": true,
+    "oracle_k_matches_m3": true
+  },
+  "verified_fairness": {
+    "live_hybrid_pool_equals_m3_pool": true,
+    "live_hybrid_file_oracle_equals_m3": true,
+    "live_hybrid_evidence_oracle_equals_m3_stored": true,
+    "live_hybrid_metrics_match_m3": true,
+    "bge_retrieved_is_top5": true,
+    "bge_retrieved_scores_descending": true,
+    "bge_retrieved_subset_of_pool": true,
+    "bge_pool_is_hybrid_top10": true,
+    "bge_pool_equals_hybrid_pool_in_run": true,
+    "bge_file_oracle@10_equals_hybrid": true,
+    "bge_evidence_oracle@10_equals_hybrid": true
+  },
+  "fairness_verification_pass": true,
+  "live_vs_m3_hybrid_metrics": {
+    "Recall@1": {
+      "live": 0.565,
+      "m3_saved": 0.565,
+      "delta": 0.0
+    },
+    "Recall@5": {
+      "live": 0.805,
+      "m3_saved": 0.805,
+      "delta": 0.0
+    },
+    "MRR": {
+      "live": 0.7113333333333333,
+      "m3_saved": 0.7113333333333333,
+      "delta": 0.0
+    },
+    "EvidenceRecall@5": {
+      "live": 0.655,
+      "m3_saved": 0.655,
+      "delta": 0.0
+    },
+    "FileOracle@10": {
+      "live": 0.94,
+      "m3_saved": 0.94,
+      "delta": 0.0
+    },
+    "EvidenceOracle@10": {
+      "live": 0.82,
+      "m3_saved": 0.82,
+      "delta": 0.0
+    }
+  },
+  "overall": {
+    "vector": {
+      "n": 50,
+      "Recall@1": 0.545,
+      "Recall@3": 0.655,
+      "Recall@5": 0.77,
+      "Hit@1": 0.62,
+      "MRR": 0.6886666666666668,
+      "EvidenceRecall@1": 0.305,
+      "EvidenceRecall@3": 0.485,
+      "EvidenceRecall@5": 0.575,
+      "FileOracle@10": 0.88,
+      "FileOracle@10_hits": 44,
+      "EvidenceOracle@10": 0.74,
+      "EvidenceOracle@10_hits": 37
+    },
+    "hybrid": {
+      "n": 50,
+      "Recall@1": 0.565,
+      "Recall@3": 0.695,
+      "Recall@5": 0.805,
+      "Hit@1": 0.64,
+      "MRR": 0.7113333333333333,
+      "EvidenceRecall@1": 0.345,
+      "EvidenceRecall@3": 0.525,
+      "EvidenceRecall@5": 0.655,
+      "FileOracle@10": 0.94,
+      "FileOracle@10_hits": 47,
+      "EvidenceOracle@10": 0.82,
+      "EvidenceOracle@10_hits": 41
+    },
+    "hybrid_bge_rerank": {
+      "n": 50,
+      "Recall@1": 0.735,
+      "Recall@3": 0.89,
+      "Recall@5": 0.895,
+      "Hit@1": 0.82,
+      "MRR": 0.8666666666666666,
+      "EvidenceRecall@1": 0.67,
+      "EvidenceRecall@3": 0.765,
+      "EvidenceRecall@5": 0.765,
+      "FileOracle@10": 0.94,
+      "FileOracle@10_hits": 47,
+      "EvidenceOracle@10": 0.82,
+      "EvidenceOracle@10_hits": 41
+    }
+  },
+  "by_difficulty": {
+    "easy": {
+      "vector": {
+        "n": 15,
+        "Recall@1": 0.6333333333333333,
+        "Recall@3": 0.7666666666666667,
+        "Recall@5": 0.9333333333333333,
+        "Hit@1": 0.6666666666666666,
+        "MRR": 0.7633333333333333,
+        "EvidenceRecall@1": 0.36666666666666664,
+        "EvidenceRecall@3": 0.5333333333333333,
+        "EvidenceRecall@5": 0.5333333333333333,
+        "FileOracle@10": 0.9333333333333333,
+        "FileOracle@10_hits": 14,
+        "EvidenceOracle@10": 0.6666666666666666,
+        "EvidenceOracle@10_hits": 10
+      },
+      "hybrid": {
+        "n": 15,
+        "Recall@1": 0.7,
+        "Recall@3": 0.9,
+        "Recall@5": 0.9333333333333333,
+        "Hit@1": 0.7333333333333333,
+        "MRR": 0.8333333333333334,
+        "EvidenceRecall@1": 0.36666666666666664,
+        "EvidenceRecall@3": 0.5333333333333333,
+        "EvidenceRecall@5": 0.6666666666666666,
+        "FileOracle@10": 1.0,
+        "FileOracle@10_hits": 15,
+        "EvidenceOracle@10": 0.8666666666666667,
+        "EvidenceOracle@10_hits": 13
+      },
+      "hybrid_bge_rerank": {
+        "n": 15,
+        "Recall@1": 0.9333333333333333,
+        "Recall@3": 1.0,
+        "Recall@5": 1.0,
+        "Hit@1": 1.0,
+        "MRR": 1.0,
+        "EvidenceRecall@1": 0.8,
+        "EvidenceRecall@3": 0.8666666666666667,
+        "EvidenceRecall@5": 0.8666666666666667,
+        "FileOracle@10": 1.0,
+        "FileOracle@10_hits": 15,
+        "EvidenceOracle@10": 0.8666666666666667,
+        "EvidenceOracle@10_hits": 13
+      }
+    },
+    "hard": {
+      "vector": {
+        "n": 15,
+        "Recall@1": 0.4166666666666667,
+        "Recall@3": 0.55,
+        "Recall@5": 0.7,
+        "Hit@1": 0.5333333333333333,
+        "MRR": 0.6188888888888887,
+        "EvidenceRecall@1": 0.21666666666666667,
+        "EvidenceRecall@3": 0.38333333333333336,
+        "EvidenceRecall@5": 0.55,
+        "FileOracle@10": 0.8666666666666667,
+        "FileOracle@10_hits": 13,
+        "EvidenceOracle@10": 0.7333333333333333,
+        "EvidenceOracle@10_hits": 11
+      },
+      "hybrid": {
+        "n": 15,
+        "Recall@1": 0.4166666666666667,
+        "Recall@3": 0.55,
+        "Recall@5": 0.7833333333333333,
+        "Hit@1": 0.5333333333333333,
+        "MRR": 0.6355555555555555,
+        "EvidenceRecall@1": 0.2833333333333333,
+        "EvidenceRecall@3": 0.38333333333333336,
+        "EvidenceRecall@5": 0.6166666666666667,
+        "FileOracle@10": 0.8666666666666667,
+        "FileOracle@10_hits": 13,
+        "EvidenceOracle@10": 0.8,
+        "EvidenceOracle@10_hits": 12
+      },
+      "hybrid_bge_rerank": {
+        "n": 15,
+        "Recall@1": 0.6166666666666667,
+        "Recall@3": 0.8333333333333334,
+        "Recall@5": 0.85,
+        "Hit@1": 0.7333333333333333,
+        "MRR": 0.8,
+        "EvidenceRecall@1": 0.5333333333333333,
+        "EvidenceRecall@3": 0.6833333333333333,
+        "EvidenceRecall@5": 0.6833333333333333,
+        "FileOracle@10": 0.8666666666666667,
+        "FileOracle@10_hits": 13,
+        "EvidenceOracle@10": 0.8,
+        "EvidenceOracle@10_hits": 12
+      }
+    },
+    "medium": {
+      "vector": {
+        "n": 20,
+        "Recall@1": 0.575,
+        "Recall@3": 0.65,
+        "Recall@5": 0.7,
+        "Hit@1": 0.65,
+        "MRR": 0.6849999999999999,
+        "EvidenceRecall@1": 0.325,
+        "EvidenceRecall@3": 0.525,
+        "EvidenceRecall@5": 0.625,
+        "FileOracle@10": 0.85,
+        "FileOracle@10_hits": 17,
+        "EvidenceOracle@10": 0.8,
+        "EvidenceOracle@10_hits": 16
+      },
+      "hybrid": {
+        "n": 20,
+        "Recall@1": 0.575,
+        "Recall@3": 0.65,
+        "Recall@5": 0.725,
+        "Hit@1": 0.65,
+        "MRR": 0.6766666666666666,
+        "EvidenceRecall@1": 0.375,
+        "EvidenceRecall@3": 0.625,
+        "EvidenceRecall@5": 0.675,
+        "FileOracle@10": 0.95,
+        "FileOracle@10_hits": 19,
+        "EvidenceOracle@10": 0.8,
+        "EvidenceOracle@10_hits": 16
+      },
+      "hybrid_bge_rerank": {
+        "n": 20,
+        "Recall@1": 0.675,
+        "Recall@3": 0.85,
+        "Recall@5": 0.85,
+        "Hit@1": 0.75,
+        "MRR": 0.8166666666666668,
+        "EvidenceRecall@1": 0.675,
+        "EvidenceRecall@3": 0.75,
+        "EvidenceRecall@5": 0.75,
+        "FileOracle@10": 0.95,
+        "FileOracle@10_hits": 19,
+        "EvidenceOracle@10": 0.8,
+        "EvidenceOracle@10_hits": 16
+      }
+    }
+  },
+  "by_domain": {
+    "engineering": {
+      "vector": {
+        "n": 13,
+        "Recall@1": 0.4423076923076923,
+        "Recall@3": 0.6730769230769231,
+        "Recall@5": 0.9615384615384616,
+        "Hit@1": 0.5384615384615384,
+        "MRR": 0.7038461538461539,
+        "EvidenceRecall@1": 0.36538461538461536,
+        "EvidenceRecall@3": 0.40384615384615385,
+        "EvidenceRecall@5": 0.5576923076923077,
+        "FileOracle@10": 1.0,
+        "FileOracle@10_hits": 13,
+        "EvidenceOracle@10": 0.7692307692307693,
+        "EvidenceOracle@10_hits": 10
+      },
+      "hybrid": {
+        "n": 13,
+        "Recall@1": 0.5192307692307693,
+        "Recall@3": 0.8269230769230769,
+        "Recall@5": 0.9807692307692307,
+        "Hit@1": 0.6153846153846154,
+        "MRR": 0.7756410256410255,
+        "EvidenceRecall@1": 0.36538461538461536,
+        "EvidenceRecall@3": 0.4807692307692308,
+        "EvidenceRecall@5": 0.6346153846153846,
+        "FileOracle@10": 1.0,
+        "FileOracle@10_hits": 13,
+        "EvidenceOracle@10": 0.8461538461538461,
+        "EvidenceOracle@10_hits": 11
+      },
+      "hybrid_bge_rerank": {
+        "n": 13,
+        "Recall@1": 0.7884615384615384,
+        "Recall@3": 0.9615384615384616,
+        "Recall@5": 0.9807692307692307,
+        "Hit@1": 0.9230769230769231,
+        "MRR": 0.9615384615384616,
+        "EvidenceRecall@1": 0.6153846153846154,
+        "EvidenceRecall@3": 0.7884615384615384,
+        "EvidenceRecall@5": 0.7884615384615384,
+        "FileOracle@10": 1.0,
+        "FileOracle@10_hits": 13,
+        "EvidenceOracle@10": 0.8461538461538461,
+        "EvidenceOracle@10_hits": 11
+      }
+    },
+    "finance": {
+      "vector": {
+        "n": 12,
+        "Recall@1": 0.5416666666666666,
+        "Recall@3": 0.6666666666666666,
+        "Recall@5": 0.75,
+        "Hit@1": 0.5833333333333334,
+        "MRR": 0.6277777777777778,
+        "EvidenceRecall@1": 0.4583333333333333,
+        "EvidenceRecall@3": 0.5416666666666666,
+        "EvidenceRecall@5": 0.625,
+        "FileOracle@10": 0.9166666666666666,
+        "FileOracle@10_hits": 11,
+        "EvidenceOracle@10": 0.8333333333333334,
+        "EvidenceOracle@10_hits": 10
+      },
+      "hybrid": {
+        "n": 12,
+        "Recall@1": 0.5416666666666666,
+        "Recall@3": 0.75,
+        "Recall@5": 0.8333333333333334,
+        "Hit@1": 0.5833333333333334,
+        "MRR": 0.6694444444444444,
+        "EvidenceRecall@1": 0.4583333333333333,
+        "EvidenceRecall@3": 0.625,
+        "EvidenceRecall@5": 0.875,
+        "FileOracle@10": 0.9166666666666666,
+        "FileOracle@10_hits": 11,
+        "EvidenceOracle@10": 0.9166666666666666,
+        "EvidenceOracle@10_hits": 11
+      },
+      "hybrid_bge_rerank": {
+        "n": 12,
+        "Recall@1": 0.7083333333333334,
+        "Recall@3": 0.8333333333333334,
+        "Recall@5": 0.8333333333333334,
+        "Hit@1": 0.75,
+        "MRR": 0.7916666666666666,
+        "EvidenceRecall@1": 0.7916666666666666,
+        "EvidenceRecall@3": 0.9166666666666666,
+        "EvidenceRecall@5": 0.9166666666666666,
+        "FileOracle@10": 0.9166666666666666,
+        "FileOracle@10_hits": 11,
+        "EvidenceOracle@10": 0.9166666666666666,
+        "EvidenceOracle@10_hits": 11
+      }
+    },
+    "hr": {
+      "vector": {
+        "n": 13,
+        "Recall@1": 0.5769230769230769,
+        "Recall@3": 0.6538461538461539,
+        "Recall@5": 0.6538461538461539,
+        "Hit@1": 0.6923076923076923,
+        "MRR": 0.7307692307692307,
+        "EvidenceRecall@1": 0.15384615384615385,
+        "EvidenceRecall@3": 0.46153846153846156,
+        "EvidenceRecall@5": 0.5,
+        "FileOracle@10": 0.7692307692307693,
+        "FileOracle@10_hits": 10,
+        "EvidenceOracle@10": 0.6923076923076923,
+        "EvidenceOracle@10_hits": 9
+      },
+      "hybrid": {
+        "n": 13,
+        "Recall@1": 0.5769230769230769,
+        "Recall@3": 0.5769230769230769,
+        "Recall@5": 0.6923076923076923,
+        "Hit@1": 0.6923076923076923,
+        "MRR": 0.7076923076923076,
+        "EvidenceRecall@1": 0.3076923076923077,
+        "EvidenceRecall@3": 0.46153846153846156,
+        "EvidenceRecall@5": 0.5,
+        "FileOracle@10": 1.0,
+        "FileOracle@10_hits": 13,
+        "EvidenceOracle@10": 0.8461538461538461,
+        "EvidenceOracle@10_hits": 11
+      },
+      "hybrid_bge_rerank": {
+        "n": 13,
+        "Recall@1": 0.8076923076923077,
+        "Recall@3": 0.9615384615384616,
+        "Recall@5": 0.9615384615384616,
+        "Hit@1": 0.9230769230769231,
+        "MRR": 0.9487179487179487,
+        "EvidenceRecall@1": 0.7307692307692307,
+        "EvidenceRecall@3": 0.7307692307692307,
+        "EvidenceRecall@5": 0.7307692307692307,
+        "FileOracle@10": 1.0,
+        "FileOracle@10_hits": 13,
+        "EvidenceOracle@10": 0.8461538461538461,
+        "EvidenceOracle@10_hits": 11
+      }
+    },
+    "it": {
+      "vector": {
+        "n": 12,
+        "Recall@1": 0.625,
+        "Recall@3": 0.625,
+        "Recall@5": 0.7083333333333334,
+        "Hit@1": 0.6666666666666666,
+        "MRR": 0.6875,
+        "EvidenceRecall@1": 0.25,
+        "EvidenceRecall@3": 0.5416666666666666,
+        "EvidenceRecall@5": 0.625,
+        "FileOracle@10": 0.8333333333333334,
+        "FileOracle@10_hits": 10,
+        "EvidenceOracle@10": 0.6666666666666666,
+        "EvidenceOracle@10_hits": 8
+      },
+      "hybrid": {
+        "n": 12,
+        "Recall@1": 0.625,
+        "Recall@3": 0.625,
+        "Recall@5": 0.7083333333333334,
+        "Hit@1": 0.6666666666666666,
+        "MRR": 0.6875,
+        "EvidenceRecall@1": 0.25,
+        "EvidenceRecall@3": 0.5416666666666666,
+        "EvidenceRecall@5": 0.625,
+        "FileOracle@10": 0.8333333333333334,
+        "FileOracle@10_hits": 10,
+        "EvidenceOracle@10": 0.6666666666666666,
+        "EvidenceOracle@10_hits": 8
+      },
+      "hybrid_bge_rerank": {
+        "n": 12,
+        "Recall@1": 0.625,
+        "Recall@3": 0.7916666666666666,
+        "Recall@5": 0.7916666666666666,
+        "Hit@1": 0.6666666666666666,
+        "MRR": 0.75,
+        "EvidenceRecall@1": 0.5416666666666666,
+        "EvidenceRecall@3": 0.625,
+        "EvidenceRecall@5": 0.625,
+        "FileOracle@10": 0.8333333333333334,
+        "FileOracle@10_hits": 10,
+        "EvidenceOracle@10": 0.6666666666666666,
+        "EvidenceOracle@10_hits": 8
+      }
+    }
+  },
+  "by_category": {
+    "cross_section": {
+      "vector": {
+        "n": 13,
+        "Recall@1": 0.36538461538461536,
+        "Recall@3": 0.5192307692307693,
+        "Recall@5": 0.6538461538461539,
+        "Hit@1": 0.5384615384615384,
+        "MRR": 0.6307692307692307,
+        "EvidenceRecall@1": 0.1346153846153846,
+        "EvidenceRecall@3": 0.28846153846153844,
+        "EvidenceRecall@5": 0.40384615384615385,
+        "FileOracle@10": 0.8461538461538461,
+        "FileOracle@10_hits": 11,
+        "EvidenceOracle@10": 0.6923076923076923,
+        "EvidenceOracle@10_hits": 9
+      },
+      "hybrid": {
+        "n": 13,
+        "Recall@1": 0.36538461538461536,
+        "Recall@3": 0.5192307692307693,
+        "Recall@5": 0.75,
+        "Hit@1": 0.5384615384615384,
+        "MRR": 0.6499999999999999,
+        "EvidenceRecall@1": 0.1346153846153846,
+        "EvidenceRecall@3": 0.28846153846153844,
+        "EvidenceRecall@5": 0.4807692307692308,
+        "FileOracle@10": 0.8461538461538461,
+        "FileOracle@10_hits": 11,
+        "EvidenceOracle@10": 0.7692307692307693,
+        "EvidenceOracle@10_hits": 10
+      },
+      "hybrid_bge_rerank": {
+        "n": 13,
+        "Recall@1": 0.4807692307692308,
+        "Recall@3": 0.8076923076923077,
+        "Recall@5": 0.8269230769230769,
+        "Hit@1": 0.6923076923076923,
+        "MRR": 0.7692307692307693,
+        "EvidenceRecall@1": 0.38461538461538464,
+        "EvidenceRecall@3": 0.6346153846153846,
+        "EvidenceRecall@5": 0.6346153846153846,
+        "FileOracle@10": 0.8461538461538461,
+        "FileOracle@10_hits": 11,
+        "EvidenceOracle@10": 0.7692307692307693,
+        "EvidenceOracle@10_hits": 10
+      }
+    },
+    "numeric": {
+      "vector": {
+        "n": 25,
+        "Recall@1": 0.56,
+        "Recall@3": 0.64,
+        "Recall@5": 0.8,
+        "Hit@1": 0.56,
+        "MRR": 0.6293333333333333,
+        "EvidenceRecall@1": 0.44,
+        "EvidenceRecall@3": 0.6,
+        "EvidenceRecall@5": 0.72,
+        "FileOracle@10": 0.88,
+        "FileOracle@10_hits": 22,
+        "EvidenceOracle@10": 0.84,
+        "EvidenceOracle@10_hits": 21
+      },
+      "hybrid": {
+        "n": 25,
+        "Recall@1": 0.6,
+        "Recall@3": 0.72,
+        "Recall@5": 0.8,
+        "Hit@1": 0.6,
+        "MRR": 0.6646666666666667,
+        "EvidenceRecall@1": 0.52,
+        "EvidenceRecall@3": 0.68,
+        "EvidenceRecall@5": 0.8,
+        "FileOracle@10": 0.96,
+        "FileOracle@10_hits": 24,
+        "EvidenceOracle@10": 0.88,
+        "EvidenceOracle@10_hits": 22
+      },
+      "hybrid_bge_rerank": {
+        "n": 25,
+        "Recall@1": 0.84,
+        "Recall@3": 0.92,
+        "Recall@5": 0.92,
+        "Hit@1": 0.84,
+        "MRR": 0.8733333333333333,
+        "EvidenceRecall@1": 0.88,
+        "EvidenceRecall@3": 0.88,
+        "EvidenceRecall@5": 0.88,
+        "FileOracle@10": 0.96,
+        "FileOracle@10_hits": 24,
+        "EvidenceOracle@10": 0.88,
+        "EvidenceOracle@10_hits": 22
+      }
+    },
+    "policy_lookup": {
+      "vector": {
+        "n": 8,
+        "Recall@1": 0.75,
+        "Recall@3": 0.75,
+        "Recall@5": 0.75,
+        "Hit@1": 0.875,
+        "MRR": 0.875,
+        "EvidenceRecall@1": 0.125,
+        "EvidenceRecall@3": 0.375,
+        "EvidenceRecall@5": 0.375,
+        "FileOracle@10": 0.875,
+        "FileOracle@10_hits": 7,
+        "EvidenceOracle@10": 0.5,
+        "EvidenceOracle@10_hits": 4
+      },
+      "hybrid": {
+        "n": 8,
+        "Recall@1": 0.75,
+        "Recall@3": 0.75,
+        "Recall@5": 0.8125,
+        "Hit@1": 0.875,
+        "MRR": 0.875,
+        "EvidenceRecall@1": 0.125,
+        "EvidenceRecall@3": 0.375,
+        "EvidenceRecall@5": 0.5,
+        "FileOracle@10": 1.0,
+        "FileOracle@10_hits": 8,
+        "EvidenceOracle@10": 0.75,
+        "EvidenceOracle@10_hits": 6
+      },
+      "hybrid_bge_rerank": {
+        "n": 8,
+        "Recall@1": 0.75,
+        "Recall@3": 0.875,
+        "Recall@5": 0.875,
+        "Hit@1": 0.875,
+        "MRR": 0.9375,
+        "EvidenceRecall@1": 0.5,
+        "EvidenceRecall@3": 0.625,
+        "EvidenceRecall@5": 0.625,
+        "FileOracle@10": 1.0,
+        "FileOracle@10_hits": 8,
+        "EvidenceOracle@10": 0.75,
+        "EvidenceOracle@10_hits": 6
+      }
+    },
+    "terminology": {
+      "vector": {
+        "n": 4,
+        "Recall@1": 0.625,
+        "Recall@3": 1.0,
+        "Recall@5": 1.0,
+        "Hit@1": 0.75,
+        "MRR": 0.875,
+        "EvidenceRecall@1": 0.375,
+        "EvidenceRecall@3": 0.625,
+        "EvidenceRecall@5": 0.625,
+        "FileOracle@10": 1.0,
+        "FileOracle@10_hits": 4,
+        "EvidenceOracle@10": 0.75,
+        "EvidenceOracle@10_hits": 3
+      },
+      "hybrid": {
+        "n": 4,
+        "Recall@1": 0.625,
+        "Recall@3": 1.0,
+        "Recall@5": 1.0,
+        "Hit@1": 0.75,
+        "MRR": 0.875,
+        "EvidenceRecall@1": 0.375,
+        "EvidenceRecall@3": 0.625,
+        "EvidenceRecall@5": 0.625,
+        "FileOracle@10": 1.0,
+        "FileOracle@10_hits": 4,
+        "EvidenceOracle@10": 0.75,
+        "EvidenceOracle@10_hits": 3
+      },
+      "hybrid_bge_rerank": {
+        "n": 4,
+        "Recall@1": 0.875,
+        "Recall@3": 1.0,
+        "Recall@5": 1.0,
+        "Hit@1": 1.0,
+        "MRR": 1.0,
+        "EvidenceRecall@1": 0.625,
+        "EvidenceRecall@3": 0.75,
+        "EvidenceRecall@5": 0.75,
+        "FileOracle@10": 1.0,
+        "FileOracle@10_hits": 4,
+        "EvidenceOracle@10": 0.75,
+        "EvidenceOracle@10_hits": 3
+      }
+    }
+  },
+  "api_call_stats": {
+    "requests": 50,
+    "failures": 0,
+    "retries": 0,
+    "latency_ms_total": 43710.98240034189,
+    "questions": 50,
+    "expected_requests_minimum": 50,
+    "retry_policy": "bounded: 429/5xx/timeout retried up to 3 attempts; 4xx not retried",
+    "note": "requests counts successful API calls; retries counts extra attempts"
+  },
+  "latency_diagnostic": {
+    "note": "single-run local latency diagnostic; not a production SLA",
+    "vector_retrieval_ms": {
+      "mean": 432.8264399978798,
+      "median": 484.2537499789614,
+      "p95": 625.1756349782225,
+      "n": 50
+    },
+    "hybrid_retrieval_ms": {
+      "mean": 645.2750340010971,
+      "median": 662.228450004477,
+      "p95": 961.1638500064142,
+      "n": 50
+    },
+    "api_rerank_ms": {
+      "mean": 874.2196480068378,
+      "median": 862.640300008934,
+      "p95": 1024.7312049992613,
+      "n": 50
+    },
+    "bge_rerank_total_ms": {
+      "mean": 875.5876640067436,
+      "median": 863.9059000124689,
+      "p95": 1026.2875750078817,
+      "n": 50
+    },
+    "total_retrieval_ms": {
+      "mean": 1520.8626980078407,
+      "median": 1558.6325000331271,
+      "p95": 1910.1214449678082,
+      "n": 50
+    }
+  },
+  "production_points": {
+    "collection": "enterprise_rag",
+    "before": 1,
+    "after": 1,
+    "expected": 1
+  },
+  "canonical_frozen_sha_match": true
+}

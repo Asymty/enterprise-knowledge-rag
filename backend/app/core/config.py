@@ -53,6 +53,40 @@ class Settings(BaseSettings):
         ),
     )
 
+    # SiliconFlow (cloud reranker)
+    #
+    # Used ONLY by the M4 BGE-reranker evaluation path (tests/eval/bge_reranker.py). The
+    # production request path never calls SiliconFlow, so an unset key degrades exactly one
+    # experiment and nothing else.
+    #
+    # This field must exist even though the key is optional: pydantic-settings forbids extra
+    # keys by default, and `SILICONFLOW_API_KEY` sitting in backend/.env made Settings()
+    # raise ValidationError at import time -- which took down the ENTIRE API, not just the
+    # reranker, because twelve modules import `settings`. Declaring the field is what makes
+    # an obsolete or renamed key in .env a no-op rather than an outage.
+    siliconflow_api_key: Optional[str] = Field(
+        default=None,
+        description="SiliconFlow API key for the cloud BGE-reranker-v2-m3 evaluation path"
+    )
+    siliconflow_base_url: str = Field(
+        default="https://api.siliconflow.cn/v1",
+        description="SiliconFlow OpenAI-compatible base URL; the rerank route is /rerank"
+    )
+    siliconflow_rerank_model: str = Field(
+        default="BAAI/bge-reranker-v2-m3",
+        description=(
+            "SiliconFlow rerank model id. A SETTING rather than a literal, for the same "
+            "reason groq_model and modelscope_model are: the provider rotates the models it "
+            "serves, and a retired id leaves the client constructing fine while every call "
+            "fails 404 -- an experiment that silently measures nothing. Overridable with "
+            "SILICONFLOW_RERANK_MODEL so the next rotation is an env change, not a code edit."
+        ),
+    )
+    siliconflow_rerank_timeout: int = Field(
+        default=60,
+        description="Per-request timeout in seconds for the SiliconFlow rerank call"
+    )
+
     # Cloud API Keys
     groq_api_key: Optional[str] = Field(
         default=None,

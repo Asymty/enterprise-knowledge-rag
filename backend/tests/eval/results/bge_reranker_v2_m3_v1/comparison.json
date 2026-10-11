@@ -1,0 +1,109 @@
+{
+  "experiment": "bge_reranker_v2_m3_v1",
+  "note": "Three strategies over one frozen 50-question dataset and one shared pre-rerank Top-10 pool. M4 changes ONLY the reranker model and its inference backend. The MS MARCO column is M3's SAVED result, not a re-run, because the M3 reranker is a local sentence-transformers model this experiment does not reload.",
+  "strategies": {
+    "multilingual_hybrid_no_rerank": {
+      "retrieval": "vector 0.7 + jieba BM25 0.3, k=10",
+      "reranker": null,
+      "source": "re-run live in M4 (verified equal to M3's saved hybrid)"
+    },
+    "ms_marco_rerank_M3_saved": {
+      "retrieval": "same hybrid",
+      "reranker": "cross-encoder/ms-marco-MiniLM-L-6-v2 (local)",
+      "source": "M3 saved JSON (multilingual_embed_v1/hybrid_rerank.json)"
+    },
+    "bge_v2_m3_api_M4": {
+      "retrieval": "same hybrid",
+      "reranker": "BAAI/bge-reranker-v2-m3 (SiliconFlow API)",
+      "source": "this run"
+    }
+  },
+  "fairness": {
+    "same_dataset": true,
+    "same_collection": true,
+    "same_embedding": true,
+    "same_candidate_pool": true,
+    "oracles_read_pre_rerank_pool": true,
+    "live_hybrid_pool_equals_m3_pool": true,
+    "live_hybrid_metrics_match_m3": true
+  },
+  "table": {
+    "Recall@1": {
+      "multilingual_hybrid_no_rerank": 0.565,
+      "ms_marco_rerank_M3_saved": 0.365,
+      "bge_v2_m3_api_M4": 0.735,
+      "delta_bge_vs_ms_marco": 0.37,
+      "delta_bge_vs_hybrid": 0.17000000000000004
+    },
+    "Recall@3": {
+      "multilingual_hybrid_no_rerank": 0.695,
+      "ms_marco_rerank_M3_saved": 0.585,
+      "bge_v2_m3_api_M4": 0.89,
+      "delta_bge_vs_ms_marco": 0.30500000000000005,
+      "delta_bge_vs_hybrid": 0.19500000000000006
+    },
+    "Recall@5": {
+      "multilingual_hybrid_no_rerank": 0.805,
+      "ms_marco_rerank_M3_saved": 0.755,
+      "bge_v2_m3_api_M4": 0.895,
+      "delta_bge_vs_ms_marco": 0.14,
+      "delta_bge_vs_hybrid": 0.08999999999999997
+    },
+    "Hit@1": {
+      "multilingual_hybrid_no_rerank": 0.64,
+      "ms_marco_rerank_M3_saved": 0.42,
+      "bge_v2_m3_api_M4": 0.82,
+      "delta_bge_vs_ms_marco": 0.39999999999999997,
+      "delta_bge_vs_hybrid": 0.17999999999999994
+    },
+    "MRR": {
+      "multilingual_hybrid_no_rerank": 0.7113333333333333,
+      "ms_marco_rerank_M3_saved": 0.5576666666666666,
+      "bge_v2_m3_api_M4": 0.8666666666666666,
+      "delta_bge_vs_ms_marco": 0.30899999999999994,
+      "delta_bge_vs_hybrid": 0.15533333333333332
+    },
+    "EvidenceRecall@1": {
+      "multilingual_hybrid_no_rerank": 0.345,
+      "ms_marco_rerank_M3_saved": 0.05,
+      "bge_v2_m3_api_M4": 0.67,
+      "delta_bge_vs_ms_marco": 0.62,
+      "delta_bge_vs_hybrid": 0.32500000000000007
+    },
+    "EvidenceRecall@3": {
+      "multilingual_hybrid_no_rerank": 0.525,
+      "ms_marco_rerank_M3_saved": 0.31,
+      "bge_v2_m3_api_M4": 0.765,
+      "delta_bge_vs_ms_marco": 0.455,
+      "delta_bge_vs_hybrid": 0.24
+    },
+    "EvidenceRecall@5": {
+      "multilingual_hybrid_no_rerank": 0.655,
+      "ms_marco_rerank_M3_saved": 0.475,
+      "bge_v2_m3_api_M4": 0.765,
+      "delta_bge_vs_ms_marco": 0.29000000000000004,
+      "delta_bge_vs_hybrid": 0.10999999999999999
+    },
+    "FileOracle@10": {
+      "multilingual_hybrid_no_rerank": 0.94,
+      "ms_marco_rerank_M3_saved": 0.94,
+      "bge_v2_m3_api_M4": 0.94,
+      "delta_bge_vs_ms_marco": 0.0,
+      "delta_bge_vs_hybrid": 0.0
+    },
+    "EvidenceOracle@10": {
+      "multilingual_hybrid_no_rerank": 0.82,
+      "ms_marco_rerank_M3_saved": 0.82,
+      "bge_v2_m3_api_M4": 0.82,
+      "delta_bge_vs_ms_marco": 0.0,
+      "delta_bge_vs_hybrid": 0.0
+    }
+  },
+  "api_latency": {
+    "mean": 874.2196480068378,
+    "median": 862.640300008934,
+    "p95": 1024.7312049992613,
+    "n": 50
+  },
+  "conclusion": "Reported as measured. BGE-v2-m3 is NOT guaranteed to beat MS MARCO; see table."
+}
